@@ -37,6 +37,7 @@ dependencies:
   bloc: ^8.0.1
   flutter_bloc: ^8.0.0
   fluttertoast: ^8.0.8
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:

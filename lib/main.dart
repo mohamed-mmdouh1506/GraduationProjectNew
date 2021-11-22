@@ -1,4 +1,5 @@
 import 'package:final_project/modules/login/login_screen.dart';
+import 'package:final_project/modules/onboardingScreen/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,8 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
-      home:  LoginScreen(),
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(),
+      ),
+      home: OnBoardingScreen(),
     );
   }
 }

@@ -47,7 +47,7 @@ Widget dafaultFormField(
       fontWeight: FontWeight.bold,
     ),
     keyboardType: textInputType,
-    obscureText: password!,
+    obscureText: password,
     controller: controller ,
     validator: (value){
       if(value!.isEmpty){
