@@ -1,6 +1,8 @@
+import 'package:final_project/modules/analysisScreen/analysis_screen.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/onboardingScreen/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +19,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
-        appBarTheme: const AppBarTheme(),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+        ),
+        textTheme: GoogleFonts.nunitoSansTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
-      home: OnBoardingScreen(),
+      home: AnalysisScreen(),
     );
   }
 }
