@@ -55,7 +55,7 @@ class MessageScreen extends StatelessWidget {
                 child: Text(
                   'Message',
                   style : TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 16.0,
                     //fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -65,7 +65,7 @@ class MessageScreen extends StatelessWidget {
                 child: Text(
                   'Group',
                   style : TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 16.0,
                     //fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -75,7 +75,7 @@ class MessageScreen extends StatelessWidget {
                 child: Text(
                   'Call',
                   style : TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 16.0,
                     //fontWeight: FontWeight.w800,
                   ),
                 ),
