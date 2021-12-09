@@ -168,10 +168,9 @@ Widget Block_Materials(String text,Color colorContainer,Color colorItem){
         SizedBox(height: 10,),
         Padding(
           padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-          child: Text(text,style: GoogleFonts.lato(
+          child: Text(text,style: GoogleFonts.openSans(
             color: colorItem,
-            fontWeight: FontWeight.bold,
-            fontSize: 19,
+            fontSize: 17,
           ),),
         )
       ],

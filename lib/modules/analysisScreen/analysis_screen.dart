@@ -1,4 +1,7 @@
+import 'package:final_project/constants/componts.dart';
+import 'package:final_project/layoutes/homepage/container_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -13,7 +16,7 @@ class AnalysisScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: (){
-            Navigator.pop(context);
+            navigateTo(context, const ContainerScreen());
           },
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -21,9 +24,7 @@ class AnalysisScreen extends StatelessWidget {
             size: 25.0,
           ),
         ),
-        title: const Align(
-          alignment: Alignment.center,
-          child: Text(
+        title:  const Text(
             'Student Analysis',
             style: TextStyle(
               color: Colors.black,
@@ -32,7 +33,7 @@ class AnalysisScreen extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -44,26 +45,30 @@ class AnalysisScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height*0.05,
               ),
               const CircleAvatar(
-                backgroundImage: AssetImage('assets/images/profile.png'),
+                backgroundImage: AssetImage('assets/images/reda.jpeg'),
                 radius: 55.0,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height*0.02,
               ),
-              const Text(
-                'Mohamed Mmdouh Mohamed',
-                style: TextStyle(
+               Text(
+                'Mahmoud Reda',
+                style: GoogleFonts.lato(
                   fontSize: 20.0,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
-              const Text(
+              const SizedBox(height: 5,),
+               Text(
                 '4th , Computer Science',
-                style: TextStyle(
-                  color: Colors.red,
+                style: GoogleFonts.lato(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
+
               SizedBox(
                 height: MediaQuery.of(context).size.height*0.03,
               ),
@@ -183,16 +188,16 @@ class AnalysisScreen extends StatelessWidget {
                         ),
                         const Expanded(
                           child: Text(
-                            'Audience',
+                            'Attendance',
                             style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.black,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.07,
+                          width: MediaQuery.of(context).size.width*0.01,
                         ),
                         LinearPercentIndicator(
                           width: indicatorLength,
@@ -229,14 +234,14 @@ class AnalysisScreen extends StatelessWidget {
                           child: Text(
                             'CPA',
                             style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.black,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.07,
+                          width: MediaQuery.of(context).size.width*0.01,
                         ),
                         LinearPercentIndicator(
                           width: indicatorLength,
@@ -273,14 +278,14 @@ class AnalysisScreen extends StatelessWidget {
                           child: Text(
                             'Subject 1',
                             style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.black,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.07,
+                          width: MediaQuery.of(context).size.width*0.01,
                         ),
                         LinearPercentIndicator(
                           width: indicatorLength,
@@ -317,14 +322,14 @@ class AnalysisScreen extends StatelessWidget {
                           child: Text(
                             'Subject 2',
                             style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.black,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.07,
+                          width: MediaQuery.of(context).size.width*0.01,
                         ),
                         LinearPercentIndicator(
                           width: indicatorLength,
@@ -361,14 +366,14 @@ class AnalysisScreen extends StatelessWidget {
                           child: Text(
                             'Subject 3',
                             style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.black,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.07,
+                          width: MediaQuery.of(context).size.width*0.01,
                         ),
                         LinearPercentIndicator(
                           width: indicatorLength,
@@ -405,14 +410,14 @@ class AnalysisScreen extends StatelessWidget {
                           child: Text(
                             'Subject 4',
                             style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.black,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.07,
+                          width: MediaQuery.of(context).size.width*0.01,
                         ),
                         LinearPercentIndicator(
                           width: indicatorLength,
@@ -449,14 +454,14 @@ class AnalysisScreen extends StatelessWidget {
                           child: Text(
                             'Subject 5',
                             style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.black,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.07,
+                          width: MediaQuery.of(context).size.width*0.01,
                         ),
                         LinearPercentIndicator(
                           width: indicatorLength,
@@ -493,14 +498,14 @@ class AnalysisScreen extends StatelessWidget {
                           child: Text(
                             'Subject 6',
                             style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.black,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.07,
+                          width: MediaQuery.of(context).size.width*0.01,
                         ),
                         LinearPercentIndicator(
                           width: indicatorLength,
@@ -535,16 +540,16 @@ class AnalysisScreen extends StatelessWidget {
                         ),
                         const Expanded(
                           child: Text(
-                            'General',
+                            'Total',
                             style: TextStyle(
-                              fontSize: 18.0,
+                              fontSize: 17.0,
                               fontWeight: FontWeight.w700,
                               color: Colors.black,
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.04,
+                          width: MediaQuery.of(context).size.width*0.01,
                         ),
                         LinearPercentIndicator(
                           width: indicatorLength,

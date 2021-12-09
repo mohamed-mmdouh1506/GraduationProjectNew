@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 5,),
             Expanded(
                 child:ListView.separated(
+                  physics: const BouncingScrollPhysics(),
                     itemBuilder: (context,index)=>Block_Post(),
                     separatorBuilder: (context,index){
                     return  const SizedBox(height: 5,);
@@ -42,7 +43,7 @@ Widget Block_Post(){
                 radius: 30,
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
-                  radius: 28,
+                  radius: 26,
                   backgroundImage: AssetImage('assets/images/reda.jpeg'),
                 ),
               ),
@@ -93,8 +94,8 @@ Widget Block_Post(){
           children:  [
             const SizedBox(width: 12,),
             const Image(
-                height: 27,
-                width: 27,
+                height: 24,
+                width: 24,
                 image:
                 AssetImage(
                   'assets/images/heart.png',
@@ -108,8 +109,8 @@ Widget Block_Post(){
               ),),
             const Spacer(),
             const Image(
-                height: 27,
-                width: 27,
+                height: 24,
+                width: 24,
                 image:
                 AssetImage(
                   'assets/images/comment.png',
@@ -151,8 +152,8 @@ Widget Block_Post(){
               ),),
             const Spacer(),
             const Image(
-                height: 27,
-                width: 27,
+                height: 24,
+                width: 24,
                 image:
                 AssetImage(
                   'assets/images/heart.png',

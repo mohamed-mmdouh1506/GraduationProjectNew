@@ -9,6 +9,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         elevation: 2,
         leading:IconButton(
@@ -79,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   itemBuilder: (context,index)=>Block_Post(),
                   separatorBuilder: (context,index){
-                    return  const SizedBox(height: 5,);
+                    return  const SizedBox(height: 10,);
                   },
                   itemCount: 10
               ),
@@ -107,7 +108,7 @@ Widget Block_Post(){
                 radius: 30,
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
-                  radius: 25,
+                  radius: 26,
                   backgroundImage: AssetImage('assets/images/reda.jpeg'),
                 ),
               ),
@@ -158,8 +159,8 @@ Widget Block_Post(){
           children:  [
             const SizedBox(width: 12,),
             const Image(
-                height: 25,
-                width: 25,
+                height: 24,
+                width: 24,
                 image:
                 AssetImage(
                   'assets/images/heart.png',
@@ -216,8 +217,8 @@ Widget Block_Post(){
               ),),
             const Spacer(),
             const Image(
-                height: 25,
-                width: 25,
+                height: 24,
+                width: 24,
                 image:
                 AssetImage(
                   'assets/images/heart.png',
@@ -237,6 +238,7 @@ Widget Block_Post(){
       ],
 
     ),
+
   );
 
 

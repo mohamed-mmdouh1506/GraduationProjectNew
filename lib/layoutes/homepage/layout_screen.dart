@@ -38,7 +38,7 @@ class LayoutScreen extends StatelessWidget {
                     shape: BoxShape.circle
                   ),
                   child: const Padding(
-                    padding: EdgeInsets.all(1),
+                    padding: EdgeInsets.all(0),
                     child: CircleAvatar(
                         radius: 10,
                         backgroundImage: AssetImage('assets/images/mine.png'),
@@ -74,8 +74,8 @@ class LayoutScreen extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.fromLTRB(0, 8, 10, 0),
                   child: const Image(
-                    height: 30,
-                    width: 30,
+                    height: 25,
+                    width: 25,
                     image: AssetImage(
                       'assets/images/chat.png'
                     ),
