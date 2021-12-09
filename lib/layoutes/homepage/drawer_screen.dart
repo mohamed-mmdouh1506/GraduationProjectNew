@@ -29,7 +29,7 @@ class DrawerScreen extends StatelessWidget {
           text: 'Profile',
           icon: Icons.person,
           function: () {
-            navigateTo(context, Profile());
+            navigateTo(context, ProfileScreen());
           }),
 
       itemModel(

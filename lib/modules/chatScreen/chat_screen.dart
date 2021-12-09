@@ -23,7 +23,7 @@ class ChatScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text(
-                  'Mohamed Mdouh',
+                  'Mohamed Mmdouh',
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.w900,

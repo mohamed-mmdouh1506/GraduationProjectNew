@@ -47,7 +47,7 @@ class AppCubit extends Cubit<AppState> {
     const HomeScreen(),
     const GroupScreen(),
     const AddPost(),
-    const MaterialScreen(),
+          MaterialScreen(),
     const SettingScreen(),
   ];
 
