@@ -17,3 +17,5 @@ class ShowPasswordState extends RegisterStates{
 class ShowConPasswordState extends RegisterStates{
 
 }
+
+class ChangeDropDownValeState extends RegisterStates {}

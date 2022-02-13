@@ -1,5 +1,4 @@
 import 'package:final_project/constants/componts.dart';
-import 'package:final_project/modules/analysisScreen/analysis_screen.dart';
 import 'package:final_project/modules/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,10 +33,10 @@ class DrawerScreen extends StatelessWidget {
           }),
 
       itemModel(
-          text: 'Analysis',
-          icon:Icons.analytics,
+          text: 'Materials',
+          icon:Icons.menu,
           function: () {
-            navigateTo(context, AnalysisScreen());
+            print('Materials');
           }),
 
       itemModel(

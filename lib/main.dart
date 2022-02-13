@@ -6,6 +6,8 @@ import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/messageScreen/message_screen.dart';
 import 'package:final_project/modules/onboardingScreen/onboarding_screen.dart';
 import 'package:final_project/modules/profile/profile.dart';
+import 'package:final_project/modules/register/register_screen.dart';
+import 'package:final_project/modules/register/studentRegisterScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,9 +26,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) =>AppCubit(),
       child: BlocConsumer<AppCubit,AppState>(
-        listener: (context,state){
-
-        },
+        listener: (context,state){},
         builder: (context,state){
           return MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home: const ContainerScreen(),
+            home: const StudentRegisterScreen(),
           );
         },
       ),
