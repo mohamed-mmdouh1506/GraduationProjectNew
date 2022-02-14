@@ -106,7 +106,6 @@ class LoginScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-
                       Positioned(
                           top: MediaQuery.of(context).size.height * .34,
                           child: Container(
@@ -146,13 +145,12 @@ class LoginScreen extends StatelessWidget {
                                 ),
 
                               ))),
-
                       Positioned(
                         top: MediaQuery.of(context).size.height * .58,
                         left: MediaQuery.of(context).size.width * .23,
                         child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            height: MediaQuery.of(context).size.height * .09,
+                            height: MediaQuery.of(context).size.height * .065,
                             width: MediaQuery.of(context).size.width * .55,
                             child: MaterialButton(
                               shape: RoundedRectangleBorder(
@@ -169,62 +167,6 @@ class LoginScreen extends StatelessWidget {
                               onPressed: () {
                                 cubit.formValidate(context);
                               },
-                            )),
-                      ),
-                      Positioned(
-                        top: MediaQuery.of(context).size.height * .74,
-                        left: MediaQuery.of(context).size.width * .07,
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                          height: 2,
-                          width: 100,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      Positioned(
-                        top: MediaQuery.of(context).size.height * .73,
-                        left: MediaQuery.of(context).size.width * .38,
-                        child: const Text(
-                          'Or Login With',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: MediaQuery.of(context).size.height * .74,
-                        right: MediaQuery.of(context).size.width * .07,
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                          height: 2,
-                          width: 100,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      Positioned(
-                        top: MediaQuery.of(context).size.height * .78,
-                        left: MediaQuery.of(context).size.width * .35,
-                        child: Container(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 35,
-                                  child: const Image(
-                                    image:
-                                    AssetImage('assets/images/facebook.png'),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Container(
-                                  height: 35,
-                                  child: const Image(
-                                    image: AssetImage('assets/images/search.png'),
-                                  ),
-                                ),
-                              ],
                             )),
                       ),
                       Positioned(

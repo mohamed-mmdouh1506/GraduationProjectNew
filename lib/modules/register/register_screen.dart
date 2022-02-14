@@ -82,7 +82,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .15,
+                        top: MediaQuery.of(context).size.height * .16,
                         left: MediaQuery.of(context).size.width * .3,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -107,20 +107,20 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * .252,
+                          top: MediaQuery.of(context).size.height * .31,
                           child: Container(
                               padding: const EdgeInsets.fromLTRB(12, 0, 12, 15),
                               height: cubit.height,
                               width: MediaQuery.of(context).size.width * 1,
                               child: dafaultFormField(
-                                  label: 'UserName',
+                                  label: 'Username',
                                   icon: const Icon(Icons.person,
                                       color: Colors.black),
                                   controller: cubit.nameController,
                                   textInputType: TextInputType.name,
                                   textValidator: 'Please,enter your name'))),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * .355,
+                          top: MediaQuery.of(context).size.height * .41,
                           child: Container(
                               padding: const EdgeInsets.fromLTRB(12, 0, 12, 15),
                               height: cubit.height,
@@ -135,7 +135,7 @@ class RegisterScreen extends StatelessWidget {
                                   textInputType: TextInputType.emailAddress,
                                   textValidator: 'Please,enter correct email'))),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * .458,
+                          top: MediaQuery.of(context).size.height * 0.51,
                           child: Container(
                               padding: const EdgeInsets.fromLTRB(12, 0, 12, 15),
                               height: cubit.height,
@@ -159,7 +159,7 @@ class RegisterScreen extends StatelessWidget {
 
                               ))),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * .561,
+                          top: MediaQuery.of(context).size.height * 0.61,
                           child: Container(
                               padding: const EdgeInsets.fromLTRB(12, 0, 12, 15),
                               height: cubit.height,
@@ -182,84 +182,28 @@ class RegisterScreen extends StatelessWidget {
                                 ),
                               ))),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .666,
-                        left: MediaQuery.of(context).size.width * .23,
+                        top: MediaQuery.of(context).size.height * .72,
+                        left: MediaQuery.of(context).size.width * .2,
                         child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            height: MediaQuery.of(context).size.height * .09,
-                            width: MediaQuery.of(context).size.width * .55,
+                            height: MediaQuery.of(context).size.height * .063,
+                            width: MediaQuery.of(context).size.width * .60,
                             child: MaterialButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               color: Colors.blue,
                               child: const Text(
-                                'Sign Up',
+                                'Next',
                                 style: TextStyle(
                                     color: Colors.black87,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                ),
                               ),
                               onPressed: () {
-
                                 cubit.formValidate(context);
                               },
-                            )),
-                      ),
-                      Positioned(
-                        top: MediaQuery.of(context).size.height * .78,
-                        left: MediaQuery.of(context).size.width * .07,
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                          height: 2,
-                          width: 100,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      Positioned(
-                        top: MediaQuery.of(context).size.height * .77,
-                        left: MediaQuery.of(context).size.width * .38,
-                        child: const Text(
-                          'Or Login With',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: MediaQuery.of(context).size.height * .78,
-                        right: MediaQuery.of(context).size.width * .07,
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                          height: 2,
-                          width: 100,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      Positioned(
-                        top: MediaQuery.of(context).size.height * .81,
-                        left: MediaQuery.of(context).size.width * .35,
-                        child: Container(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 35,
-                                  child: const Image(
-                                    image:
-                                    AssetImage('assets/images/facebook.png'),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Container(
-                                  height: 35,
-                                  child: const Image(
-                                    image: AssetImage('assets/images/search.png'),
-                                  ),
-                                ),
-                              ],
                             )),
                       ),
                       Positioned(
