@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:final_project/Contants/Lects/lec_screen.dart';
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/modules/Contants/Lects/lec_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
