@@ -62,7 +62,7 @@ Widget Block_Post(){
                   Text('2 weeks ago',
                     style: GoogleFonts.lato(
                       color: Colors.grey[600],
-                      fontSize: 15,
+                      fontSize: 14,
                     ),)
                 ],
               ),
@@ -71,7 +71,7 @@ Widget Block_Post(){
         ),
         const SizedBox(height: 10,),
         Padding(
-          padding: const EdgeInsets.fromLTRB(20,0, 10, 0),
+          padding: const EdgeInsets.fromLTRB(10,0, 10, 0),
           child: Text('By discovering nature, you discover yourself',
             style: GoogleFonts.lato(
               color: Colors.black,
@@ -94,8 +94,8 @@ Widget Block_Post(){
           children:  [
             const SizedBox(width: 12,),
             const Image(
-                height: 24,
-                width: 24,
+                height: 20,
+                width: 20,
                 image:
                 AssetImage(
                   'assets/images/heart.png',
@@ -109,8 +109,8 @@ Widget Block_Post(){
               ),),
             const Spacer(),
             const Image(
-                height: 24,
-                width: 24,
+                height: 20,
+                width: 20,
                 image:
                 AssetImage(
                   'assets/images/comment.png',
@@ -132,7 +132,7 @@ Widget Block_Post(){
           height: 1,
           color: Colors.grey[300],
         ),
-        const SizedBox(height: 5,),
+        const SizedBox(height: 8,),
         Row(
           children:  [
             const SizedBox(width: 7,),
@@ -141,7 +141,7 @@ Widget Block_Post(){
               backgroundColor: Colors.white,
               child: CircleAvatar(
                 radius: 20,
-                backgroundImage: AssetImage('assets/images/reda.jpeg'),
+                backgroundImage: AssetImage('assets/images/mine.png'),
               ),
             ),
             const SizedBox(width: 15,),
@@ -152,8 +152,8 @@ Widget Block_Post(){
               ),),
             const Spacer(),
             const Image(
-                height: 24,
-                width: 24,
+                height: 22,
+                width: 22,
                 image:
                 AssetImage(
                   'assets/images/heart.png',
@@ -162,7 +162,7 @@ Widget Block_Post(){
             Text('Like',
               style: GoogleFonts.openSans(
                   color: Colors.black,
-                  fontSize: 18,
+                  fontSize: 16,
               ),),
             const SizedBox(width: 10,),
 

@@ -1,10 +1,13 @@
+import 'package:final_project/Contants/contant_screen.dart';
+import 'package:final_project/constants/componts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icons.dart';
 
-class MaterialScreen extends StatelessWidget {
-  MaterialScreen({Key? key}) : super(key: key);
+class StudentMaterialScreen extends StatelessWidget {
+  StudentMaterialScreen({Key? key}) : super(key: key);
 
   List <String> texts =[
     'Assembly',
@@ -91,24 +94,24 @@ class MaterialScreen extends StatelessWidget {
                     fontSize: 17,
                   ),
                   ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: (){},
-                    icon: const Icon(
-                      Icons.menu,
-                      color:Colors.black,
-                      size:23 ,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: (){},
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      color:Colors.black,
-                      size:23 ,
-
-                    ),
-                  ),
+                  // const Spacer(),
+                  // IconButton(
+                  //   onPressed: (){},
+                  //   icon: const Icon(
+                  //     Icons.menu,
+                  //     color:Colors.black,
+                  //     size:23 ,
+                  //   ),
+                  // ),
+                  // IconButton(
+                  //   onPressed: (){},
+                  //   icon: const Icon(
+                  //     Icons.arrow_forward_ios,
+                  //     color:Colors.black,
+                  //     size:23 ,
+                  //
+                  //   ),
+                  // ),
 
                 ],
               ),
@@ -119,8 +122,8 @@ class MaterialScreen extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 crossAxisSpacing: 0,
                 mainAxisSpacing: 0,
-                childAspectRatio: 1/.7,
-                children: List.generate(colorsContainer.length, (index) =>Block_Materials(texts[index], colorsContainer[index], colorsItem[index]) ),
+                childAspectRatio: 1/.8,
+                children: List.generate(colorsContainer.length, (index) =>Block_Materials(texts[index], colorsContainer[index], colorsItem[index],context) ),
 
 
               ),
@@ -132,48 +135,56 @@ class MaterialScreen extends StatelessWidget {
   }
 }
 
-Widget Block_Materials(String text,Color colorContainer,Color colorItem){
+Widget Block_Materials(String text,Color colorContainer,Color colorItem,context){
   return Container(
     margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-    padding: const EdgeInsets.fromLTRB(15, 10, 10, 5),
-
     decoration:  BoxDecoration(
       color: colorContainer,
       borderRadius: BorderRadius.circular(25),
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-                onPressed: (){},
-                icon:  Icon(
-                  Icons.file_copy_rounded,
-                  color: colorItem,
-                  size: 40,
-                )
+    child: Material(
+      color: colorContainer,
+      borderRadius: BorderRadius.circular(25),
+      elevation: 5.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 8, 3, 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                    onPressed: (){},
+                    icon:  Icon(
+                      LineIcons.book,
+                      color: colorItem,
+                      size: 40,
+                    )
+                ),
+                Spacer(),
+                IconButton(
+                    onPressed: (){
+                      navigateTo(context,ContantScreen(materialName: text) );
+                    },
+                    icon: Icon(
+                      LineIcons.arrowCircleRight,
+                      color: colorItem,
+                    )
+                ),
+              ],
             ),
-            Spacer(),
-            IconButton(
-                onPressed: (){},
-                icon: Icon(
-                  Icons.menu,
-                  color: colorItem,
-                )
-            ),
-          ],
-        ),
-        SizedBox(height: 10,),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-          child: Text(text,style: GoogleFonts.openSans(
-            color: colorItem,
-            fontSize: 17,
-          ),),
-        )
-      ],
+          ),
+          SizedBox(height: 15,),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+            child: Text(text,style: GoogleFonts.openSans(
+              color: colorItem,
+              fontSize: 17,
+            ),),
+          )
+        ],
+      ),
     ),
   );
 }

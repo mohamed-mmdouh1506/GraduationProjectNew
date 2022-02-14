@@ -38,10 +38,14 @@ dependencies:
   flutter_bloc: ^8.0.0
   fluttertoast: ^8.0.8
   google_fonts: ^2.1.0
-  convex_bottom_bar: ^3.0.0
   smooth_page_indicator: ^1.0.0+2
   percent_indicator: ^3.4.0
   intl: ^0.17.0
+  carousel_slider: ^4.0.0
+  salomon_bottom_bar: ^3.2.0
+  line_icons: ^2.0.1
+
+
 
 dev_dependencies:
   flutter_test:

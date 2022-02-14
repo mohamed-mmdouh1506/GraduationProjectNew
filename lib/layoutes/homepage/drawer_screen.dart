@@ -1,7 +1,10 @@
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
+import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/modules/analysisScreen/analysis_screen.dart';
 import 'package:final_project/modules/profile/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class itemModel {
@@ -71,148 +74,161 @@ class DrawerScreen extends StatelessWidget {
 
 
 
-    return Container(
-      color: Colors.blueAccent,
-      height: double.infinity,
-      padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 17),
+    return BlocConsumer<AppCubit,AppState>(
+        listener: (context,state){
+
+        },
+        builder:(context,state){
+          return Container(
+            color: Colors.blueAccent,
+            height: double.infinity,
+            padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 10,),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                Padding(
+                  padding: const EdgeInsets.only(left: 17),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10,),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                           CircleAvatar(
+                            radius: 27,
+                            backgroundColor: Colors.white,
+                            child: InkWell(
+                              onTap: (){
+                                AppCubit.get(context).doSmallScreen();
+                              },
+                              child: const CircleAvatar(
+                                radius: 25,
+                                backgroundImage: AssetImage('assets/images/mine.png'),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Mahmoud Reda',
+                                  style: GoogleFonts.lato(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold)
+                              ),
+                              SizedBox(height: 7,),
+
+                              Text('Third , Computer Science',
+                                  style: GoogleFonts.lato(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                  )),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     Text('114 ',
+                      //         style: GoogleFonts.lato(
+                      //             color: Colors.black,
+                      //             fontSize: 15,
+                      //             fontWeight: FontWeight.bold)),
+                      //     const SizedBox(
+                      //       width: 3,
+                      //     ),
+                      //     Text('Following',
+                      //         style: GoogleFonts.lato(
+                      //           color: Colors.blueGrey,
+                      //           fontSize: 15,
+                      //         )),
+                      //     const SizedBox(
+                      //       width: 15,
+                      //     ),
+                      //     Text('334',
+                      //         style: GoogleFonts.lato(
+                      //             color: Colors.black,
+                      //             fontSize: 15,
+                      //             fontWeight: FontWeight.bold)),
+                      //     const SizedBox(
+                      //       width: 3,
+                      //     ),
+                      //     Text('Followers',
+                      //         style: GoogleFonts.lato(
+                      //           color: Colors.blueGrey,
+                      //           fontSize: 15,
+                      //         )),
+                      //   ],
+                      // ),
+                    ],
+                  ),
+                ),
+                Column(
                   children: [
-                    const CircleAvatar(
-                      radius: 27,
-                      backgroundColor: Colors.white,
-                      child: CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage('assets/images/mine.png'),
+                    // const SizedBox(
+                    //   height: 25,
+                    // ),
+                    // Container(
+                    //   height: 1,
+                    //   width: double.infinity,
+                    //   color: Colors.grey,
+                    // ),
+                    // const SizedBox(
+                    //   height: 7,
+                    // ),
+                    // Container(
+                    //   height: 1,
+                    //   width: double.infinity,
+                    //   color: Colors.grey,
+                    // ),
+                    SizedBox(height: 80,),
+                    Container(
+                      height:350,
+                      child: ListView.separated(
+                          itemBuilder: (context,index)=> drawerBlock(drawerItems[index]),
+                          separatorBuilder: (context,index){
+                            return const SizedBox(height: 30,);
+                          },
+                          itemCount: drawerItems.length
                       ),
                     ),
-                    SizedBox(width: 10,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Mahmoud Reda',
-                            style: GoogleFonts.lato(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold)
-                        ),
-                        SizedBox(height: 7,),
+                    // const SizedBox(height: 40,),
+                    // Container(
+                    //   height: 1,
+                    //   width: double.infinity,
+                    //   color: Colors.grey,
+                    // ),
+                    SizedBox(height: 110,),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(17, 15, 17, 0),
+                      child: Row(
+                        children: [
+                          Text('Help Center',style: GoogleFonts.lato(
+                              fontSize: 15,
+                              color: Colors.white
+                          ),),
+                          const Spacer(),
+                          Container(
+                              height: 25,
+                              width: 25,
+                              child: const Image(image: AssetImage('assets/images/idea.png')
+                              )),
 
-                        Text('Third , Computer Science',
-                            style: GoogleFonts.lato(
-                              color: Colors.white,
-                              fontSize: 13,
-                            )),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                      ],
+                        ],
+                      ),
                     )
                   ],
-                ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Text('114 ',
-                //         style: GoogleFonts.lato(
-                //             color: Colors.black,
-                //             fontSize: 15,
-                //             fontWeight: FontWeight.bold)),
-                //     const SizedBox(
-                //       width: 3,
-                //     ),
-                //     Text('Following',
-                //         style: GoogleFonts.lato(
-                //           color: Colors.blueGrey,
-                //           fontSize: 15,
-                //         )),
-                //     const SizedBox(
-                //       width: 15,
-                //     ),
-                //     Text('334',
-                //         style: GoogleFonts.lato(
-                //             color: Colors.black,
-                //             fontSize: 15,
-                //             fontWeight: FontWeight.bold)),
-                //     const SizedBox(
-                //       width: 3,
-                //     ),
-                //     Text('Followers',
-                //         style: GoogleFonts.lato(
-                //           color: Colors.blueGrey,
-                //           fontSize: 15,
-                //         )),
-                //   ],
-                // ),
+                )
               ],
             ),
-          ),
-          Column(
-            children: [
-              // const SizedBox(
-              //   height: 25,
-              // ),
-              // Container(
-              //   height: 1,
-              //   width: double.infinity,
-              //   color: Colors.grey,
-              // ),
-              // const SizedBox(
-              //   height: 7,
-              // ),
-              // Container(
-              //   height: 1,
-              //   width: double.infinity,
-              //   color: Colors.grey,
-              // ),
-              SizedBox(height: 80,),
-              Container(
-                height:350,
-                child: ListView.separated(
-                    itemBuilder: (context,index)=> drawerBlock(drawerItems[index]),
-                    separatorBuilder: (context,index){
-                      return const SizedBox(height: 30,);
-                    },
-                    itemCount: drawerItems.length
-                ),
-              ),
-              // const SizedBox(height: 40,),
-              // Container(
-              //   height: 1,
-              //   width: double.infinity,
-              //   color: Colors.grey,
-              // ),
-              SizedBox(height: 110,),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(17, 15, 17, 0),
-                child: Row(
-                  children: [
-                    Text('Help Center',style: GoogleFonts.lato(
-                        fontSize: 15,
-                        color: Colors.white
-                    ),),
-                    const Spacer(),
-                    Container(
-                        height: 25,
-                        width: 25,
-                        child: const Image(image: AssetImage('assets/images/idea.png')
-                        )),
+          );
+        } ,
 
-                  ],
-                ),
-              )
-            ],
-          )
-        ],
-      ),
     );
   }
 }

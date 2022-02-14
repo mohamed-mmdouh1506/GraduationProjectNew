@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/layoutes/homepage/container_screen.dart';
 import 'package:final_project/modules/login/logincubit/states.dart';
 import 'package:final_project/modules/register/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class LoginCubit extends Cubit<LoginStates>{
   void formValidate(context){
     height=(MediaQuery.of(context).size.height*.115);
     if(loginKey.currentState!.validate()){
-       navigateAndFinish(context, const RegisterScreen());
+       navigateAndFinish(context, const ContainerScreen());
     }
     emit(ValidateState());
   }

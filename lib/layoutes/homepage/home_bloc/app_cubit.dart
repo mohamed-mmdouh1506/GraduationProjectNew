@@ -1,7 +1,8 @@
 import 'package:final_project/modules/addPost/add_post.dart';
 import 'package:final_project/modules/groupsScreen/group_screen.dart';
 import 'package:final_project/modules/homeScreen/home_screen.dart';
-import 'package:final_project/modules/materialsScreen/material_screen.dart';
+import 'package:final_project/modules/materialsScreen/doctor_material_screen.dart';
+import 'package:final_project/modules/materialsScreen/student_material_screen.dart';
 import 'package:final_project/modules/settings/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
@@ -46,15 +47,13 @@ class AppCubit extends Cubit<AppState> {
   List <Widget> Screens =[
     const HomeScreen(),
     const GroupScreen(),
-    const AddPost(),
-          MaterialScreen(),
+          StudentMaterialScreen(),
     const SettingScreen(),
   ];
 
   List <String> Titles =[
     'HomeScreen',
     'GroupScreen',
-    'AddPost',
     'MaterialScreen',
     'SettingScreen',
   ];

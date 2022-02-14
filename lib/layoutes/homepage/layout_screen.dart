@@ -1,10 +1,10 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class LayoutScreen extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           color: Colors.white,
           child: Scaffold(
-            backgroundColor: Colors.grey[200],
+            backgroundColor: Colors.grey.shade100,
             appBar: AppBar(
               toolbarHeight: 70,
               elevation: 3.0,
@@ -40,8 +40,9 @@ class LayoutScreen extends StatelessWidget {
                   child: const Padding(
                     padding: EdgeInsets.all(0),
                     child: CircleAvatar(
-                        radius: 10,
-                        backgroundImage: AssetImage('assets/images/mine.png'),
+                        backgroundImage: AssetImage(
+                            'assets/images/mine.png',
+                        ),
                       ),
                   ),
                 ),
@@ -49,10 +50,10 @@ class LayoutScreen extends StatelessWidget {
 
               title:  Container(
                 margin: EdgeInsets.fromLTRB(0, 7, 0, 0),
-                width: 230,
+                width: 260,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: Colors.grey.shade200,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -70,54 +71,49 @@ class LayoutScreen extends StatelessWidget {
                 ),
 
               ),
-              actions: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(0, 8, 10, 0),
-                  child: const Image(
-                    height: 25,
-                    width: 25,
-                    image: AssetImage(
-                      'assets/images/chat.png'
-                    ),
-                  )
-                ),
-
-              ],
+              // actions: [
+              //   Container(
+              //     margin: const EdgeInsets.fromLTRB(0, 8, 10, 0),
+              //     child: const Image(
+              //       height: 25,
+              //       width: 25,
+              //       image: AssetImage(
+              //         'assets/images/chat.png'
+              //       ),
+              //     )
+              //   ),
+              //
+              // ],
             ),
               body: cubit.Screens[cubit.currentIndex],
-              bottomNavigationBar: ConvexAppBar(
-                backgroundColor: Colors.blue,
+              bottomNavigationBar: SalomonBottomBar(
+                onTap: (index){
+                   cubit.changeBottomNavigate(index);
+                },
+                currentIndex: cubit.currentIndex,
                 items: [
-                  TabItem(
-                    icon: Icon(Icons.home,size: 25,color: Colors.grey[300],),
-                    title: 'Home',
-                    activeIcon: const Icon(Icons.home,size: 32,color: Colors.blue,),
+                  SalomonBottomBarItem(
+                      icon: const Icon(Icons.home),
+                      title: const Text('Home'),
+                      selectedColor:Colors.blue,
                   ),
-                  TabItem(
-                    icon: Icon(Icons.group,size: 25,color: Colors.grey[300],),
-                    title: 'Groups',
-                    activeIcon: const Icon(Icons.group,size: 32,color: Colors.blue,),
+                  SalomonBottomBarItem(
+                    icon: const Icon(Icons.group),
+                      title: const Text('Groups'),
+                    selectedColor:Colors.blue,
                   ),
-                  TabItem(
-                    icon: Icon(Icons.add,size: 25,color: Colors.grey[300],),
-                    title: 'Add Post',
-                    activeIcon: const Icon(Icons.add,size: 32,color: Colors.blue,),
+
+                  SalomonBottomBarItem(
+                    icon: const Icon(Icons.my_library_books),
+                    title: const Text('Materials'),
+                    selectedColor:Colors.blue,
                   ),
-                  TabItem(
-                    icon: Icon(Icons.menu_book,size: 25,color: Colors.grey[300],),
-                    title: 'Materials',
-                    activeIcon: const Icon(Icons.menu_book,size: 32,color: Colors.blue,),
-                  ),
-                  TabItem(
-                    icon: Icon(Icons.settings,size: 25,color: Colors.grey[300],),
-                    title: 'Settings',
-                    activeIcon: const Icon(Icons.settings,size: 25,color: Colors.blue,),
+                  SalomonBottomBarItem(
+                    icon: const Icon(Icons.notifications_active),
+                    title: const Text('Notifications'),
+                    selectedColor:Colors.blue,
                   ),
                 ],
-                initialActiveIndex: cubit.currentIndex,
-                onTap: (int i) {
-                  cubit.changeBottomNavigate(i);
-                },
               )
           ),
 

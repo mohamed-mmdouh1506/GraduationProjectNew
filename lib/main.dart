@@ -1,8 +1,11 @@
+import 'package:final_project/Contants/contant_screen.dart';
 import 'package:final_project/layoutes/homepage/container_screen.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/modules/analysisScreen/analysis_screen.dart';
 import 'package:final_project/modules/login/login_screen.dart';
+import 'package:final_project/modules/materialsScreen/doctor_material_screen.dart';
+import 'package:final_project/modules/materialsScreen/student_material_screen.dart';
 import 'package:final_project/modules/messageScreen/message_screen.dart';
 import 'package:final_project/modules/onboardingScreen/onboarding_screen.dart';
 import 'package:final_project/modules/profile/profile.dart';
@@ -46,7 +49,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home: const ContainerScreen(),
+            home: ContainerScreen(),
           );
         },
       ),
