@@ -6,6 +6,8 @@ import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/messageScreen/message_screen.dart';
 import 'package:final_project/modules/onboardingScreen/onboarding_screen.dart';
 import 'package:final_project/modules/profile/profile.dart';
+import 'package:final_project/modules/register/setProfileRegisterScreen.dart';
+import 'package:final_project/modules/welcomeScreen/welcomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home: const ContainerScreen(),
+            home: const WelcomeScreen(),
           );
         },
       ),

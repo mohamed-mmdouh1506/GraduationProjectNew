@@ -116,7 +116,7 @@ class RegisterScreen extends StatelessWidget {
                                   label: 'Username',
                                   icon: const Icon(Icons.person,
                                       color: Colors.black),
-                                  controller: cubit.nameController,
+                                  controller: cubit.usernameController,
                                   textInputType: TextInputType.name,
                                   textValidator: 'Please,enter your name'))),
                       Positioned(

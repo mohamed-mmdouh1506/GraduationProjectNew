@@ -19,3 +19,7 @@ class ShowConPasswordState extends RegisterStates{
 }
 
 class ChangeDropDownValeState extends RegisterStates {}
+
+class UploadProfileImageSuccessState extends RegisterStates{}
+class UploadProfileImageErrorState extends RegisterStates{}
+class ChangeButtonState extends RegisterStates {}

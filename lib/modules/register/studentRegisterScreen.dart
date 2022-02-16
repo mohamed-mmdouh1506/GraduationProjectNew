@@ -4,7 +4,6 @@ import 'package:final_project/modules/register/registercubit/bloc.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class StudentRegisterScreen extends StatelessWidget {
   const StudentRegisterScreen({Key? key}) : super(key: key);
@@ -132,7 +131,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                     Icons.calendar_today,
                                     color: Colors.black,
                                   ),
-                                  controller: cubit.passController,
+                                  controller: cubit.startDateController,
                                   textInputType: TextInputType.number,
                                   textValidator: 'Please, enter start date',
                                 )),
