@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:final_project/constants/componts.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
-import 'package:final_project/modules/register/studentRegisterScreen.dart';
+import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';

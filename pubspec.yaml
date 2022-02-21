@@ -45,6 +45,8 @@ dependencies:
   salomon_bottom_bar: ^3.2.0
   line_icons: ^2.0.1
   image_picker: ^0.8.4+8
+  dio: ^4.0.4
+
 
 
 

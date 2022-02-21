@@ -5,6 +5,7 @@ import 'package:final_project/modules/login/logincubit/states.dart';
 import 'package:final_project/modules/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'logincubit/bloc.dart';
 
@@ -15,7 +16,10 @@ class LoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) =>LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+
+
+        },
         builder: (context, state) {
           var cubit = LoginCubit.get(context);
           return Scaffold(
