@@ -2,9 +2,13 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/layoutes/homepage/container_screen.dart';
+import 'package:final_project/models/registerModel/register_model.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
 import 'package:final_project/modules/register/student_register_screen.dart';
+import 'package:final_project/shared/local/cash_helper.dart';
+import 'package:final_project/shared/local/diohelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,21 +19,37 @@ class RegisterCubit extends Cubit<RegisterStates>{
 
   static RegisterCubit get(context) => BlocProvider.of(context);
 
-  TextEditingController? emailController;
-  TextEditingController? passController;
-  TextEditingController? usernameController;
-  TextEditingController? conPassController;
-  TextEditingController? startDateController;
-  TextEditingController? setNameController;
-  TextEditingController? setBioController;
+  var emailController=TextEditingController();
+  var passController=TextEditingController();
+  var usernameController=TextEditingController();
+  var conPassController=TextEditingController();
+  var startDateController=TextEditingController();
+  var setNameController=TextEditingController();
+  var setBioController=TextEditingController();
 
+  String? usernameValue=CashHelper.getUserName(key: 'username') ;
+  String ?emailValue=CashHelper.getUserName(key: 'email');
+  String ?passValue=CashHelper.getUserName(key: 'pass');
+  String ?startAtValue=CashHelper.getUserName(key: 'startAt');
   var registerKey = GlobalKey<FormState>();
 
   var height=70.0;
-  void formValidate(context){
+  Future formValidate(context,widget)async{
     height=(MediaQuery.of(context).size.height*.115);
     if(registerKey.currentState!.validate()){
-      navigateTo(context, const StudentRegisterScreen());
+      navigateTo(context, widget);
+      if(widget is LoginScreen){
+        userRegister(username: usernameValue!,
+            email: emailValue!,
+            password: passValue!,
+            start_at: startAtValue!,
+            grade: 'Fourth',
+            depertment: 'Computer Science',
+            fullname: setNameController.text,
+            bio: setBioController.text
+        );
+    }
+
     }
     emit(ValidateState());
   }
@@ -79,6 +99,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
     if (pickedFile != null) {
       profileImage = File(pickedFile.path);
       profile = FileImage(profileImage!);
+      print(pickedFile.path);
       emit(UploadProfileImageSuccessState());
     } else {
       print('No Image selected.');
@@ -124,6 +145,45 @@ class RegisterCubit extends Cubit<RegisterStates>{
     emit(ChangeButtonState());
   }
 
+
+  RegisterModel ?Model;
+
+  void userRegister({
+    required String username,
+    required String email,
+    required String password,
+    required String start_at,
+    required String grade,
+    required String depertment,
+
+    String ?image,
+    required String fullname,
+    required String bio,
+    context,
+  })
+  {
+    DioHelper.postDate(url:'auth/local/register', data: {
+
+      "username": username,
+      "email": email,
+      "password": password,
+      "start_at": start_at,
+      "grade": grade,
+      "depertment": depertment,
+      "image":image,
+      "bio": bio,
+      "fullname": fullname
+
+    }).then((value) {
+      Model=RegisterModel.fromJson(value.data);
+      print(value.data);
+      emit(UserRegisterSuccessState());
+    }).catchError((error){
+
+      print('Error in Register is ${error.toString()}');
+      emit(UserRegisterErrorState());
+    });
+  }
 
 
 }

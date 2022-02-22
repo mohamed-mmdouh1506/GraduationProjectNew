@@ -6,8 +6,10 @@ import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/messageScreen/message_screen.dart';
 import 'package:final_project/modules/onboardingScreen/onboarding_screen.dart';
 import 'package:final_project/modules/profile/profile.dart';
+import 'package:final_project/modules/register/register_screen.dart';
 import 'package:final_project/modules/register/set_profile_register_screen.dart';
-import 'package:final_project/modules/welcomeScreen/welcomeScreen.dart';
+import 'package:final_project/modules/welcomeScreen/welcome_screen.dart';
+import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:final_project/shared/local/diohelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +19,7 @@ import 'package:google_fonts/google_fonts.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await CashHelper.init();
   await DioHelper.init();
   runApp(const MyApp());
 }
@@ -52,7 +55,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home:  LoginScreen(),
+            home:  SetProfileRegister(),
           );
         },
       ),

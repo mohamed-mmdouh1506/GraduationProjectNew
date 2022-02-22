@@ -1,6 +1,9 @@
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/layoutes/homepage/container_screen.dart';
+import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/register/registercubit/bloc.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
+import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -142,7 +145,10 @@ class SetProfileRegister extends StatelessWidget {
                                       ),
                                     ),
                                     onPressed: () {
-                                      cubit.formValidate(context);
+                                      cubit.formValidate(context,LoginScreen()).then((value){
+
+                                      });
+
                                     },
                                   )),
                             ],

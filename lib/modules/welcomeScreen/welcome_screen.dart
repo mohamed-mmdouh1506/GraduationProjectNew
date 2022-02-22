@@ -1,3 +1,4 @@
+import 'package:final_project/layoutes/homepage/container_screen.dart';
 import 'package:final_project/modules/register/registercubit/bloc.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
 import 'package:flutter/material.dart';
@@ -191,7 +192,7 @@ class WelcomeScreen extends StatelessWidget {
                                           ),
                                         ),
                                         onPressed: () {
-                                          cubit.formValidate(context);
+                                          cubit.formValidate(context,ContainerScreen());
                                         },
                                       )),
                                 ],
@@ -265,7 +266,7 @@ class WelcomeScreen extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                cubit.formValidate(context);
+                                cubit.formValidate(context,ContainerScreen());
                               },
                             ),
                           ),

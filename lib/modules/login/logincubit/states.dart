@@ -22,10 +22,3 @@ class UserLoginErrorState extends LoginStates{
 
 }
 
-class UserRegisterSuccessState extends LoginStates{
-
-}
-
-class UserRegisterErrorState extends LoginStates{
-
-}
