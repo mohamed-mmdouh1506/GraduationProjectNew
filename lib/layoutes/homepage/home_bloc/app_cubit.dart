@@ -1,9 +1,12 @@
+import 'package:final_project/constants/constants.dart';
+import 'package:final_project/models/homeModel/home_model.dart';
 import 'package:final_project/modules/addPost/add_post.dart';
 import 'package:final_project/modules/groupsScreen/group_screen.dart';
 import 'package:final_project/modules/homeScreen/home_screen.dart';
 import 'package:final_project/modules/materialsScreen/doctor_material_screen.dart';
 import 'package:final_project/modules/materialsScreen/student_material_screen.dart';
 import 'package:final_project/modules/settings/setting_screen.dart';
+import 'package:final_project/shared/local/diohelper.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
@@ -58,5 +61,38 @@ class AppCubit extends Cubit<AppState> {
     'SettingScreen',
   ];
 
+
+
+  int ?dataLen;
+  HomeModel ?homeModel;
+  
+  List <HomeModel> Posts=[];
+
+  Future  getHomePosts()async{
+
+    await DioHelper.getDate(url: 'homes?populate=*').then((value) {
+
+      homeModel=HomeModel.fromJson(value.data);
+      print(homeModel?.data[2].attributes?.image?.images[0].attributes?.url);
+
+      String ?url= homeModel?.data[2].attributes?.image?.images[0].attributes?.url;
+      String ?image=mainUrl! + url!;
+
+      dataLen=homeModel?.data.length;
+
+
+
+
+      emit(GetHomePostSuccessState());
+
+
+    }).catchError((error){
+      print('Error in getHome Posts is ${error.toString()}');
+      emit(GetHomePostErrorState());
+
+    });
+
+
+  }
 
   }

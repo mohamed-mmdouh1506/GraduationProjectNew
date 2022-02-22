@@ -1,5 +1,10 @@
+import 'package:final_project/constants/constants.dart';
+import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
+import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
+import 'package:final_project/models/homeModel/home_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -7,34 +12,45 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-          children: [
-            const SizedBox(height: 5,),
-            Expanded(
-                child:ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context,index)=>Block_Post(),
-                    separatorBuilder: (context,index){
-                    return  const SizedBox(height: 5,);
-                    },
-                    itemCount: 10
-                ),
-            ),
+    return BlocConsumer<AppCubit,AppState>(
+        listener: (context,state){
 
-          ],
-        )
+    },
+      builder: (context,state){
+          return AppCubit.get(context).homeModel?.data!=null?
+          Column(
+            children: [
+              const SizedBox(height: 5,),
+              Expanded(
+                child:ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context,index)=>Block_Post(AppCubit.get(context).homeModel!,index),
+                    separatorBuilder: (context,index){
+                      return  const SizedBox(height: 5,);
+                    },
+                    itemCount: AppCubit.get(context).dataLen!
+                ),
+              ),
+
+            ],
+          ):
+          const Center(
+            child: CircularProgressIndicator(),
+          );
+      },
     );
   }
 }
 
-Widget Block_Post(){
+Widget Block_Post(HomeModel model,index){
+  String ?url= model?.data[index].attributes?.image?.images[0].attributes?.url;
+  String ?image=mainUrl! + url!;
   return  Container(
     color: Colors.white,
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        SizedBox(height: 20,),
+        const SizedBox(height: 20,),
         Padding(
           padding: const EdgeInsets.fromLTRB(20,0,0,0),
           child: Row(
@@ -71,20 +87,21 @@ Widget Block_Post(){
         ),
         const SizedBox(height: 10,),
         Padding(
-          padding: const EdgeInsets.fromLTRB(10,0, 10, 0),
-          child: Text('By discovering nature, you discover yourself',
+          padding: const EdgeInsets.fromLTRB(10,0, 15, 0),
+          child: Text('${model?.data[index].attributes?.describtion}',
             style: GoogleFonts.lato(
               color: Colors.black,
               fontSize: 15,
             ),
+            textAlign: TextAlign.end,
           ),
         ),
         const SizedBox(height: 10,),
-        const Padding(
+         Padding(
           padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
           child: Image(
             image: NetworkImage(
-                'https://image.freepik.com/free-photo/landscape-morning-fog-mountains-with-hot-air-balloons-sunrise_335224-794.jpg'
+                image
             ),
           ),
         ),

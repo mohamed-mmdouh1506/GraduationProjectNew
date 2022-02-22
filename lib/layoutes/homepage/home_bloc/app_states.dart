@@ -17,3 +17,11 @@ class NormalScreenState extends AppState{
 class ChangeBottomNavigateState extends AppState{
 
 }
+
+class GetHomePostSuccessState extends AppState{
+
+}
+
+class GetHomePostErrorState extends AppState{
+
+}

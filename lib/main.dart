@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>AppCubit(),
+      create: (BuildContext context) =>AppCubit()..getHomePosts(),
       child: BlocConsumer<AppCubit,AppState>(
         listener: (context,state){
 
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home:  SetProfileRegister(),
+            home:  ContainerScreen(),
           );
         },
       ),

@@ -99,7 +99,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
     if (pickedFile != null) {
       profileImage = File(pickedFile.path);
       profile = FileImage(profileImage!);
-      print(pickedFile.path);
+      print('Out is ${pickedFile.path}');
       emit(UploadProfileImageSuccessState());
     } else {
       print('No Image selected.');
