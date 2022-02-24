@@ -11,6 +11,7 @@ import 'package:final_project/modules/register/set_profile_register_screen.dart'
 import 'package:final_project/modules/welcomeScreen/welcome_screen.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:final_project/shared/local/diohelper.dart';
+import 'package:final_project/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home:  ContainerScreen(),
+            home: ContainerScreen(),
           );
         },
       ),
