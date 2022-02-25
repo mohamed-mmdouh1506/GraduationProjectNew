@@ -31,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            const SizedBox(height: 8,),
+            // const SizedBox(height: 8,),
             Material(
               elevation: 10,
               child: Container(
@@ -99,18 +99,14 @@ Widget Block_Post(){
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 20,),
+        const SizedBox(height: 10,),
         Padding(
           padding: const EdgeInsets.fromLTRB(20,0,0,0),
           child: Row(
             children:  [
               const CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.white,
-                child: CircleAvatar(
-                  radius: 26,
-                  backgroundImage: AssetImage('assets/images/reda.jpeg'),
-                ),
+                radius: 24,
+                backgroundImage: AssetImage('assets/images/reda.jpeg'),
               ),
               const SizedBox(width: 15,),
               Column(
@@ -119,28 +115,28 @@ Widget Block_Post(){
                   Text('Mahmoud Reda',
                     style: GoogleFonts.lato(
                       color: Colors.black,
-                      fontSize: 17,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 5,),
+                  const SizedBox(height: 2,),
                   Text('2 weeks ago',
                     style: GoogleFonts.lato(
                       color: Colors.grey[600],
-                      fontSize: 15,
+                      fontSize: 12,
                     ),)
                 ],
               ),
             ],
           ),
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(height: 12,),
         Padding(
-          padding: const EdgeInsets.fromLTRB(20,0, 10, 0),
+          padding: const EdgeInsets.fromLTRB(20,0, 10, 10),
           child: Text('By discovering nature, you discover yourself',
             style: GoogleFonts.lato(
               color: Colors.black,
-              fontSize: 15,
+              fontSize: 16,
             ),
           ),
         ),
@@ -158,33 +154,31 @@ Widget Block_Post(){
           mainAxisAlignment: MainAxisAlignment.start,
           children:  [
             const SizedBox(width: 12,),
-            const Image(
-                height: 24,
-                width: 24,
-                image:
-                AssetImage(
-                  'assets/images/heart.png',
-                )),
-            const SizedBox(width: 5,),
             Text('23',
               style: GoogleFonts.lato(
-                  color: Colors.black,
+                  color: Colors.grey,
                   fontSize: 15,
                   fontWeight: FontWeight.bold
               ),),
-            const Spacer(),
-            const Image(
-                height: 24,
-                width: 24,
-                image:
-                AssetImage(
-                  'assets/images/comment.png',
-                )),
             const SizedBox(width: 5,),
-            Text('6',
+            Text('Like',
               style: GoogleFonts.lato(
-                  color: Colors.black,
+                  color: Colors.grey,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold
+              ),),
+            const Spacer(),
+            Text('23',
+              style: GoogleFonts.lato(
+                  color: Colors.grey,
                   fontSize: 15,
+                  fontWeight: FontWeight.bold
+              ),),
+            const SizedBox(width: 5,),
+            Text('Comment',
+              style: GoogleFonts.lato(
+                  color: Colors.grey,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold
               ),),
             const SizedBox(width: 10,),
@@ -193,27 +187,27 @@ Widget Block_Post(){
         ),
         const SizedBox(height: 10,),
         Container(
-          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           height: 1,
           color: Colors.grey[300],
         ),
-        const SizedBox(height: 5,),
+        const SizedBox(height: 10,),
         Row(
           children:  [
             const SizedBox(width: 7,),
             const CircleAvatar(
-              radius: 22,
+              radius: 20,
               backgroundColor: Colors.white,
               child: CircleAvatar(
                 radius: 20,
                 backgroundImage: AssetImage('assets/images/reda.jpeg'),
               ),
             ),
-            const SizedBox(width: 15,),
+            const SizedBox(width: 14,),
             Text('Write a comment...',
               style: GoogleFonts.openSans(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 14,
               ),),
             const Spacer(),
             const Image(

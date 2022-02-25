@@ -3,6 +3,7 @@ import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/modules/analysisScreen/analysis_screen.dart';
 import 'package:final_project/modules/login/login_screen.dart';
+import 'package:final_project/modules/materialsScreen/doctor_material_screen.dart';
 import 'package:final_project/modules/messageScreen/message_screen.dart';
 import 'package:final_project/modules/onboardingScreen/onboarding_screen.dart';
 import 'package:final_project/modules/profile/profile.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>AppCubit()..getHomePosts(),
+      create: (BuildContext context) =>AppCubit()..getMaterial1(url: 'material1s',),
       child: BlocConsumer<AppCubit,AppState>(
         listener: (context,state){
 
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home: ContainerScreen(),
+            home: DoctorMaterialScreen(),
           );
         },
       ),

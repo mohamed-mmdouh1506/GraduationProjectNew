@@ -27,15 +27,15 @@ Widget dafaultFormField(
       helperStyle: const TextStyle(),
       enabledBorder:  OutlineInputBorder(
         borderSide:  const BorderSide(width: 1,color: Colors.black),
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(12),
       ),
       border:  OutlineInputBorder(
         borderSide:  const BorderSide(width: 1,color: Colors.black),
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(12),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide:  const BorderSide(width: 1,color: Colors.black),
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(12),
       ),
 
       prefixIcon: icon,

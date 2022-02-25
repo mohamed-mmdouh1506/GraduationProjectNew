@@ -25,3 +25,6 @@ class GetHomePostSuccessState extends AppState{
 class GetHomePostErrorState extends AppState{
 
 }
+
+class GetMaterialSuccessState extends AppState{}
+class GetMaterialErrorState extends AppState{}

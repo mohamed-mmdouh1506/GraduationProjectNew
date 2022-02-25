@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 Widget Block_Post(HomeModel model,index){
-  String ?url= model?.data[index].attributes?.image?.images[0].attributes?.url;
+  String ?url= model.data[index].attributes?.image?.images[0].attributes?.url;
   String ?image=mainUrl! + url!;
   return  Container(
     color: Colors.white,
@@ -88,7 +88,7 @@ Widget Block_Post(HomeModel model,index){
         const SizedBox(height: 10,),
         Padding(
           padding: const EdgeInsets.fromLTRB(10,0, 15, 0),
-          child: Text('${model?.data[index].attributes?.describtion}',
+          child: Text('${model.data[index].attributes?.describtion}',
             style: GoogleFonts.lato(
               color: Colors.black,
               fontSize: 15,

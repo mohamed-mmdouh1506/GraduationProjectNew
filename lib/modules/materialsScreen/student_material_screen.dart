@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 
 class StudentMaterialScreen extends StatelessWidget {
   StudentMaterialScreen({Key? key}) : super(key: key);
 
   List <String> texts =[
-    'Assembly',
+    'Image Processing',
     'Data Structure',
     'Logic Design',
     'Network',
@@ -46,7 +47,7 @@ class StudentMaterialScreen extends StatelessWidget {
           children: [
             Container(
               margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-              padding: const EdgeInsets.fromLTRB(20, 15, 20, 5),
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 5),
               decoration: BoxDecoration(
                 color: const Color.fromRGBO(11, 24, 82, .9),
                 borderRadius: BorderRadius.circular(20),
@@ -90,42 +91,22 @@ class StudentMaterialScreen extends StatelessWidget {
                 children: [
                   Text('My Courses',style: GoogleFonts.lato(
                     color:Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 22,
                   ),
                   ),
-                  // const Spacer(),
-                  // IconButton(
-                  //   onPressed: (){},
-                  //   icon: const Icon(
-                  //     Icons.menu,
-                  //     color:Colors.black,
-                  //     size:23 ,
-                  //   ),
-                  // ),
-                  // IconButton(
-                  //   onPressed: (){},
-                  //   icon: const Icon(
-                  //     Icons.arrow_forward_ios,
-                  //     color:Colors.black,
-                  //     size:23 ,
-                  //
-                  //   ),
-                  // ),
-
                 ],
               ),
             ),
+            const SizedBox(height: 10,),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
                 physics: const BouncingScrollPhysics(),
                 crossAxisSpacing: 0,
-                mainAxisSpacing: 0,
+                mainAxisSpacing: 10,
                 childAspectRatio: 1/.8,
                 children: List.generate(colorsContainer.length, (index) =>Block_Materials(texts[index], colorsContainer[index], colorsItem[index],context) ),
-
-
               ),
             ),
           ],
@@ -137,7 +118,7 @@ class StudentMaterialScreen extends StatelessWidget {
 
 Widget Block_Materials(String text,Color colorContainer,Color colorItem,context){
   return Container(
-    margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+    margin: const EdgeInsets.fromLTRB(10, 5, 10, 10),
     decoration:  BoxDecoration(
       color: colorContainer,
       borderRadius: BorderRadius.circular(25),
@@ -178,10 +159,14 @@ Widget Block_Materials(String text,Color colorContainer,Color colorItem,context)
           SizedBox(height: 15,),
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-            child: Text(text,style: GoogleFonts.openSans(
+            child: Text(
+              text,
+              style: GoogleFonts.openSans(
               color: colorItem,
               fontSize: 17,
-            ),),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           )
         ],
       ),

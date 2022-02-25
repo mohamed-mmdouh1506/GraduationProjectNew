@@ -13,9 +13,6 @@ class DoctorMaterialScreen extends StatelessWidget {
     'Data Structure',
     'Image Processing',
     'Network',
-
-
-
   ];
 
   List <Color> colorsContainer =[

@@ -6,6 +6,7 @@ import 'package:final_project/modules/register/set_profile_register_screen.dart'
 import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StudentRegisterScreen extends StatelessWidget {
   const StudentRegisterScreen({Key? key}) : super(key: key);
@@ -162,7 +163,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                 height: MediaQuery.of(context).size.height * 0.07,
                                 width: MediaQuery.of(context).size.width * 0.5,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderRadius: BorderRadius.circular(12.0),
                                   border: Border.all(
                                     color: Colors.black,
                                     width: 1,
@@ -200,73 +201,73 @@ class StudentRegisterScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      // Positioned(
-                      //   top: MediaQuery.of(context).size.height * .61,
-                      //   left: MediaQuery.of(context).size.width * .1,
-                      //   child: Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       const Text(
-                      //         'What is your Department ?',
-                      //         style: TextStyle(
-                      //           color: Colors.black87,
-                      //           fontSize: 18,
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //       const SizedBox(
-                      //         height: 20,
-                      //       ),
-                      //       Container(
-                      //         padding: const EdgeInsets.symmetric(vertical: 5.0 ,),
-                      //         height: MediaQuery.of(context).size.height * 0.07,
-                      //         width: MediaQuery.of(context).size.width * 0.5,
-                      //         decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(20.0),
-                      //           border: Border.all(
-                      //             color: Colors.black,
-                      //             width: 1,
-                      //           ),
-                      //         ),
-                      //         child: Padding(
-                      //           padding: const EdgeInsets.symmetric(
-                      //             horizontal: 8.0,
-                      //           ),
-                      //           child: DropdownButton(
-                      //             elevation: 0,
-                      //             hint: RegisterCubit.get(context).dropDownValue2 == null
-                      //                 ? const Text(
-                      //               'Department',
-                      //               style: TextStyle(
-                      //                   color: Colors.black,
-                      //                   fontSize: 16.0,
-                      //                   fontWeight: FontWeight.bold,
-                      //               ),
-                      //             )
-                      //                 : Text(
-                      //               RegisterCubit.get(context).dropDownValue2,
-                      //               style: const TextStyle(color: Colors.black , fontSize: 16.0, fontWeight: FontWeight.bold),
-                      //             ),
-                      //             isExpanded: true,
-                      //             iconSize: 30.0,
-                      //             style: const TextStyle(color: Colors.black , fontSize: 16.0 , fontWeight: FontWeight.bold),
-                      //             items: ['General', 'Security', 'Bio-informatic'].map(
-                      //                   (value) {
-                      //                 return DropdownMenuItem<String>(
-                      //                   value: value,
-                      //                   child: Text(value),
-                      //                 );
-                      //               },
-                      //             ).toList(),
-                      //             onChanged: (value) {
-                      //               RegisterCubit.get(context).changeDropDownValue2(value);
-                      //             },
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
+                      Positioned(
+                        top: MediaQuery.of(context).size.height * .61,
+                        left: MediaQuery.of(context).size.width * .1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                             Text(
+                              'What is your Department ?',
+                              style: GoogleFonts.nunitoSans(
+                                color: Colors.black87,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5.0 ,),
+                              height: MediaQuery.of(context).size.height * 0.07,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                ),
+                                child: DropdownButton(
+                                  elevation: 0,
+                                  hint: RegisterCubit.get(context).dropDownValue2 == null
+                                      ? const Text(
+                                    'Department',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                      : Text(
+                                    RegisterCubit.get(context).dropDownValue2,
+                                    style: const TextStyle(color: Colors.black , fontSize: 16.0, fontWeight: FontWeight.bold),
+                                  ),
+                                  isExpanded: true,
+                                  iconSize: 30.0,
+                                  style: const TextStyle(color: Colors.black , fontSize: 16.0 , fontWeight: FontWeight.bold),
+                                  items: ['General', 'Security', 'Bio-informatic'].map(
+                                        (value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    },
+                                  ).toList(),
+                                  onChanged: (value) {
+                                    RegisterCubit.get(context).changeDropDownValue2(value);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Positioned(
                         top: MediaQuery.of(context).size.height * .82,
                         left: MediaQuery.of(context).size.width * .2,
@@ -288,10 +289,8 @@ class StudentRegisterScreen extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-
-                                cubit.formValidate(context,SetProfileRegister()).then((value) {
+                                cubit.formValidate(context , SetProfileRegister()).then((value) {
                                   CashHelper.putStartAt(key: 'startAt', value: cubit.startDateController.text);
-
                                 });
                               },
                             )),

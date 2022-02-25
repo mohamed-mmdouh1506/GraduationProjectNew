@@ -79,10 +79,6 @@ class AppCubit extends Cubit<AppState> {
       String ?image=mainUrl! + url!;
 
       dataLen=homeModel?.data.length;
-
-
-
-
       emit(GetHomePostSuccessState());
 
 
@@ -93,6 +89,22 @@ class AppCubit extends Cubit<AppState> {
     });
 
 
+  }
+
+
+  List material1 = [];
+
+  void getMaterial1 ({required String url })
+  {
+    DioHelper.getDate(url: url , query: {'populate' : '*'})
+        .then((value) {
+      print('Material1 : ${value.data['data']}' );
+      material1 = value.data['data'];
+      emit(GetMaterialSuccessState());
+    }).catchError((error){
+      print('Error when get Material1 : ${error.toString()}');
+      emit(GetMaterialErrorState());
+    });
   }
 
   }

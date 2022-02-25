@@ -48,7 +48,9 @@ dependencies:
   dio: ^4.0.4
   shared_preferences: ^2.0.13
   sliver_header_delegate: ^0.0.1
-
+  http: ^0.13.4
+  syncfusion_flutter_pdfviewer: ^19.4.53-beta
+  platform: ^3.1.0
 
 
 
