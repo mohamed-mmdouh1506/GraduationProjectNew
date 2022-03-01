@@ -9,6 +9,7 @@ import 'package:final_project/modules/register/registercubit/states.dart';
 import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:final_project/shared/local/diohelper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -146,7 +147,46 @@ class RegisterCubit extends Cubit<RegisterStates>{
   }
 
 
-  RegisterModel ?Model;
+  // RegisterModel ?Model;
+  //
+  // void userRegister({
+  //   required String username,
+  //   required String email,
+  //   required String password,
+  //   required String start_at,
+  //   required String grade,
+  //   required String depertment,
+  //
+  //   String ?image,
+  //   required String fullname,
+  //   required String bio,
+  //   context,
+  // })
+  // {
+  //   DioHelper.postDate(url:'auth/local/register', data: {
+  //
+  //     "username": username,
+  //     "email": email,
+  //     "password": password,
+  //     "start_at": start_at,
+  //     "grade": grade,
+  //     "depertment": depertment,
+  //     "image":image,
+  //     "bio": bio,
+  //     "fullname": fullname
+  //
+  //   }).then((value) {
+  //     Model=RegisterModel.fromJson(value.data);
+  //     print(value.data);
+  //     emit(UserRegisterSuccessState());
+  //   }).catchError((error){
+  //
+  //     print('Error in Register is ${error.toString()}');
+  //     emit(UserRegisterErrorState());
+  //   });
+  // }
+  //
+
 
   void userRegister({
     required String username,
@@ -156,34 +196,20 @@ class RegisterCubit extends Cubit<RegisterStates>{
     required String grade,
     required String depertment,
 
-    String ?image,
+    // String ?image,
     required String fullname,
     required String bio,
     context,
   })
   {
-    DioHelper.postDate(url:'auth/local/register', data: {
+     FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password).then((value) {
 
-      "username": username,
-      "email": email,
-      "password": password,
-      "start_at": start_at,
-      "grade": grade,
-      "depertment": depertment,
-      "image":image,
-      "bio": bio,
-      "fullname": fullname
-
-    }).then((value) {
-      Model=RegisterModel.fromJson(value.data);
-      print(value.data);
-      emit(UserRegisterSuccessState());
-    }).catchError((error){
-
-      print('Error in Register is ${error.toString()}');
-      emit(UserRegisterErrorState());
-    });
+       print(value.user!.email);
+       emit(UserRegisterSuccessState());
+     }).catchError((error){
+       print(error.toString());
+       emit(UserRegisterErrorState());
+     });
   }
-
 
 }

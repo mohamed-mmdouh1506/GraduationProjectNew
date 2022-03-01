@@ -13,14 +13,19 @@ import 'package:final_project/modules/welcomeScreen/welcome_screen.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:final_project/shared/local/diohelper.dart';
 import 'package:final_project/test.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'firebase_options.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await CashHelper.init();
   await DioHelper.init();
   runApp(const MyApp());
@@ -57,7 +62,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home: DoctorMaterialScreen(),
+            home: RegisterScreen(),
           );
         },
       ),
