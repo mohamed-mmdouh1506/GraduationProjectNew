@@ -1,16 +1,20 @@
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/constants/constants.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
 import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_icons/line_icon.dart';
+import 'package:line_icons/line_icons.dart';
 
 import 'registercubit/bloc.dart';
 
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +24,7 @@ class RegisterScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = RegisterCubit.get(context);
+          String? text='';
           return Scaffold(
             appBar: AppBar(
               elevation: 0.0,
@@ -45,7 +50,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .06,
+                        top: MediaQuery.of(context).size.height * .09,
                         right: 0,
                         child: InkWell(
                           onTap: () {
@@ -84,7 +89,7 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .16,
+                        top: MediaQuery.of(context).size.height * .20,
                         left: MediaQuery.of(context).size.width * .3,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -109,51 +114,52 @@ class RegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * .31,
+                          top: MediaQuery.of(context).size.height * .33,
                           child: Container(
-                              padding: const EdgeInsets.fromLTRB(12, 0, 12, 15),
+                              padding: const EdgeInsets.fromLTRB(25, 0, 25, 15),
                               height: cubit.height,
                               width: MediaQuery.of(context).size.width * 1,
                               child: dafaultFormField(
                                   label: 'Username',
-                                  icon: const Icon(Icons.person,
-                                      color: Colors.black),
+                                  icon: const Icon(LineIcons.user,
+                                      color: Colors.black
+                                  ),
                                   controller: cubit.usernameController,
                                   textInputType: TextInputType.name,
                                   textValidator: 'Please,enter your name'))),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * .41,
+                          top: MediaQuery.of(context).size.height * .43,
                           child: Container(
-                              padding: const EdgeInsets.fromLTRB(12, 0, 12, 15),
+                              padding: const EdgeInsets.fromLTRB(25, 0, 25, 15),
                               height: cubit.height,
                               width: MediaQuery.of(context).size.width * 1,
                               child: dafaultFormField(
                                   label: 'Email',
                                   icon: const Icon(
-                                    Icons.lock,
+                                    LineIcons.userCheck,
                                     color: Colors.black,
                                   ),
                                   controller: cubit.emailController,
                                   textInputType: TextInputType.emailAddress,
                                   textValidator: 'Please,enter correct email'))),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * 0.51,
+                          top: MediaQuery.of(context).size.height * 0.53,
                           child: Container(
-                              padding: const EdgeInsets.fromLTRB(12, 0, 12, 15),
+                              padding: const EdgeInsets.fromLTRB(25, 0, 25, 15),
                               height: cubit.height,
                               width: MediaQuery.of(context).size.width * 1,
                               child: dafaultFormField(
                                 label: 'Password',
                                 icon: const Icon(
-                                  Icons.lock,
+                                  LineIcons.lock,
                                   color: Colors.black,
                                 ),
                                 controller: cubit.passController,
                                 textInputType: TextInputType.visiblePassword,
-                                textValidator: 'Please,enter Password',
+                                textValidator: 'Passwords Not Equal',
                                 password: cubit.showPass,
                                 suffixIcon: IconButton(
-                                    icon:cubit.showPass?const Icon(Icons.visibility_off,color: Colors.black):const Icon(Icons.visibility,color: Colors.black),
+                                    icon:cubit.showPass?const Icon(Icons.visibility_off,size: 22,color: Colors.black):const Icon(Icons.visibility,size: 22,color: Colors.black),
                                     onPressed: (){
                                       cubit.showPassword();
                                     }
@@ -161,30 +167,31 @@ class RegisterScreen extends StatelessWidget {
 
                               ))),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * 0.61,
+                          top: MediaQuery.of(context).size.height * 0.63,
                           child: Container(
-                              padding: const EdgeInsets.fromLTRB(12, 0, 12, 15),
+                              padding: const EdgeInsets.fromLTRB(25, 0, 25, 15),
                               height: cubit.height,
                               width: MediaQuery.of(context).size.width * 1,
-                              child: dafaultFormField(
+                              child: dafaultRegisterFormField(
                                 label: 'Confirm Password',
                                 icon: const Icon(
-                                  Icons.lock,
+                                  LineIcons.lock,
                                   color: Colors.black,
                                 ),
+                                context: context,
                                 controller: cubit.conPassController,
                                 textInputType: TextInputType.visiblePassword,
-                                textValidator: 'Please,enter Password',
+                                textValidator: 'Passwords not Equal',
                                 password: cubit.showConPass,
                                 suffixIcon: IconButton(
-                                    icon:cubit.showConPass?const Icon(Icons.visibility_off,color: Colors.black):const Icon(Icons.visibility,color: Colors.black,),
+                                    icon:cubit.showConPass?const Icon(Icons.visibility_off,size: 22,color: Colors.black):const Icon(Icons.visibility,size: 22,color: Colors.black,),
                                     onPressed: (){
                                       cubit.showConPassword();
                                     }
                                 ),
                               ))),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .72,
+                        top: MediaQuery.of(context).size.height * .78,
                         left: MediaQuery.of(context).size.width * .2,
                         child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -192,22 +199,25 @@ class RegisterScreen extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * .60,
                             child: MaterialButton(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              color: Colors.blue,
+                              color: mainColorButton,
                               child: const Text(
                                 'Next',
                                 style: TextStyle(
-                                    color: Colors.black87,
+                                    color: Colors.white,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                 ),
                               ),
                               onPressed: () {
+
                                 cubit.formValidate(context,StudentRegisterScreen()).then((value) {
+
                                    CashHelper.putUserName(key: 'username', value: cubit.usernameController.text);
                                    CashHelper.putEmail(key: 'email', value: cubit.emailController.text);
                                    CashHelper.putPass(key: 'pass', value: cubit.passController.text);
+
 
                                 });
                               },

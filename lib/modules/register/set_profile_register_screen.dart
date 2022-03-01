@@ -1,4 +1,5 @@
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/constants/constants.dart';
 import 'package:final_project/layoutes/homepage/container_screen.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/register/registercubit/bloc.dart';
@@ -7,6 +8,8 @@ import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:line_icons/line_icon.dart';
+import 'package:line_icons/line_icons.dart';
 
 class SetProfileRegister extends StatelessWidget {
   const SetProfileRegister({Key? key}) : super(key: key);
@@ -48,7 +51,7 @@ class SetProfileRegister extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const SizedBox(
-                                  height: 30.0,
+                                  height: 10.0,
                                 ),
                                 Stack(
                                   alignment: AlignmentDirectional.bottomEnd,
@@ -90,7 +93,7 @@ class SetProfileRegister extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.1,
+                                  height: MediaQuery.of(context).size.height * 0.05,
                                 ),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 10.0 ,),
@@ -99,7 +102,7 @@ class SetProfileRegister extends StatelessWidget {
                                     child: dafaultFormField(
                                         label: 'Full Name',
                                         icon: const Icon(
-                                            Icons.person,
+                                            LineIcons.user,
                                             color: Colors.black,
                                         ),
                                         controller: cubit.setNameController,
@@ -117,7 +120,7 @@ class SetProfileRegister extends StatelessWidget {
                                   child: dafaultFormField(
                                     label: 'Bio',
                                     icon: const Icon(
-                                      Icons.lightbulb_outline,
+                                      LineIcons.bookmark,
                                       color: Colors.black,
                                     ),
                                     controller: cubit.setBioController,
@@ -126,17 +129,20 @@ class SetProfileRegister extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.1,
+                                  height: MediaQuery.of(context).size.height * 0.05,
                                 ),
-                                Container(
+                                cubit.checkRegister==false?
+                                const Center(
+                                  child: CircularProgressIndicator(),
+                                ):Container(
                                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                                     height: MediaQuery.of(context).size.height * .063,
-                                    width: MediaQuery.of(context).size.width * 1,
+                                    width: MediaQuery.of(context).size.width * .60,
                                     child: MaterialButton(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30),
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
-                                      color: Colors.blue,
+                                      color: mainColorButton,
                                       child: const Text(
                                         'Register',
                                         style: TextStyle(
@@ -147,11 +153,12 @@ class SetProfileRegister extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         cubit.formValidate(context,LoginScreen()).then((value){
-
+                                           cubit.checkRegister=false;
                                         });
 
                                       },
                                     )),
+
                               ],
                             ),
                           ),

@@ -140,6 +140,28 @@ class CashHelper{
   }
 
 
+  static Future putInt(
+      {
+        required String key,
+        required int value
+      }
+      )async{
+
+    return await sharedPreferences?.setInt(key, value);
+
+  }
+
+  static int? getInt(
+      {
+        required String key,
+      }
+      ){
+
+    return  sharedPreferences?.getInt(key);
+
+  }
+
+
 
 
 

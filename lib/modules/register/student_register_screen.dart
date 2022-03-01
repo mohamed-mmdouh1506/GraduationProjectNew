@@ -1,4 +1,5 @@
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/constants/constants.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/register/registercubit/bloc.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
@@ -7,6 +8,7 @@ import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icons.dart';
 
 class StudentRegisterScreen extends StatelessWidget {
   const StudentRegisterScreen({Key? key}) : super(key: key);
@@ -108,30 +110,30 @@ class StudentRegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .28,
+                        top: MediaQuery.of(context).size.height * .56,
                         left: MediaQuery.of(context).size.width * .1,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'What date you are start in your faculty ?',
+                              'What\'s year you start in your faculty ?',
                               style: TextStyle(
                                 color: Colors.black87,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Container(
                                 padding: const EdgeInsets.symmetric(vertical: 5.0 ,),
                                 height: cubit.height,
-                                width: MediaQuery.of(context).size.width * 0.5,
+                                width: MediaQuery.of(context).size.width * 0.50,
                                 child: dafaultFormField(
                                   label: 'Start date',
                                   icon: const Icon(
-                                    Icons.calendar_today,
+                                    LineIcons.calendarAlt,
                                     color: Colors.black,
                                   ),
                                   controller: cubit.startDateController,
@@ -141,8 +143,9 @@ class StudentRegisterScreen extends StatelessWidget {
                           ],
                         ),
                       ),
+
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .449,
+                        top: MediaQuery.of(context).size.height * .42,
                         left: MediaQuery.of(context).size.width * .1,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,19 +154,19 @@ class StudentRegisterScreen extends StatelessWidget {
                               'What is your grade ?',
                               style: TextStyle(
                                 color: Colors.black87,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Container(
                                 padding: const EdgeInsets.symmetric(vertical: 5.0 ,),
                                 height: MediaQuery.of(context).size.height * 0.07,
                                 width: MediaQuery.of(context).size.width * 0.5,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.0),
+                                  borderRadius: BorderRadius.circular(8.0),
                                   border: Border.all(
                                     color: Colors.black,
                                     width: 1,
@@ -174,8 +177,9 @@ class StudentRegisterScreen extends StatelessWidget {
                                     horizontal: 8.0,
                                   ),
                                   child: DropdownButton(
+                                    dropdownColor: Colors.grey[300],
                                     elevation: 0,
-                                    hint: RegisterCubit.get(context).dropDownValue1 == null
+                                    hint: RegisterCubit.get(context).dropDownValue1.isEmpty
                                         ? const Text('Grade', style: TextStyle(color: Colors.black, fontSize: 16.0 , fontWeight: FontWeight.bold),)
                                         : Text(
                                       RegisterCubit.get(context).dropDownValue1,
@@ -184,7 +188,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                     isExpanded: true,
                                     iconSize: 30.0,
                                     style: const TextStyle(color: Colors.black , fontSize: 16.0 , fontWeight: FontWeight.bold),
-                                    items: ['One', 'Two', 'Three' , 'Four'].map(
+                                    items: ['First', 'Second', 'Third' , 'Fourth'].map(
                                           (value) {
                                         return DropdownMenuItem<String>(
                                           value: value,
@@ -202,7 +206,7 @@ class StudentRegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .61,
+                        top: MediaQuery.of(context).size.height * .28,
                         left: MediaQuery.of(context).size.width * .1,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,19 +215,19 @@ class StudentRegisterScreen extends StatelessWidget {
                               'What is your Department ?',
                               style: GoogleFonts.nunitoSans(
                                 color: Colors.black87,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(vertical: 5.0 ,),
                               height: MediaQuery.of(context).size.height * 0.07,
                               width: MediaQuery.of(context).size.width * 0.5,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(8.0),
                                 border: Border.all(
                                   color: Colors.black,
                                   width: 1,
@@ -235,7 +239,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                 ),
                                 child: DropdownButton(
                                   elevation: 0,
-                                  hint: RegisterCubit.get(context).dropDownValue2 == null
+                                  hint: RegisterCubit.get(context).dropDownValue2.isEmpty
                                       ? const Text(
                                     'Department',
                                     style: TextStyle(
@@ -248,10 +252,11 @@ class StudentRegisterScreen extends StatelessWidget {
                                     RegisterCubit.get(context).dropDownValue2,
                                     style: const TextStyle(color: Colors.black , fontSize: 16.0, fontWeight: FontWeight.bold),
                                   ),
+                                  dropdownColor: Colors.grey[300],
                                   isExpanded: true,
                                   iconSize: 30.0,
                                   style: const TextStyle(color: Colors.black , fontSize: 16.0 , fontWeight: FontWeight.bold),
-                                  items: ['General', 'Security', 'Bio-informatic'].map(
+                                  items: ['General', 'Security', 'Bio-Informatics'].map(
                                         (value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
@@ -269,7 +274,7 @@ class StudentRegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .82,
+                        top: MediaQuery.of(context).size.height * .77,
                         left: MediaQuery.of(context).size.width * .2,
                         child: Container(
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -277,13 +282,13 @@ class StudentRegisterScreen extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * .60,
                             child: MaterialButton(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              color: Colors.blue,
+                              color: mainColorButton,
                               child: const Text(
                                 'Next',
                                 style: TextStyle(
-                                  color: Colors.black87,
+                                  color: Colors.white,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -291,15 +296,19 @@ class StudentRegisterScreen extends StatelessWidget {
                               onPressed: () {
                                 cubit.formValidate(context , SetProfileRegister()).then((value) {
                                   CashHelper.putStartAt(key: 'startAt', value: cubit.startDateController.text);
+                                  CashHelper.putGrade(key: 'grade', value: cubit.dropDownValue1);
+                                  CashHelper.putStartAt(key: 'department', value: cubit.dropDownValue2);
+
                                 });
                               },
                             )),
                       ),
+
                       Positioned(
                         bottom: 0,
                         right: 0,
                         child: Container(
-                          width: MediaQuery.of(context).size.width * .26,
+                          width: MediaQuery.of(context).size.width * .32,
                           height: MediaQuery.of(context).size.height * .18,
                           child: const Image(
                             fit: BoxFit.cover,

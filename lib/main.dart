@@ -9,9 +9,11 @@ import 'package:final_project/modules/onboardingScreen/onboarding_screen.dart';
 import 'package:final_project/modules/profile/profile.dart';
 import 'package:final_project/modules/register/register_screen.dart';
 import 'package:final_project/modules/register/set_profile_register_screen.dart';
+import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:final_project/modules/welcomeScreen/welcome_screen.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:final_project/shared/local/diohelper.dart';
+import 'package:final_project/splashScreen/splash_screen.dart';
 import 'package:final_project/test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +64,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home: RegisterScreen(),
+            home:SplashScreen(),
           );
         },
       ),

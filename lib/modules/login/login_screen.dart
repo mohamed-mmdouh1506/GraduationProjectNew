@@ -1,8 +1,10 @@
 
 
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/constants/constants.dart';
 import 'package:final_project/modules/login/logincubit/states.dart';
 import 'package:final_project/modules/register/register_screen.dart';
+import 'package:final_project/modules/register/registercubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -17,7 +19,14 @@ class LoginScreen extends StatelessWidget {
       create: (BuildContext context) =>LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
+         if(state is UserLoginSuccessState){
+           customToast('Login Successful',Colors.green);
 
+         }
+         if(state is UserLoginErrorState){
+           customToast('Email or Password isn\'t Correct',Colors.red);
+
+         }
 
         },
         builder: (context, state) {
@@ -47,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .06,
+                        top: MediaQuery.of(context).size.height * .1,
                         right: 0,
                         child: InkWell(
                           onTap: () {
@@ -86,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .21,
+                        top: MediaQuery.of(context).size.height * .24,
                         left: MediaQuery.of(context).size.width * .3,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -111,9 +120,9 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * .34,
+                          top: MediaQuery.of(context).size.height * .41,
                           child: Container(
-                              padding: const EdgeInsets.fromLTRB(12, 0, 12, 15),
+                              padding: const EdgeInsets.fromLTRB(25, 0, 25, 15),
                               height: cubit.height,
                               width: MediaQuery.of(context).size.width * 1,
                               child: dafaultFormField(
@@ -126,9 +135,9 @@ class LoginScreen extends StatelessWidget {
                                   textInputType: TextInputType.emailAddress,
                                   textValidator: 'Please,enter correct email'))),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * .458,
+                          top: MediaQuery.of(context).size.height * .52,
                           child: Container(
-                              padding: const EdgeInsets.fromLTRB(12, 0, 12, 15),
+                              padding: const EdgeInsets.fromLTRB(25, 0, 25, 15),
                               height: cubit.height,
                               width: MediaQuery.of(context).size.width * 1,
                               child: dafaultFormField(
@@ -150,29 +159,35 @@ class LoginScreen extends StatelessWidget {
 
                               ))),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .58,
+                        top: MediaQuery.of(context).size.height * .68,
                         left: MediaQuery.of(context).size.width * .23,
-                        child: Container(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: cubit.checkLogin==true?
+                          Container(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             height: MediaQuery.of(context).size.height * .065,
                             width: MediaQuery.of(context).size.width * .55,
                             child: MaterialButton(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              color: Colors.blue,
+                              color: mainColorButton,
                               child: const Text(
                                 'Sign In',
                                 style: TextStyle(
-                                    color: Colors.black87,
+                                    color: Colors.white,
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold),
                               ),
                               onPressed: () {
                                 cubit.formValidate(context);
                               },
-                            )),
-                      ),
+                            )
+                      ):Container(
+                          width: 200,
+                          height: 40,
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator()),
+                        ),
                       Positioned(
                         bottom: 0,
                         right: 0,
