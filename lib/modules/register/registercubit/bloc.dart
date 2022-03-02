@@ -311,12 +311,12 @@ class RegisterCubit extends Cubit<RegisterStates>{
     UserModel model=UserModel(
       username: username,
       email: email,
-      start_at: start_at,
+      startAt: start_at,
       grade: grade,
       bio: bio,
       image: image,
-      depertment: depertment,
-      fullname: fullname,
+      department: depertment,
+      fullName: fullname,
       uId: uId
     );
     
@@ -353,12 +353,12 @@ class RegisterCubit extends Cubit<RegisterStates>{
     UserModel model=UserModel(
         username: username,
         email: email,
-        start_at: start_at,
+        startAt: start_at,
         grade: grade,
         bio: bio,
         image: image,
-        depertment: depertment,
-        fullname: fullname,
+        department: depertment,
+        fullName: fullname,
         uId: uId
     );
 
@@ -396,12 +396,12 @@ class RegisterCubit extends Cubit<RegisterStates>{
     UserModel model=UserModel(
         username: username,
         email: email,
-        start_at: start_at,
+        startAt: start_at,
         grade: grade,
         bio: bio,
         image: image,
-        depertment: depertment,
-        fullname: fullname,
+        department: depertment,
+        fullName: fullname,
         uId: uId
     );
 
@@ -439,12 +439,12 @@ class RegisterCubit extends Cubit<RegisterStates>{
     UserModel model=UserModel(
         username: username,
         email: email,
-        start_at: start_at,
+        startAt: start_at,
         grade: grade,
         bio: bio,
         image: image,
-        depertment: depertment,
-        fullname: fullname,
+        department: depertment,
+        fullName: fullname,
         uId: uId
     );
 
@@ -482,12 +482,12 @@ class RegisterCubit extends Cubit<RegisterStates>{
     UserModel model=UserModel(
         username: username,
         email: email,
-        start_at: start_at,
+        startAt: start_at,
         grade: grade,
         bio: bio,
         image: image,
-        depertment: depertment,
-        fullname: fullname,
+        department: depertment,
+        fullName: fullname,
         uId: uId
     );
 

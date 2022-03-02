@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/constants/constants.dart';
 import 'package:final_project/models/homeModel/home_model.dart';
 import 'package:final_project/modules/addPost/add_post.dart';
@@ -11,6 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:image_picker/image_picker.dart';
+
+import '../../../models/PostModel.dart';
+import '../../../models/userModel/user_model.dart';
+import '../../../shared/Componant/Constants.dart';
 
 class AppCubit extends Cubit<AppState> {
 
@@ -65,7 +74,7 @@ class AppCubit extends Cubit<AppState> {
 
   int ?dataLen;
   HomeModel ?homeModel;
-  
+
   List <HomeModel> Posts=[];
 
   Future  getHomePosts()async{
@@ -106,5 +115,136 @@ class AppCubit extends Cubit<AppState> {
       emit(GetMaterialErrorState());
     });
   }
+
+  UserModel? userModel;
+
+  void getUserData() {
+    emit(GetUserDataLoadingState());
+    FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
+      //print(value.data());
+      userModel = UserModel.formJson(value.data()!);
+      print('user Data : ${value.data()}');
+      emit(GetUserDataSuccessState());
+    }).catchError((error) {
+      print('error when get userData : ${error.toString()}');
+      emit(GetUserDataErrorState());
+    });
+  }
+
+
+
+  File? uploadedPostImage ;
+  var picker = ImagePicker();
+
+  Future <void> getPostImage() async {
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      uploadedPostImage = File(pickedFile.path);
+      emit(UploadPostImageSuccessState());
+    } else {
+      print('No Image selected.');
+      emit(UploadPostImageErrorState());
+    }
+  }
+
+  void removePostImage() {
+    uploadedPostImage = null;
+    emit(RemovePostImageState());
+  }
+
+
+  void createPostWithImage ({
+    required String postDate,
+    required String postText,
+  })
+  {
+    emit(CreatePostLoadingState());
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('posts/${Uri.file(uploadedPostImage!.path)
+        .pathSegments.last}').putFile(uploadedPostImage!)
+        .then((value){
+      value.ref.getDownloadURL().then((value) {
+        createPost(
+          postDate: postDate,
+          postText: postText,
+          postImage: value,
+        );
+
+        print('image url ${value.toString()}');
+        emit(CreatePostSuccessState());
+
+      }).catchError((error){
+        print('Error When Create post with image : ${error.toString()}');
+        emit(CreatePostErrorState());
+      });
+    }).catchError((error){
+      print('Error When Upload image in Firesorage : ${error.toString()}');
+      emit(CreatePostErrorState());
+    });
+  }
+  
+  void createPost ({
+    required String postDate,
+    required String postText,
+    String? postImage,
+  })
+  {
+    emit(CreatePostLoadingState());
+    PostModel model = PostModel(
+      username: userModel?.fullName,
+      userImage: userModel?.image,
+      userId: userModel?.uId,
+      postDate: postDate,
+      postText: postText,
+      postImage: postImage ?? '',
+    );
+
+    FirebaseFirestore.instance.collection('homePost')
+        .add(model.toMap())
+        .then((value) {
+      print('Post Uploaded Successful : ${value.toString()}');
+      // value.snapshots().listen((event) {
+      //
+      // });
+      emit(CreatePostSuccessState());
+    }).catchError((error){
+      print('Error When Create New Post : ${error.toString()}');
+      emit(CreatePostErrorState());
+    });
+
+  }
+  
+  
+  
+  List <PostModel> homePost = [];
+  
+  void getHomePost ()
+  {
+    homePost = [];
+    
+    FirebaseFirestore.instance
+        .collection('homePost')
+        .get()
+        .then((value) {
+          value.docs.forEach((element) {
+            homePost.add(PostModel.fromFire(element.data()));
+          });
+          print(homePost[0].username);
+          emit(GetHomePostSuccessState());
+    }).catchError((error){
+      print('Error when get Home post : ${error.toString()}');
+      emit(GetHomePostErrorState());
+    });
+  }
+  
+  
+  
+  
+  
+
+
 
   }

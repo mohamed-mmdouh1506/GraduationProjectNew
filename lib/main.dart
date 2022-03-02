@@ -11,6 +11,7 @@ import 'package:final_project/modules/register/register_screen.dart';
 import 'package:final_project/modules/register/set_profile_register_screen.dart';
 import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:final_project/modules/welcomeScreen/welcome_screen.dart';
+import 'package:final_project/shared/Componant/Constants.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:final_project/shared/local/diohelper.dart';
 import 'package:final_project/splashScreen/splash_screen.dart';
@@ -30,6 +31,7 @@ void main()async {
   );
   await CashHelper.init();
   await DioHelper.init();
+  uId = CashHelper.getData(key: 'uId');
   runApp(const MyApp());
 }
 
@@ -40,11 +42,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>AppCubit()..getMaterial1(url: 'material1s',),
+      create: (BuildContext context) =>AppCubit()..getHomePost()..getUserData(),
       child: BlocConsumer<AppCubit,AppState>(
-        listener: (context,state){
-
-        },
+        listener: (context,state){},
         builder: (context,state){
           return MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home:SplashScreen(),
+            home: const SplashScreen(),
           );
         },
       ),

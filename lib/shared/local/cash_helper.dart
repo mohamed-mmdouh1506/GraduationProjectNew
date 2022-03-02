@@ -13,6 +13,33 @@ class CashHelper{
 
   }
 
+
+  static Future<bool> saveData ({
+    required String key ,
+    dynamic value ,
+  }) async
+  {
+    if(value is String) return sharedPreferences!.setString(key, value);
+    if(value is bool) return sharedPreferences!.setBool(key, value);
+    if(value is int) return sharedPreferences!.setInt(key, value);
+
+    return sharedPreferences!.setDouble(key, value);
+  }
+
+  static dynamic getData ({
+    required String key,
+  })
+  {
+    return sharedPreferences!.get(key);
+  }
+
+  static Future<bool> removeData({
+    required String key,
+  }) async
+  {
+    return await sharedPreferences!.remove(key);
+  }
+
   static Future putUserName(
       {
         required String key,

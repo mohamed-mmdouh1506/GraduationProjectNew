@@ -15,7 +15,8 @@ class ShowPasswordState extends LoginStates{
 }
 
 class UserLoginSuccessState extends LoginStates{
-
+  final String uId ;
+  UserLoginSuccessState(this.uId);
 }
 
 class UserLoginErrorState extends LoginStates{

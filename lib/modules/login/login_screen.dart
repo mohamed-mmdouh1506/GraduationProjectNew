@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../layoutes/homepage/container_screen.dart';
+import '../../shared/local/cash_helper.dart';
 import 'logincubit/bloc.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -20,14 +22,17 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
          if(state is UserLoginSuccessState){
-           customToast('Login Successful',Colors.green);
-
+           CashHelper.saveData(
+               key:'uId',
+               value: state.uId).then((value)
+           {
+             customToast('Login Successful',Colors.green);
+             navigateAndFinish(context, const ContainerScreen());
+           });
          }
          if(state is UserLoginErrorState){
            customToast('Email or Password isn\'t Correct',Colors.red);
-
          }
-
         },
         builder: (context, state) {
           var cubit = LoginCubit.get(context);

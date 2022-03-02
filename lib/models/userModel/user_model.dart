@@ -6,37 +6,36 @@ class UserModel{
      String ?username;
      String ?email;
      String ?password;
-     String ?start_at;
+     String ?startAt;
      String ?grade;
-     String ?depertment;
+     String ?department;
      String ?image;
-     String ?fullname;
+     String ?fullName;
      String ?bio;
 
      UserModel({
        this.uId,
        this.username,
        this.email,
-       this.start_at,
+       this.startAt,
        this.grade,
-       this.depertment,
+       this.department,
        this.image,
-       this.fullname,
+       this.fullName,
        this.bio
      });
 
-  UserModel.formJson( Map<String,dynamic> json ){
+  UserModel.formJson( Map <String , dynamic> json ){
 
-    username=json['username'];
+    username = json['username'];
     email=json['email'];
     uId=json['uId'];
-    start_at=json['start_at'];
+    startAt=json['startAt'];
     grade=json['grade'];
-    depertment=json['depertment'];
-    fullname=json['fullname'];
+    department=json['department'];
+    fullName=json['fullName'];
     bio=json['bio'];
     image=json['image'];
-
   }
 
   Map <String,dynamic> toMap(){
@@ -44,10 +43,10 @@ class UserModel{
       'username':username,
       'email':email,
       'uId':uId,
-      'start_at':start_at,
+      'startAt':startAt,
       'grade':grade,
-      'depertment':depertment,
-      'fullname':fullname,
+      'department':department,
+      'fullName':fullName,
       'bio':bio,
       'image':image
     };

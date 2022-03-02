@@ -1,6 +1,7 @@
 import 'package:final_project/constants/constants.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
+import 'package:final_project/models/PostModel.dart';
 import 'package:final_project/models/homeModel/home_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,38 +14,30 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppState>(
-        listener: (context,state){
-
-    },
+      listener: (context,state){},
       builder: (context,state){
-          return AppCubit.get(context).homeModel?.data!=null?
-          Column(
+        List <PostModel> homePosts = AppCubit.get(context).homePost;
+          return Column(
             children: [
               const SizedBox(height: 5,),
               Expanded(
                 child:ListView.separated(
                     physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context,index)=>Block_Post(AppCubit.get(context).homeModel!,index),
+                    itemBuilder: (context,index)=>Block_Post( homePosts[index] , index),
                     separatorBuilder: (context,index){
                       return  const SizedBox(height: 5,);
-                    },
-                    itemCount: AppCubit.get(context).dataLen!
+                      },
+                    itemCount: homePosts.length,
                 ),
               ),
-
             ],
-          ):
-          const Center(
-            child: CircularProgressIndicator(),
           );
       },
     );
   }
 }
 
-Widget Block_Post(HomeModel model,index){
-  String ?url= model.data[index].attributes?.image?.images[0].attributes?.url;
-  String ?image=mainUrl! + url!;
+Widget Block_Post(PostModel model ,index ){
   return  Container(
     color: Colors.white,
     child: Column(
@@ -55,19 +48,20 @@ Widget Block_Post(HomeModel model,index){
           padding: const EdgeInsets.fromLTRB(20,0,0,0),
           child: Row(
             children:  [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 30,
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
                   radius: 26,
-                  backgroundImage: AssetImage('assets/images/reda.jpeg'),
+                  backgroundImage: NetworkImage(model.userImage!),
                 ),
               ),
               const SizedBox(width: 15,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Mahmoud Reda',
+                  Text(
+                    model.username!,
                     style: GoogleFonts.lato(
                       color: Colors.black,
                       fontSize: 17,
@@ -75,7 +69,8 @@ Widget Block_Post(HomeModel model,index){
                     ),
                   ),
                   const SizedBox(height: 5,),
-                  Text('2 weeks ago',
+                  Text(
+                    model.postDate!,
                     style: GoogleFonts.lato(
                       color: Colors.grey[600],
                       fontSize: 14,
@@ -88,7 +83,8 @@ Widget Block_Post(HomeModel model,index){
         const SizedBox(height: 10,),
         Padding(
           padding: const EdgeInsets.fromLTRB(10,0, 15, 0),
-          child: Text('${model.data[index].attributes?.describtion}',
+          child: Text(
+            model.postText!,
             style: GoogleFonts.lato(
               color: Colors.black,
               fontSize: 15,
@@ -98,11 +94,9 @@ Widget Block_Post(HomeModel model,index){
         ),
         const SizedBox(height: 10,),
          Padding(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
           child: Image(
-            image: NetworkImage(
-                image
-            ),
+            image: NetworkImage(model.postImage!),
           ),
         ),
         const SizedBox(height: 5,),
@@ -116,7 +110,8 @@ Widget Block_Post(HomeModel model,index){
                 image:
                 AssetImage(
                   'assets/images/heart.png',
-                )),
+                ),
+            ),
             const SizedBox(width: 5,),
             Text('23',
               style: GoogleFonts.lato(
@@ -131,7 +126,8 @@ Widget Block_Post(HomeModel model,index){
                 image:
                 AssetImage(
                   'assets/images/comment.png',
-                )),
+                ),
+            ),
             const SizedBox(width: 5,),
             Text('6',
               style: GoogleFonts.lato(
@@ -153,12 +149,12 @@ Widget Block_Post(HomeModel model,index){
         Row(
           children:  [
             const SizedBox(width: 7,),
-            const CircleAvatar(
+            CircleAvatar(
               radius: 22,
               backgroundColor: Colors.white,
               child: CircleAvatar(
                 radius: 20,
-                backgroundImage: AssetImage('assets/images/mine.png'),
+                backgroundImage: NetworkImage(model.userImage!),
               ),
             ),
             const SizedBox(width: 15,),
