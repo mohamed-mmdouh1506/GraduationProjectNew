@@ -12,6 +12,7 @@ class UserModel{
      String ?image;
      String ?fullName;
      String ?bio;
+     bool ?isDoctor;
 
      UserModel({
        this.uId,
@@ -22,7 +23,8 @@ class UserModel{
        this.department,
        this.image,
        this.fullName,
-       this.bio
+       this.bio,
+       this.isDoctor
      });
 
   UserModel.formJson( Map <String , dynamic> json ){
@@ -36,6 +38,8 @@ class UserModel{
     fullName=json['fullName'];
     bio=json['bio'];
     image=json['image'];
+    isDoctor=json['isDoctor'];
+
   }
 
   Map <String,dynamic> toMap(){
@@ -48,7 +52,9 @@ class UserModel{
       'department':department,
       'fullName':fullName,
       'bio':bio,
-      'image':image
+      'image':image,
+      'isDoctor':isDoctor
+
     };
   }
 

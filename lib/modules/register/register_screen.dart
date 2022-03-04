@@ -1,6 +1,7 @@
 import 'package:final_project/constants/componts.dart';
 import 'package:final_project/constants/constants.dart';
 import 'package:final_project/modules/login/login_screen.dart';
+import 'package:final_project/modules/register/email_verified.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
 import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
@@ -212,12 +213,11 @@ class RegisterScreen extends StatelessWidget {
                               ),
                               onPressed: () {
 
-                                cubit.formValidate(context,StudentRegisterScreen()).then((value) {
+                                cubit.formValidate(context,EmailVerified()).then((value) {
 
                                    CashHelper.putUserName(key: 'username', value: cubit.usernameController.text);
                                    CashHelper.putEmail(key: 'email', value: cubit.emailController.text);
                                    CashHelper.putPass(key: 'pass', value: cubit.passController.text);
-
 
                                 });
                               },

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/constants/constants.dart';
+import 'package:final_project/models/groupModel/group_model.dart';
 import 'package:final_project/models/homeModel/home_model.dart';
 import 'package:final_project/modules/addPost/add_post.dart';
 import 'package:final_project/modules/groupsScreen/group_screen.dart';
@@ -9,6 +10,7 @@ import 'package:final_project/modules/homeScreen/home_screen.dart';
 import 'package:final_project/modules/materialsScreen/doctor_material_screen.dart';
 import 'package:final_project/modules/materialsScreen/student_material_screen.dart';
 import 'package:final_project/modules/settings/setting_screen.dart';
+import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:final_project/shared/local/diohelper.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
@@ -239,12 +241,219 @@ class AppCubit extends Cubit<AppState> {
       emit(GetHomePostErrorState());
     });
   }
-  
-  
-  
-  
-  
 
+
+  List <GroupModel> groupPosts=[];
+
+  String ?gradeGroup=CashHelper.getUserName(key: 'grade');
+  String ?departmentGroup=CashHelper.getUserName(key: 'department');
+
+  void getGroupPosts(){
+
+    emit(GetPostGroupLoadingState());
+    if(gradeGroup=='First'){
+      FirebaseFirestore.instance.collection(departmentGroup!)
+          .doc('grade1')
+          .collection('posts')
+          .get().then((value) {
+
+        value.docs.forEach((element) {
+          groupPosts.add(GroupModel.fromFire(element.data()));
+        });
+        emit(GetPostGroupSuccessState());
+      }).catchError((error){
+
+        print('Error in Get GroupPost is ${error.toString()}');
+        emit(GetPostGroupErrorState());
+      });
+    }
+    else if(gradeGroup=='Second'){
+      FirebaseFirestore.instance.collection(departmentGroup!)
+          .doc('grade2')
+          .collection('posts')
+          .get().then((value) {
+
+        value.docs.forEach((element) {
+          groupPosts.add(GroupModel.fromFire(element.data()));
+        });
+        emit(GetPostGroupSuccessState());
+      }).catchError((error){
+
+        print('Error in Get GroupPost is ${error.toString()}');
+        emit(GetPostGroupErrorState());
+      });
+
+
+    }
+    else if(gradeGroup=='Third'){
+      FirebaseFirestore.instance.collection(departmentGroup!)
+          .doc('grade3')
+          .collection('posts')
+          .get().then((value) {
+
+        value.docs.forEach((element) {
+          groupPosts.add(GroupModel.fromFire(element.data()));
+        });
+        emit(GetPostGroupSuccessState());
+      }).catchError((error){
+
+        print('Error in Get GroupPost is ${error.toString()}');
+        emit(GetPostGroupErrorState());
+      });
+
+
+    }
+    else {
+      FirebaseFirestore.instance.collection(departmentGroup!)
+          .doc('grade4')
+          .collection('posts')
+          .get().then((value) {
+
+        value.docs.forEach((element) {
+          groupPosts.add(GroupModel.fromFire(element.data()));
+        });
+        emit(GetPostGroupSuccessState());
+      }).catchError((error){
+
+        print('Error in Get GroupPost is ${error.toString()}');
+        emit(GetPostGroupErrorState());
+      });
+
+
+    }
+
+  }
+
+
+
+
+  File? uploadedPostGroupImage ;
+
+  Future <void> getPostGroupImage() async {
+    final pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      uploadedPostGroupImage = File(pickedFile.path);
+      emit(UploadPostGroupImageSuccessState());
+    } else {
+      print('No Image selected.');
+      emit(UploadPostGroupImageErrorState());
+    }
+  }
+
+  void removePostGroupImage() {
+    uploadedPostGroupImage = null;
+    emit(RemovePostImageState());
+  }
+
+
+  void createPostGroupWithImage ({
+    required String postDate,
+    required String postText,
+  })
+  {
+    emit(CreatePostLoadingState());
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('groupposts/${Uri.file(uploadedPostGroupImage!.path)
+        .pathSegments.last}').putFile(uploadedPostGroupImage!)
+        .then((value){
+      value.ref.getDownloadURL().then((value) {
+        createGroupPost(
+          postDate: postDate,
+          postText: postText,
+          postImage: value,
+        );
+
+        print('image url ${value.toString()}');
+        emit(CreatePostGroupSuccessState());
+
+      }).catchError((error){
+        print('Error When Create post with image : ${error.toString()}');
+        emit(CreatePostGroupErrorState());
+      });
+    }).catchError((error){
+      print('Error When Upload image in Firesorage : ${error.toString()}');
+      emit(CreatePostGroupSuccessState());
+    });
+  }
+
+  void createGroupPost ({
+    required String postDate,
+    required String postText,
+    String? postImage,
+  })
+  {
+    emit(CreatePostLoadingState());
+    GroupModel model = GroupModel(
+      username: userModel?.fullName,
+      userImage: userModel?.image,
+      userId: userModel?.uId,
+      postDate: postDate,
+      postText: postText,
+      postImage: postImage ?? '',
+    );
+
+      if(gradeGroup=='First'){
+        FirebaseFirestore.instance.collection(departmentGroup!).doc('grade1').
+        collection('posts')
+            .add(model.toMap())
+            .then((value) {
+          print('Post Uploaded Successful : ${value.toString()}');
+          emit(CreatePostGroupSuccessState());
+        }).catchError((error){
+          print('Error When Create New Post : ${error.toString()}');
+          emit(CreatePostGroupErrorState());
+        });
+      }
+      else if(gradeGroup=='Second'){
+        FirebaseFirestore.instance.collection(departmentGroup!).doc('grade2').
+        collection('posts')
+            .add(model.toMap())
+            .then((value) {
+          print('Post Uploaded Successful : ${value.toString()}');
+          emit(CreatePostGroupSuccessState());
+        }).catchError((error){
+          print('Error When Create New Post : ${error.toString()}');
+          emit(CreatePostGroupErrorState());
+        });
+      }
+      else if(gradeGroup=='Third'){
+        FirebaseFirestore.instance.collection(departmentGroup!).doc('grade2').
+        collection('posts')
+            .add(model.toMap())
+            .then((value) {
+          print('Post Uploaded Successful : ${value.toString()}');
+          emit(CreatePostGroupSuccessState());
+        }).catchError((error){
+          print('Error When Create New Post : ${error.toString()}');
+          emit(CreatePostGroupErrorState());
+        });
+      }
+      else{
+        FirebaseFirestore.instance.collection(departmentGroup!).doc('grade2').
+        collection('posts')
+            .add(model.toMap())
+            .then((value) {
+          print('Post Uploaded Successful : ${value.toString()}');
+          emit(CreatePostGroupSuccessState());
+        }).catchError((error){
+          print('Error When Create New Post : ${error.toString()}');
+          emit(CreatePostGroupErrorState());
+        });
+      }
 
 
   }
+
+
+
+  Future refreshData() async {
+    await Future.delayed(Duration(seconds: 3));
+    getGroupPosts();
+    emit(GetPostGroupSuccessState());
+  }
+
+
+}

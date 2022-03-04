@@ -1,12 +1,16 @@
 import 'package:final_project/layoutes/homepage/container_screen.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
+import 'package:final_project/modules/NewPost/NewPost.dart';
+import 'package:final_project/modules/addPost/add_post.dart';
 import 'package:final_project/modules/analysisScreen/analysis_screen.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/materialsScreen/doctor_material_screen.dart';
 import 'package:final_project/modules/messageScreen/message_screen.dart';
 import 'package:final_project/modules/onboardingScreen/onboarding_screen.dart';
 import 'package:final_project/modules/profile/profile.dart';
+import 'package:final_project/modules/register/doctor_register_screen.dart';
+import 'package:final_project/modules/register/email_verified.dart';
 import 'package:final_project/modules/register/register_screen.dart';
 import 'package:final_project/modules/register/set_profile_register_screen.dart';
 import 'package:final_project/modules/register/student_register_screen.dart';
@@ -42,7 +46,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>AppCubit()..getHomePost()..getUserData(),
+      create: (BuildContext context) =>AppCubit()..getHomePost()..getUserData()..getGroupPosts(),
       child: BlocConsumer<AppCubit,AppState>(
         listener: (context,state){},
         builder: (context,state){
@@ -64,7 +68,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home: const SplashScreen(),
+            home: ContainerScreen(),
           );
         },
       ),

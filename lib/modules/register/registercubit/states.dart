@@ -18,6 +18,20 @@ class ShowConPasswordState extends RegisterStates{
 
 }
 
+class IsDoctorState extends RegisterStates{
+
+}
+
+class SendOTPState extends RegisterStates{
+
+}
+
+class VerifyOTPState extends RegisterStates{
+
+}
+
+
+
 class ChangeDropDownValeState extends RegisterStates {}
 
 class UploadProfileImageSuccessState extends RegisterStates{}

@@ -110,7 +110,7 @@ class StudentRegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .56,
+                        top: MediaQuery.of(context).size.height * .58,
                         left: MediaQuery.of(context).size.width * .1,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,7 +145,7 @@ class StudentRegisterScreen extends StatelessWidget {
                       ),
 
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .42,
+                        top: MediaQuery.of(context).size.height * .44,
                         left: MediaQuery.of(context).size.width * .1,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -206,7 +206,7 @@ class StudentRegisterScreen extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                        top: MediaQuery.of(context).size.height * .28,
+                        top: MediaQuery.of(context).size.height * .30,
                         left: MediaQuery.of(context).size.width * .1,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,7 +256,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                   isExpanded: true,
                                   iconSize: 30.0,
                                   style: const TextStyle(color: Colors.black , fontSize: 16.0 , fontWeight: FontWeight.bold),
-                                  items: ['General', 'Security', 'Bio-Informatics'].map(
+                                  items: ['General', 'Security', 'Medical','Network'].map(
                                         (value) {
                                       return DropdownMenuItem<String>(
                                         value: value,

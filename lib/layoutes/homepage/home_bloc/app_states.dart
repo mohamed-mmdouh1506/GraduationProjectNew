@@ -35,3 +35,14 @@ class RemovePostImageState extends AppState{}
 
 class CreatePostSuccessState extends AppState{}
 class CreatePostErrorState extends AppState{}
+
+class GetPostGroupLoadingState extends AppState {}
+class GetPostGroupSuccessState extends AppState{}
+class GetPostGroupErrorState extends AppState{}
+
+class UploadPostGroupImageSuccessState extends AppState{}
+class UploadPostGroupImageErrorState extends AppState{}
+class RemovePostGroupImageState extends AppState{}
+
+class CreatePostGroupSuccessState extends AppState{}
+class CreatePostGroupErrorState extends AppState{}
