@@ -26,6 +26,9 @@ class CreatePostLoadingState extends AppState {}
 class GetHomePostSuccessState extends AppState{}
 class GetHomePostErrorState extends AppState{}
 
+class GetGeneralStudent1SuccessState extends AppState{}
+class GetGeneralStudent1ErrorState extends AppState{}
+
 class GetMaterialSuccessState extends AppState{}
 class GetMaterialErrorState extends AppState{}
 
@@ -46,3 +49,10 @@ class RemovePostGroupImageState extends AppState{}
 
 class CreatePostGroupSuccessState extends AppState{}
 class CreatePostGroupErrorState extends AppState{}
+
+class GetUserFriendsSuccessState extends AppState {}
+class GetUserFriendsErrorState extends AppState {}
+
+class GetUserPostLoadingState extends AppState {}
+class GetUserPostSuccessState extends AppState{}
+class GetUserPostErrorState extends AppState{}

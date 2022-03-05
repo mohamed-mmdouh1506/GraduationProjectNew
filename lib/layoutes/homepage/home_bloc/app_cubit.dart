@@ -120,7 +120,7 @@ class AppCubit extends Cubit<AppState> {
 
   UserModel? userModel;
 
-  void getUserData() {
+   void getUserData() {
     emit(GetUserDataLoadingState());
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       //print(value.data());
@@ -219,8 +219,7 @@ class AppCubit extends Cubit<AppState> {
 
   }
   
-  
-  
+
   List <PostModel> homePost = [];
   
   void getHomePost ()
@@ -245,8 +244,8 @@ class AppCubit extends Cubit<AppState> {
 
   List <GroupModel> groupPosts=[];
 
-  String ?gradeGroup=CashHelper.getUserName(key: 'grade');
-  String ?departmentGroup=CashHelper.getUserName(key: 'department');
+  String ?gradeGroup= 'First';
+  String ?departmentGroup= 'Medical';
 
   void getGroupPosts(){
 
@@ -256,7 +255,6 @@ class AppCubit extends Cubit<AppState> {
           .doc('grade1')
           .collection('posts')
           .get().then((value) {
-
         value.docs.forEach((element) {
           groupPosts.add(GroupModel.fromFire(element.data()));
         });
@@ -453,6 +451,105 @@ class AppCubit extends Cubit<AppState> {
     await Future.delayed(Duration(seconds: 3));
     getGroupPosts();
     emit(GetPostGroupSuccessState());
+  }
+
+  List <UserModel> userFriends = [] ;
+  void getUserFriends() {
+    emit(GetUserDataLoadingState());
+    FirebaseFirestore.instance.collection('users').get().then((value){
+      //print(value.data());
+      value.docs.forEach((element) {
+        //print('name : ${element.data()['grade']}');
+        if(element.data()['grade'] == 'Fourth' && element.data()['uId'] != userModel!.uId){
+          userFriends.add(UserModel.formJson(element.data()));
+        }
+      });
+      emit(GetUserFriendsSuccessState());
+    }).catchError((error) {
+      print('error when get user Friends : ${error.toString()}');
+      emit(GetUserFriendsErrorState());
+    });
+  }
+
+  List <PostModel> userPosts = [];
+
+  void getUserPosts ()
+  {
+    emit(GetUserPostLoadingState());
+    switch (userModel!.grade)
+    {
+       case 'First' : {
+         FirebaseFirestore.instance.collection('General')
+             .doc('grade1')
+             .collection('posts')
+             .get().then((value) {
+               value.docs.forEach((element) {
+                 if(element.data()['userId'] == userModel!.uId){
+                   userPosts.add(PostModel.fromFire(element.data()));
+                 }
+               });
+               emit(GetUserPostSuccessState());
+         }).catchError((error){
+           print('Error When get user Posts : ${error.toString()}');
+           emit(GetUserPostErrorState());
+         });
+         break;
+       }
+
+      case 'Second' : {
+        FirebaseFirestore.instance.collection('General')
+            .doc('grade2')
+            .collection('posts')
+            .get().then((value) {
+          value.docs.forEach((element) {
+            if(element.data()['userId'] == userModel!.uId){
+              userPosts.add(PostModel.fromFire(element.data()));
+            }
+          });
+          print(userPosts.length);
+          emit(GetUserPostSuccessState());
+        }).catchError((error){
+          print('Error When get user Posts : ${error.toString()}');
+          emit(GetUserPostErrorState());
+        });
+        break;
+      }
+      case 'Third' : {
+        FirebaseFirestore.instance.collection('General')
+            .doc('grade3')
+            .collection('posts')
+            .get().then((value) {
+          value.docs.forEach((element) {
+            if(element.data()['userId'] == userModel!.uId){
+              userPosts.add(PostModel.fromFire(element.data()));
+            }
+          });
+          emit(GetUserPostSuccessState());
+        }).catchError((error){
+          print('Error When get user Posts : ${error.toString()}');
+          emit(GetUserPostErrorState());
+        });
+        break;
+      }
+
+      case 'Fourth' : {
+        FirebaseFirestore.instance.collection('General')
+            .doc('grade4')
+            .collection('posts')
+            .get().then((value) {
+          value.docs.forEach((element) {
+            if(element.data()['userId'] == userModel!.uId){
+              userPosts.add(PostModel.fromFire(element.data()));
+            }
+          });
+          emit(GetUserPostSuccessState());
+        }).catchError((error){
+          print('Error When get user Posts : ${error.toString()}');
+          emit(GetUserPostErrorState());
+        });
+        break;
+      }
+    }
   }
 
 

@@ -42,11 +42,10 @@ void main()async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>AppCubit()..getHomePost()..getUserData()..getGroupPosts(),
+      create: (BuildContext context) => AppCubit()..getHomePost()..getUserData()..getGroupPosts()..getUserFriends(),
       child: BlocConsumer<AppCubit,AppState>(
         listener: (context,state){},
         builder: (context,state){
@@ -58,17 +57,17 @@ class MyApp extends StatelessWidget {
               appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,
                 elevation: 0.0,
-                backwardsCompatibility: false,
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: Colors.white,
-                  statusBarIconBrightness: Brightness.dark
-                )
+                // backwardsCompatibility: false,
+                // systemOverlayStyle: SystemUiOverlayStyle(
+                //   statusBarColor: Colors.blue,
+                //   statusBarIconBrightness: Brightness.light,
+                // ),
               ),
               textTheme: GoogleFonts.nunitoSansTextTheme(
                 Theme.of(context).textTheme,
               ),
             ),
-            home: ContainerScreen(),
+            home: const ContainerScreen(),
           );
         },
       ),

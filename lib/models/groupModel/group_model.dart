@@ -17,22 +17,22 @@ class GroupModel {
 
   GroupModel.fromFire(Map <String , dynamic> fire){
     username = fire['username'];
-    userImage = fire['userimage'];
-    userId = fire['userid'];
-    postDate = fire['postdate'];
-    postText = fire['posttext'];
-    postImage = fire['postimage'];
+    userImage = fire['userImage'];
+    userId = fire['userId'];
+    postDate = fire['postDate'];
+    postText = fire['postText'];
+    postImage = fire['postImage'];
   }
 
   Map <String , dynamic> toMap ()
   {
     return{
       'username' : username,
-      'userimage' : userImage,
-      'userid' : userId,
-      'postdate' : postDate,
-      'posttext' : postText,
-      'postimage' : postImage,
+      'userImage' : userImage,
+      'userId' : userId,
+      'postDate' : postDate,
+      'posText' : postText,
+      'postImage' : postImage,
     };
   }
 

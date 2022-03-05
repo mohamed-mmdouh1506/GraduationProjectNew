@@ -2,6 +2,7 @@ import 'package:final_project/constants/componts.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/modules/NewPost/NewPost.dart';
+import 'package:final_project/modules/SearchScreen/SearchScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,64 +29,90 @@ class LayoutScreen extends StatelessWidget {
               color: Colors.white,
               child: Scaffold(
                   backgroundColor: Colors.grey.shade100,
-                  appBar: AppBar(
-                    toolbarHeight: 70,
-                    elevation: 3.0,
-                    leadingWidth: 60,
-                    leading: InkWell(
-                      onTap: (){
-                        cubit.doSmallScreen();
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.fromLTRB(17,5,0,0),
-                        decoration: const BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(0),
-                          child: CircleAvatar(
-                            backgroundImage: AssetImage(
-                              'assets/images/mine.png',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    title:  Container(
-                      margin: EdgeInsets.fromLTRB(0, 7, 0, 0),
-                      width: 260,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 10,),
-                          Icon(
-                            Icons.search,color: Colors.grey[500],
-                          ),
-                          const SizedBox(width: 10,),
-                          Text('Search',style: GoogleFonts.lato(
-                              fontSize: 15,
-                              color: Colors.grey[500]
-                          ),)
-                        ],
-                      ),
-
-                    ),
-                    actions: [
-                      IconButton(onPressed: (){
-                        navigateTo(context, NewPost());
-                        },
-                        icon: const Icon(
-                            Icons.add_box_outlined,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // appBar: AppBar(
+                  //   toolbarHeight: 70,
+                  //   leadingWidth: 60,
+                  //   leading: InkWell(
+                  //     onTap: (){
+                  //       cubit.doSmallScreen();
+                  //     },
+                  //     child: Container(
+                  //       margin: const EdgeInsets.fromLTRB(17,5,0,0),
+                  //       decoration: const BoxDecoration(
+                  //           color: Colors.black,
+                  //           shape: BoxShape.circle
+                  //       ),
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.all(0),
+                  //         child: CircleAvatar(
+                  //           backgroundImage: NetworkImage(
+                  //             '${cubit.userModel!.image}',
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   title:  InkWell(
+                  //     onTap: (){
+                  //       navigateTo(context, const SearchScreen());
+                  //     },
+                  //     child: Container(
+                  //       margin: const EdgeInsets.fromLTRB(0, 7, 0, 0),
+                  //       height: 40,
+                  //       width: 400,
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.grey.shade200,
+                  //         borderRadius: BorderRadius.circular(10),
+                  //       ),
+                  //       child: Row(
+                  //         children: [
+                  //           const SizedBox(width: 10,),
+                  //           Icon(
+                  //             Icons.search,color: Colors.grey[500],
+                  //           ),
+                  //           const SizedBox(width: 10,),
+                  //           Text('Search',style: GoogleFonts.lato(
+                  //               fontSize: 15,
+                  //               color: Colors.grey[500]
+                  //           ),)
+                  //         ],
+                  //       ),
+                  //
+                  //     ),
+                  //   ),
+                  //   actions: [
+                  //     Padding(
+                  //       padding: const EdgeInsets.only(top: 8.0),
+                  //       child: Align(
+                  //         alignment: AlignmentDirectional.centerStart,
+                  //         child: InkWell(
+                  //           onTap : (){
+                  //           navigateTo(context, NewPost());
+                  //           },
+                  //           child: Container(
+                  //             height: 38,
+                  //             width: 40,
+                  //             decoration: BoxDecoration(
+                  //               borderRadius: BorderRadius.circular(10.0),
+                  //               border: Border.all(
+                  //                 width: 1.0,
+                  //                 color: Colors.grey,
+                  //               ),
+                  //             ),
+                  //             child: const Icon(
+                  //               Icons.edit,
+                  //               color: Colors.grey,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     const SizedBox(
+                  //       width: 15,
+                  //     ),
+                  //   ],
+                  // ),
+                  appBar: appBar(AppBar().preferredSize.height , context),
                   body: cubit.Screens[cubit.currentIndex],
                   bottomNavigationBar: SalomonBottomBar(
                     onTap: (index){
@@ -117,14 +144,88 @@ class LayoutScreen extends StatelessWidget {
                     ],
                   )
               ),
-
-
-
             );
           },
         );
       },
     );
   }
+
+
+  appBar(height , context ) => PreferredSize(
+    preferredSize:  Size(MediaQuery.of(context).size.width, height+60 ),
+    child: Stack(
+      children: <Widget>[
+        Container(
+          child: Center(
+            child: Text(
+              "BFCAI Community",
+              style: GoogleFonts.lato(
+                fontSize: 25.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          color:Theme.of(context).primaryColor,
+          height: height+70,
+          width: MediaQuery.of(context).size.width,
+        ),
+        Container(),
+        Positioned(
+          top: 95.0,
+          left: 20.0,
+          right: 20.0,
+          child: Material(
+            borderRadius: BorderRadius.circular(15.0),
+            elevation: 2,
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: (){
+                      AppCubit.get(context).doSmallScreen();
+                    },
+                    child: Icon(Icons.menu, color: Theme.of(context).primaryColor,),
+                  ),
+                  const SizedBox(
+                    width: 12.0,
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: (){
+                        navigateTo(context, const SearchScreen());
+                      },
+                      child: Text(
+                        'Search',
+                        style: GoogleFonts.lato(
+                          color: Colors.grey,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.search, color: Theme.of(context).primaryColor),
+                    onPressed: () {
+                      navigateTo(context, const SearchScreen());
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.notifications, color: Theme.of(context).primaryColor),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+
+
 }
 

@@ -92,7 +92,7 @@ Widget Block_Post(UserModel userModel , GroupModel groupModel,index ){
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
                   radius: 24,
-                  backgroundImage:NetworkImage(groupModel.userImage!),
+                  backgroundImage:NetworkImage('${groupModel.userImage}'),
                 ),
               ),
               const SizedBox(width: 7,),
@@ -108,7 +108,7 @@ Widget Block_Post(UserModel userModel , GroupModel groupModel,index ){
                     ),
                   ),
                   const SizedBox(height: 3,),
-                   Text(groupModel.postDate!),
+                   Text('${groupModel.postDate}'),
                 ],
               ),
             ],
