@@ -50,12 +50,14 @@ class AddPost extends StatelessWidget {
                       AppCubit.get(context).createGroupPost(
                         postDate: dateNow.toString(),
                         postText : postController.text,
+                        context: context
                       );
                     }
                     else{
                       AppCubit.get(context).createPostGroupWithImage(
                         postDate: dateNow.toString(),
                         postText : postController.text,
+                        context: context,
                       );
                     }
 
@@ -68,7 +70,7 @@ class AddPost extends StatelessWidget {
 
                 ),
               ),
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
 
             ],
           ),
@@ -76,7 +78,7 @@ class AddPost extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                if(state is CreatePostGroupSuccessState)
+                if(state is CreatePostLoadingState)
                   const LinearProgressIndicator(),
                 if(state is CreatePostGroupSuccessState)
                   const SizedBox(

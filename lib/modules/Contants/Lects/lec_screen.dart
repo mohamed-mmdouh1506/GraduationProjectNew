@@ -1,6 +1,7 @@
 import 'package:final_project/constants/componts.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
+import 'package:final_project/models/materialModel.dart';
 import 'package:final_project/modules/pdfReader/pdfReader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LecScreen extends StatelessWidget {
 
-  String titleScreen='';
+  String titleScreen = '';
 
   LecScreen({
     required this.titleScreen
@@ -20,8 +21,8 @@ class LecScreen extends StatelessWidget {
       listener: (context , state){},
       builder: (context , state){
         var cubit = AppCubit.get(context);
-        List lectures = AppCubit.get(context).material1;
-        print(lectures.length);
+        List lectures = AppCubit.get(context).lecture;
+
         return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -49,7 +50,7 @@ class LecScreen extends StatelessWidget {
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         children: List.generate(
-                          cubit.material1.length, (index) => lectureCard(cubit.material1[index] , context),
+                          cubit.lecture.length, (index) => lectureCard(cubit.lecture[index] , context),
                         ),
                       ),
                     ),
@@ -63,11 +64,11 @@ class LecScreen extends StatelessWidget {
   }
 
 
-  Widget lectureCard (Map lecture , context)
+  Widget lectureCard (MaterialModel lecture , context)
   {
     return InkWell(
       onTap: (){
-        navigateTo(context, PdfReader(pdfUrl: "http://192.168.1.12:1337"+lecture['attributes']['lecture']['data'][0]['attributes']['url'] , title : lecture['attributes']['title']));
+        navigateTo(context, PdfReader(pdfUrl: lecture.url.toString() , title: lecture.title.toString(),));
       },
       child: Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -86,7 +87,7 @@ class LecScreen extends StatelessWidget {
               ),
                const SizedBox(height: 13,),
                Text(
-                 '${lecture['attributes']['title']}',
+                 '${lecture.title}',
                  style:  const TextStyle(
                    fontSize: 15,
                  ),

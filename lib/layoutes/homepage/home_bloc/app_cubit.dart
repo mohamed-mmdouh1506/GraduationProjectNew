@@ -1,9 +1,12 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_project/constants/componts.dart';
 import 'package:final_project/constants/constants.dart';
+import 'package:final_project/layoutes/homepage/layout_screen.dart';
 import 'package:final_project/models/groupModel/group_model.dart';
 import 'package:final_project/models/homeModel/home_model.dart';
+import 'package:final_project/models/materialModel.dart';
 import 'package:final_project/modules/addPost/add_post.dart';
 import 'package:final_project/modules/groupsScreen/group_screen.dart';
 import 'package:final_project/modules/homeScreen/home_screen.dart';
@@ -244,10 +247,11 @@ class AppCubit extends Cubit<AppState> {
 
   List <GroupModel> groupPosts=[];
 
-  String ?gradeGroup= 'First';
-  String ?departmentGroup= 'Medical';
+  String ?gradeGroup= 'Fourth';
+  String ?departmentGroup= 'General';
 
   void getGroupPosts(){
+    groupPosts=[];
 
     emit(GetPostGroupLoadingState());
     if(gradeGroup=='First'){
@@ -349,6 +353,7 @@ class AppCubit extends Cubit<AppState> {
   void createPostGroupWithImage ({
     required String postDate,
     required String postText,
+    required BuildContext context ,
   })
   {
     emit(CreatePostLoadingState());
@@ -362,6 +367,7 @@ class AppCubit extends Cubit<AppState> {
           postDate: postDate,
           postText: postText,
           postImage: value,
+          context: context,
         );
 
         print('image url ${value.toString()}');
@@ -381,6 +387,7 @@ class AppCubit extends Cubit<AppState> {
     required String postDate,
     required String postText,
     String? postImage,
+    required BuildContext context,
   })
   {
     emit(CreatePostLoadingState());
@@ -418,7 +425,7 @@ class AppCubit extends Cubit<AppState> {
         });
       }
       else if(gradeGroup=='Third'){
-        FirebaseFirestore.instance.collection(departmentGroup!).doc('grade2').
+        FirebaseFirestore.instance.collection(departmentGroup!).doc('grade3').
         collection('posts')
             .add(model.toMap())
             .then((value) {
@@ -430,18 +437,18 @@ class AppCubit extends Cubit<AppState> {
         });
       }
       else{
-        FirebaseFirestore.instance.collection(departmentGroup!).doc('grade2').
+        FirebaseFirestore.instance.collection(departmentGroup!).doc('grade4').
         collection('posts')
             .add(model.toMap())
             .then((value) {
           print('Post Uploaded Successful : ${value.toString()}');
+          navigateAndFinish(context, const LayoutScreen());
           emit(CreatePostGroupSuccessState());
         }).catchError((error){
           print('Error When Create New Post : ${error.toString()}');
           emit(CreatePostGroupErrorState());
         });
       }
-
 
   }
 
@@ -450,20 +457,21 @@ class AppCubit extends Cubit<AppState> {
   Future refreshData() async {
     await Future.delayed(Duration(seconds: 3));
     getGroupPosts();
+    getHomePost();
     emit(GetPostGroupSuccessState());
   }
 
   List <UserModel> userFriends = [] ;
   void getUserFriends() {
+    userFriends = [];
     emit(GetUserDataLoadingState());
     FirebaseFirestore.instance.collection('users').get().then((value){
-      //print(value.data());
       value.docs.forEach((element) {
-        //print('name : ${element.data()['grade']}');
-        if(element.data()['grade'] == 'Fourth' && element.data()['uId'] != userModel!.uId){
+        if(element.data()['grade'] == userModel!.grade.toString() && element.data()['uId'] != userModel!.uId){
           userFriends.add(UserModel.formJson(element.data()));
         }
       });
+      print(userFriends.length);
       emit(GetUserFriendsSuccessState());
     }).catchError((error) {
       print('error when get user Friends : ${error.toString()}');
@@ -472,6 +480,7 @@ class AppCubit extends Cubit<AppState> {
   }
 
   List <PostModel> userPosts = [];
+  List <String> coursesTitle = [];
 
   void getUserPosts ()
   {
@@ -550,6 +559,117 @@ class AppCubit extends Cubit<AppState> {
         break;
       }
     }
+  }
+
+
+  void getMaterialTitles ()
+  {
+    switch (userModel!.grade)
+    {
+      case 'First' : {
+        FirebaseFirestore.instance.collection('General')
+            .doc('grade1')
+            .collection('Material')
+            .get().then((value) {
+          value.docs.forEach((element) {
+            coursesTitle.add(element.id.toString());
+          });
+          emit(GetUserPostSuccessState());
+        }).catchError((error){
+          print('Error When get user Posts : ${error.toString()}');
+          emit(GetUserPostErrorState());
+        });
+        break;
+      }
+      case 'Second' : {
+        FirebaseFirestore.instance.collection('General')
+            .doc('grade2')
+            .collection('Material')
+            .get().then((value) {
+          value.docs.forEach((element) {
+            coursesTitle.add(element.id.toString());
+          });
+          print(coursesTitle.length);
+          emit(GetUserPostSuccessState());
+        }).catchError((error){
+          print('Error When get user Posts : ${error.toString()}');
+          emit(GetUserPostErrorState());
+        });
+        break;
+      }
+      case 'Third' : {
+        FirebaseFirestore.instance.collection('General')
+            .doc('grade3')
+            .collection('Material')
+            .get().then((value) {
+          value.docs.forEach((element) {
+            coursesTitle.add(element.id.toString());
+          });
+          print(coursesTitle.length);
+          emit(GetUserPostSuccessState());
+        }).catchError((error){
+          print('Error When get user Posts : ${error.toString()}');
+          emit(GetUserPostErrorState());
+        });
+        break;
+      }
+
+      case 'Fourth' : {
+        FirebaseFirestore.instance.collection('General')
+            .doc('grade4')
+            .collection('Material')
+            .get().then((value) {
+          value.docs.forEach((element) {
+            coursesTitle.add(element.id.toString());
+          });
+          print(coursesTitle.length);
+          emit(GetUserPostSuccessState());
+        }).catchError((error){
+          print('Error When get user Posts : ${error.toString()}');
+          emit(GetUserPostErrorState());
+        });
+        break;
+      }
+    }
+  }
+
+
+  List <MaterialModel> lecture = [];
+  List <MaterialModel> section = [];
+
+  void getMaterial ()
+  {
+    FirebaseFirestore.instance.collection('General')
+        .doc('grade4')
+        .collection('Material')
+        .doc('imageProcessing')
+        .collection('lecture')
+        .get().then((value) {
+          value.docs.forEach((element) {
+            lecture.add(MaterialModel.fromFire(element.data()));
+          });
+          print('lecture size : ${lecture.length}');
+          emit(GetMaterialSuccessState());
+    }).catchError((error){
+      print('Error when get Material : ${error.toString()}');
+      emit(GetMaterialErrorState());
+    });
+
+    FirebaseFirestore.instance.collection('General')
+        .doc('grade4')
+        .collection('Material')
+        .doc('imageProcessing')
+        .collection('section')
+        .get().then((value) {
+      value.docs.forEach((element) {
+        section.add(MaterialModel.fromFire(element.data()));
+      });
+      emit(GetMaterialSuccessState());
+    }).catchError((error){
+      print('Error when get Material : ${error.toString()}');
+      emit(GetMaterialErrorState());
+    });
+
   }
 
 

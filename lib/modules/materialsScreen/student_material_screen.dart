@@ -15,12 +15,10 @@ class StudentMaterialScreen extends StatelessWidget {
 
   List <String> texts =[
     'Image Processing',
-    'Data Structure',
-    'Logic Design',
-    'Network',
     'Compiler',
-    'Introduction',
-
+    'Network',
+    'Simulation',
+    'NLP',
   ];
 
   List <Color> colorsContainer =[
@@ -29,7 +27,6 @@ class StudentMaterialScreen extends StatelessWidget {
     const Color.fromRGBO(253, 198, 208, 1.0),
     const Color.fromRGBO(199, 255, 241, 1.0),
     const Color.fromRGBO(241, 198, 253, 1.0),
-    const Color.fromRGBO(248, 203, 184, 1.0),
   ];
 
   List <Color> colorsItem =[
@@ -38,7 +35,6 @@ class StudentMaterialScreen extends StatelessWidget {
     const Color.fromRGBO(255, 13, 60, 1.0),
     const Color.fromRGBO(0, 199, 205, 1.0),
     const Color.fromRGBO(211, 13, 255, 1.0),
-    const Color.fromRGBO(255, 78, 2, 1.0),
   ];
 
   @override
@@ -133,58 +129,63 @@ class StudentMaterialScreen extends StatelessWidget {
 }
 
 Widget Block_Materials(String text,Color colorContainer,Color colorItem,context){
-  return Container(
-    margin: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-    decoration:  BoxDecoration(
-      color: colorContainer,
-      borderRadius: BorderRadius.circular(25),
-    ),
-    child: Material(
-      color: colorContainer,
-      borderRadius: BorderRadius.circular(25),
-      elevation: 5.0,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 8, 3, 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                    onPressed: (){},
-                    icon:  Icon(
-                      LineIcons.book,
-                      color: colorItem,
-                      size: 40,
-                    )
-                ),
-                Spacer(),
-                IconButton(
-                    onPressed: (){
-                      navigateTo(context,ContantScreen(materialName: text) );
-                    },
-                    icon: Icon(
-                      LineIcons.arrowCircleRight,
-                      color: colorItem,
-                    )
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 15,),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-            child: Text(
-              text,
-              style: GoogleFonts.openSans(
-              color: colorItem,
-              fontSize: 17,
-                fontWeight: FontWeight.bold,
+  return InkWell(
+    onTap: (){
+      navigateTo(context,ContantScreen(materialName: text) );
+    },
+    child: Container(
+      margin: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+      decoration:  BoxDecoration(
+        color: colorContainer,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Material(
+        color: colorContainer,
+        borderRadius: BorderRadius.circular(25),
+        elevation: 5.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 8, 3, 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                      onPressed: (){},
+                      icon:  Icon(
+                        LineIcons.book,
+                        color: colorItem,
+                        size: 40,
+                      )
+                  ),
+                  Spacer(),
+                  IconButton(
+                      onPressed: (){
+                        navigateTo(context,ContantScreen(materialName: text) );
+                      },
+                      icon: Icon(
+                        LineIcons.arrowCircleRight,
+                        color: colorItem,
+                      )
+                  ),
+                ],
               ),
             ),
-          )
-        ],
+            SizedBox(height: 15,),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+              child: Text(
+                text,
+                style: GoogleFonts.openSans(
+                color: colorItem,
+                fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     ),
   );

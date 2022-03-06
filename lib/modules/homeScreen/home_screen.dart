@@ -110,12 +110,12 @@ Widget postItem(PostModel model ,index  , context){
         const SizedBox(
           height: 5,
         ),
-         Padding(
-           padding: const EdgeInsets.symmetric(vertical: 10),
-           child: Image(
-             image: NetworkImage(model.postImage!),
-           ),
-         ),
+        model.postImage != null ?Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Image(
+            image: NetworkImage(model.postImage!),
+          ),
+        ) : const SizedBox(height: 10,),
         const SizedBox(
           height: 5,
         ),

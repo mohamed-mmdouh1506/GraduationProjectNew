@@ -31,7 +31,7 @@ class GroupModel {
       'userImage' : userImage,
       'userId' : userId,
       'postDate' : postDate,
-      'posText' : postText,
+      'postText' : postText,
       'postImage' : postImage,
     };
   }

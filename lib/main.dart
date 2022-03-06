@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => AppCubit()..getHomePost()..getUserData()..getGroupPosts()..getUserFriends(),
+      create: (BuildContext context) => AppCubit()..getUserData()..getHomePost()..getGroupPosts()..getUserFriends()..getMaterial(),
       child: BlocConsumer<AppCubit,AppState>(
         listener: (context,state){},
         builder: (context,state){
@@ -57,11 +57,6 @@ class MyApp extends StatelessWidget {
               appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,
                 elevation: 0.0,
-                // backwardsCompatibility: false,
-                // systemOverlayStyle: SystemUiOverlayStyle(
-                //   statusBarColor: Colors.blue,
-                //   statusBarIconBrightness: Brightness.light,
-                // ),
               ),
               textTheme: GoogleFonts.nunitoSansTextTheme(
                 Theme.of(context).textTheme,

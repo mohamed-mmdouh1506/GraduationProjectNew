@@ -11,49 +11,53 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer <AppCubit , AppState> (
-      listener: (context, state) {},
-      builder: (context, state) {
-        var cubit = AppCubit.get(context);
-        List <UserModel> friends = cubit.userFriends;
-
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              'Friends' ,
-              style: GoogleFonts.lato(
-                color: Colors.blue,
-                fontWeight: FontWeight.w900,
-                fontSize: 24.0,
-              ),
-            ),
-            leading: IconButton(
-              onPressed: (){
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.blue,
-              ),
-            ),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: Column(
-              children: [
-                Expanded(
-                  child : ListView.separated(
-                      itemBuilder: (context , index) => userItem(friends[index] , context),
-                      separatorBuilder: (context , index) => const SizedBox(
-                        height: 5.0,
-                      ),
-                      itemCount: friends.length,
+    return Builder(
+      builder: (context) {
+        AppCubit.get(context).getUserFriends();
+        return BlocConsumer <AppCubit , AppState> (
+          listener: (context, state) {},
+          builder: (context, state) {
+            var cubit = AppCubit.get(context);
+            List <UserModel> friends = cubit.userFriends;
+            return Scaffold(
+              appBar: AppBar(
+                centerTitle: true,
+                title: Text(
+                  'Friends' ,
+                  style: GoogleFonts.lato(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 24.0,
                   ),
                 ),
-              ],
-            ),
-          ),
+                leading: IconButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+              body: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child : ListView.separated(
+                        itemBuilder: (context , index) => userItem(friends[index] , context),
+                        separatorBuilder: (context , index) => const SizedBox(
+                          height: 5.0,
+                        ),
+                        itemCount: friends.length,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         );
       },
     );
