@@ -1,6 +1,9 @@
+// @dart=2.9
 import 'package:final_project/layoutes/homepage/container_screen.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
+import 'package:final_project/modules/BotScreen/BotScreen.dart';
+import 'package:final_project/modules/CommentScreen/CommentScreen.dart';
 import 'package:final_project/modules/NewPost/NewPost.dart';
 import 'package:final_project/modules/addPost/add_post.dart';
 import 'package:final_project/modules/analysisScreen/analysis_screen.dart';
@@ -40,12 +43,12 @@ void main()async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => AppCubit()..getUserData()..getHomePost()..getGroupPosts()..getUserFriends()..getMaterial(),
+      create: (BuildContext context) => AppCubit()..getUserData()..getHomePost()..getGroupPosts()..getMaterial(),
       child: BlocConsumer<AppCubit,AppState>(
         listener: (context,state){},
         builder: (context,state){

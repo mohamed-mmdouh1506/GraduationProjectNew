@@ -64,14 +64,12 @@ class GroupScreen extends StatelessWidget {
                 ),
               ),
               floatingActionButton:FloatingActionButton(
-                backgroundColor: mainColorButton,
+                backgroundColor: Colors.blue,
                 onPressed:(){
                     navigateTo(context, const AddPost());
                 },
                 child: const Icon(LineIcons.pen),
               ),
-
-
             );
       },
     );
@@ -368,7 +366,9 @@ Widget postItem(GroupModel model ,index  , context){
           children:  [
             Expanded(
               child: IconButton(
-                onPressed: (){},
+                onPressed: (){
+                  AppCubit.get(context).likeGroupPost(AppCubit.get(context).groupPostsId[index]);
+                },
                 icon: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:  [
@@ -394,7 +394,7 @@ Widget postItem(GroupModel model ,index  , context){
             Expanded(
               child: IconButton(
                 onPressed: (){
-                  navigateTo(context, CommentScreen());
+                  navigateTo(context, CommentScreen(postId: AppCubit.get(context).groupPostsId[index] , route: 'group',));
                 },
                 icon: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

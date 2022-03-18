@@ -1,6 +1,7 @@
 import 'package:final_project/constants/componts.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
+import 'package:final_project/modules/BotScreen/BotScreen.dart';
 import 'package:final_project/modules/analysisScreen/analysis_screen.dart';
 import 'package:final_project/modules/messageScreen/message_screen.dart';
 import 'package:final_project/modules/profile/profile.dart';
@@ -47,6 +48,13 @@ class DrawerScreen extends StatelessWidget {
           icon: Icons.group_add_outlined,
           function: () {
             print('Groups');
+          }),
+
+      ItemModel(
+          text: 'Call us ',
+          icon: Icons.smart_toy_outlined,
+          function: () {
+            navigateTo(context, BotScreen());
           }),
 
       ItemModel(

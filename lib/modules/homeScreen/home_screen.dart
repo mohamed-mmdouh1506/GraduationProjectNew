@@ -17,26 +17,33 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit,AppState>(
-      listener: (context,state){},
-      builder: (context,state){
-        List <PostModel> homePosts = AppCubit.get(context).homePost;
-          return Column(
-            children: [
-              const SizedBox(height: 8,),
-              Expanded(
-                child:ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context,index)=>postItem( homePosts[index] , index , context),
-                    separatorBuilder: (context,index){
-                      return  const SizedBox(height: 10,);
-                      },
-                    itemCount: homePosts.length,
-                ),
-              ),
-            ],
-          );
-      },
+    return Builder(
+      builder: (context) {
+        //AppCubit.get(context).getHomePost();
+        return BlocConsumer <AppCubit , AppState>(
+          listener: (context,state){},
+          builder: (context,state){
+            List <PostModel> homePosts = AppCubit.get(context).homePost;
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Expanded(
+                    child:ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context,index)=>postItem( homePosts[index] , index , context),
+                        separatorBuilder: (context,index){
+                          return  const SizedBox(height: 10,);
+                          },
+                        itemCount: homePosts.length,
+                    ),
+                  ),
+                ],
+              );
+          },
+        );
+      }
     );
   }
 }
@@ -110,7 +117,7 @@ Widget postItem(PostModel model ,index  , context){
         const SizedBox(
           height: 5,
         ),
-        model.postImage != null ?Padding(
+        model.postImage != null ? Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Image(
             image: NetworkImage(model.postImage!),
@@ -158,7 +165,6 @@ Widget postItem(PostModel model ,index  , context){
                 ),
               ),
             ],
-
           ),
         ),
         const SizedBox(
@@ -173,7 +179,10 @@ Widget postItem(PostModel model ,index  , context){
           children:  [
             Expanded(
               child: IconButton(
-                onPressed: (){},
+                onPressed: (){
+                  //AppCubit.get(context).likeHomePost(AppCubit.get(context).homePostsId[index]);
+                  AppCubit.get(context).likeClick(AppCubit.get(context).homePostsId[index]);
+                },
                 icon: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:  [
@@ -199,7 +208,7 @@ Widget postItem(PostModel model ,index  , context){
             Expanded(
               child: IconButton(
                 onPressed: (){
-                  navigateTo(context, CommentScreen());
+                  navigateTo(context, CommentScreen(postId: AppCubit.get(context).homePostsId[index], route: 'home',));
                 },
                 icon: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

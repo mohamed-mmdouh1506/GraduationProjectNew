@@ -16,7 +16,6 @@ class LayoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (BuildContext context) {
-        AppCubit.get(context).getHomePost();
         return BlocConsumer<AppCubit,AppState>(
           listener: (context,state){},
           builder: (context,state){
@@ -29,89 +28,6 @@ class LayoutScreen extends StatelessWidget {
               color: Colors.white,
               child: Scaffold(
                   backgroundColor: Colors.grey.shade100,
-                  // appBar: AppBar(
-                  //   toolbarHeight: 70,
-                  //   leadingWidth: 60,
-                  //   leading: InkWell(
-                  //     onTap: (){
-                  //       cubit.doSmallScreen();
-                  //     },
-                  //     child: Container(
-                  //       margin: const EdgeInsets.fromLTRB(17,5,0,0),
-                  //       decoration: const BoxDecoration(
-                  //           color: Colors.black,
-                  //           shape: BoxShape.circle
-                  //       ),
-                  //       child: Padding(
-                  //         padding: const EdgeInsets.all(0),
-                  //         child: CircleAvatar(
-                  //           backgroundImage: NetworkImage(
-                  //             '${cubit.userModel!.image}',
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   title:  InkWell(
-                  //     onTap: (){
-                  //       navigateTo(context, const SearchScreen());
-                  //     },
-                  //     child: Container(
-                  //       margin: const EdgeInsets.fromLTRB(0, 7, 0, 0),
-                  //       height: 40,
-                  //       width: 400,
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.grey.shade200,
-                  //         borderRadius: BorderRadius.circular(10),
-                  //       ),
-                  //       child: Row(
-                  //         children: [
-                  //           const SizedBox(width: 10,),
-                  //           Icon(
-                  //             Icons.search,color: Colors.grey[500],
-                  //           ),
-                  //           const SizedBox(width: 10,),
-                  //           Text('Search',style: GoogleFonts.lato(
-                  //               fontSize: 15,
-                  //               color: Colors.grey[500]
-                  //           ),)
-                  //         ],
-                  //       ),
-                  //
-                  //     ),
-                  //   ),
-                  //   actions: [
-                  //     Padding(
-                  //       padding: const EdgeInsets.only(top: 8.0),
-                  //       child: Align(
-                  //         alignment: AlignmentDirectional.centerStart,
-                  //         child: InkWell(
-                  //           onTap : (){
-                  //           navigateTo(context, NewPost());
-                  //           },
-                  //           child: Container(
-                  //             height: 38,
-                  //             width: 40,
-                  //             decoration: BoxDecoration(
-                  //               borderRadius: BorderRadius.circular(10.0),
-                  //               border: Border.all(
-                  //                 width: 1.0,
-                  //                 color: Colors.grey,
-                  //               ),
-                  //             ),
-                  //             child: const Icon(
-                  //               Icons.edit,
-                  //               color: Colors.grey,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     const SizedBox(
-                  //       width: 15,
-                  //     ),
-                  //   ],
-                  // ),
                   appBar: appBar(AppBar().preferredSize.height , context),
                   body: cubit.Screens[cubit.currentIndex],
                   bottomNavigationBar: SalomonBottomBar(

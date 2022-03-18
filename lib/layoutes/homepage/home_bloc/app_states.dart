@@ -56,3 +56,22 @@ class GetUserFriendsErrorState extends AppState {}
 class GetUserPostLoadingState extends AppState {}
 class GetUserPostSuccessState extends AppState{}
 class GetUserPostErrorState extends AppState{}
+
+class GetSelectedUserLoadingState extends AppState {}
+class GetSelectedUserSuccessState extends AppState {}
+class GetSelectedUserErrorState extends AppState {}
+
+class GetSelectedUserPostSuccessState extends AppState {}
+class GetSelectedUserPostErrorState extends AppState {}
+
+class LikePostsSuccessState extends AppState {}
+class LikePostsErrorState extends AppState {}
+
+class DisLikePostsSuccessState extends AppState {}
+class DisLikePostsErrorState extends AppState {}
+
+class CommentPostsSuccessState extends AppState {}
+class CommentPostsErrorState extends AppState {}
+
+class GetCommentsSuccessState extends AppState {}
+class GetCommentsErrorState extends AppState {}
