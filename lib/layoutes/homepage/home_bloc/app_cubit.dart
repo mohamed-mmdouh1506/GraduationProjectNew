@@ -564,7 +564,7 @@ class AppCubit extends Cubit<AppState> {
 
   void getMaterialTitles ()
   {
-    switch (userModel!.grade)
+    switch (gradeGroup)
     {
       case 'First' : {
         FirebaseFirestore.instance.collection('General')

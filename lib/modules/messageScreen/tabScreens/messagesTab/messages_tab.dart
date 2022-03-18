@@ -102,7 +102,7 @@ class MessagesTab extends StatelessWidget {
   {
     return InkWell(
       onTap: (){
-        navigateTo(context, ChatScreen());
+        navigateTo(context, ChatScreen(roomName: 'Mohamed Mmdouh',));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),

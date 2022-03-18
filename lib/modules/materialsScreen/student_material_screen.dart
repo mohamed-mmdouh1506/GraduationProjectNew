@@ -101,7 +101,7 @@ class StudentMaterialScreen extends StatelessWidget {
                           Text('My Courses',style: GoogleFonts.lato(
                             color:Colors.black,
                             fontWeight: FontWeight.w900,
-                            fontSize: 22,
+                            fontSize: 20,
                           ),
                           ),
                         ],

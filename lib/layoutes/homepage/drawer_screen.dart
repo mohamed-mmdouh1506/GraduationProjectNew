@@ -156,7 +156,7 @@ class DrawerScreen extends StatelessWidget {
                             itemCount: drawerItems.length
                         ),
                       ),
-                      const SizedBox(height: 200,),
+                      SizedBox(height: MediaQuery.of(context).size.height*.13 ,),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(17, 15, 17, 0),
                         child: Row(

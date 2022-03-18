@@ -75,3 +75,6 @@ class CommentPostsErrorState extends AppState {}
 
 class GetCommentsSuccessState extends AppState {}
 class GetCommentsErrorState extends AppState {}
+
+class GetTitlesSuccessState extends AppState {}
+class GetTitlesErrorState extends AppState {}

@@ -1,39 +1,78 @@
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
+import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
+import 'package:final_project/models/chatModel/controller/controller.dart';
+import 'package:final_project/models/chatModel/model/chat_model.dart';
 import 'package:final_project/modules/chatScreen/chat_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-class GroupTab extends StatelessWidget {
+
+class GroupTab extends StatefulWidget {
   const GroupTab({Key? key}) : super(key: key);
 
   @override
+  State<GroupTab> createState() => _GroupTabState();
+}
+
+class _GroupTabState extends State<GroupTab> {
+
+  var roomName='';
+  RoomController roomController = RoomController();
+
+  late IO.Socket socket;
+
+  @override
+  void initState() {
+    socket = IO.io(
+        'http://localhost:4000',
+        IO.OptionBuilder()
+            .setTransports(['websocket'])
+            .disableAutoConnect()
+            .build());
+
+    socket.connect();
+
+    super.initState();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    List<String> groupNames = [
-      'Algorithms',
-      'Assembly',
-      'Automate',
-      'Logic Programming',
-      'Numerical Analysis',
-      'Software Engineer',
-    ];
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemBuilder: (context , index)=> messageRowItem(groupNames[index] , context),
-        separatorBuilder: (context , index)=> const SizedBox(
-          height: 10.0,
-        ),
-        itemCount: groupNames.length,
-      ),
+
+    return BlocConsumer<AppCubit,AppState>(
+        listener: (context,state){
+
+        },
+      builder: (context,state){
+
+          return  Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context , index) {
+               return messageRowItem(AppCubit.get(context).coursesTitle[index] , context,AppCubit.get(context).userModel!.username!,index);
+              } ,
+              separatorBuilder: (context , index)=> const SizedBox(
+                height: 10.0,
+              ),
+              itemCount: AppCubit.get(context).coursesTitle.length,
+            ),
+          );
+      },
     );
   }
 
-  Widget messageRowItem(String groupName , context)
+  Widget messageRowItem(String groupName , context,String userName,index)
   {
     return InkWell(
       onTap: (){
-        navigateTo(context, ChatScreen());
+        roomName=AppCubit.get(context).coursesTitle[index];
+        roomFunction(roomName, userName);
+        navigateTo(context, ChatScreen(roomName: roomName,));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -106,26 +145,28 @@ class GroupTab extends StatelessWidget {
               ),
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Text(
+              children:  [
+                const Text(
                   '3m ago',
                   style: TextStyle(
                     fontSize: 15.0,
 
                   ),
                 ),
-                SizedBox(
-                  height: 2.0,
+                const SizedBox(
+                  height: 5.0,
                 ),
-                Text(
-                  'status',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.grey,
-                  ),
-                ),
+                CircleAvatar(
+                  backgroundColor: Colors.lightBlue,
+                  radius: 13,
+                  child: Text('7',style: GoogleFonts.lato(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold
+                  ),),
+                )
               ],
             ),
           ],
@@ -134,4 +175,10 @@ class GroupTab extends StatelessWidget {
     );
   }
 
+  void roomFunction(String roomName, String userName) {
+    var roomJson = {"roomName": roomName, 'userName': userName};
+
+    socket.emit('subscribe', roomJson);
+    roomController.room.add(Room.fromJson(roomJson));
+  }
 }
