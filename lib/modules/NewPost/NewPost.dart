@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
+import 'package:intl/intl.dart';
 
 class NewPost extends StatelessWidget {
 
@@ -38,13 +39,13 @@ class NewPost extends StatelessWidget {
                   if(AppCubit.get(context).uploadedPostImage == null)
                     {
                       AppCubit.get(context).createPost(
-                          postDate: dateNow.toString(),
+                          postDate: '${DateFormat('EEE, d MMM y     hh:mm aaa').format(DateTime.now())}',
                           postText : postTextController.text,
                       );
                     }
                   else{
                     AppCubit.get(context).createPostWithImage(
-                        postDate: dateNow.toString(),
+                        postDate: '${DateFormat('EEE, d MMM y     hh:mm aaa').format(DateTime.now())}',
                         postText : postTextController.text,
                     );
                   }

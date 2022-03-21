@@ -37,7 +37,7 @@ class GroupScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 2,),
+                      const SizedBox(height: 8,),
                       const Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                         child: Material(

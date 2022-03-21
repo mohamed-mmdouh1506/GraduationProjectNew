@@ -22,7 +22,7 @@ import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
-
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 import '../../../models/CommentModel.dart';
 import '../../../models/PostModel.dart';
 import '../../../models/userModel/user_model.dart';
@@ -457,7 +457,6 @@ class AppCubit extends Cubit<AppState> {
   Future refreshData() async {
     await Future.delayed(Duration(seconds: 3));
     getGroupPosts();
-    getHomePost();
     emit(GetPostGroupSuccessState());
   }
 
@@ -564,6 +563,7 @@ class AppCubit extends Cubit<AppState> {
 
   void getMaterialTitles ()
   {
+    coursesTitle = [];
     switch (gradeGroup)
     {
       case 'First' : {
@@ -639,6 +639,7 @@ class AppCubit extends Cubit<AppState> {
 
   void getMaterial ()
   {
+    lecture = [];
     FirebaseFirestore.instance.collection('General')
         .doc('grade4')
         .collection('Material')
@@ -1872,6 +1873,8 @@ class AppCubit extends Cubit<AppState> {
       }
     }
   }
+
+
 
 
 

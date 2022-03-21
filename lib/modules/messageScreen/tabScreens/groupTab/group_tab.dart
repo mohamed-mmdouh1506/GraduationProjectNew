@@ -27,11 +27,10 @@ class _GroupTabState extends State<GroupTab> {
   @override
   void initState() {
     socket = IO.io(
-        'http://localhost:4000',
-        IO.OptionBuilder()
-            .setTransports(['websocket'])
-            .disableAutoConnect()
-            .build());
+        'http://192.168.179.243:5000', <String, dynamic>{
+        "transports": ["websocket"],
+        "autoConnect": false,
+      },);
 
     socket.connect();
 

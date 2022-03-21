@@ -87,9 +87,8 @@ class LayoutScreen extends StatelessWidget {
           height: height+70,
           width: MediaQuery.of(context).size.width,
         ),
-        Container(),
         Positioned(
-          top: 95.0,
+          top: 92.0,
           left: 20.0,
           right: 20.0,
           child: Material(
@@ -138,6 +137,7 @@ class LayoutScreen extends StatelessWidget {
             ),
           ),
         ),
+        Container(),
       ],
     ),
   );

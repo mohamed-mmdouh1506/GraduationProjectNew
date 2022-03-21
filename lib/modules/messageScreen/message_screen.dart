@@ -1,4 +1,4 @@
-import 'package:final_project/modules/messageScreen/tabScreens/callTab/call_tab.dart';
+import 'package:final_project/modules/messageScreen/tabScreens/friendsTab/friends_tab.dart';
 import 'package:final_project/modules/messageScreen/tabScreens/groupTab/group_tab.dart';
 import 'package:final_project/modules/messageScreen/tabScreens/messagesTab/messages_tab.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class MessageScreen extends StatelessWidget {
     List<Widget> tabScreens = const [
       MessagesTab(),
       GroupTab(),
-      CallTab(),
+      FriendsTab(),
     ];
 
     return DefaultTabController(
@@ -73,7 +73,7 @@ class MessageScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(10.0),
                 child: Text(
-                  'Call',
+                  'Friends',
                   style : TextStyle(
                     fontSize: 16.0,
                     //fontWeight: FontWeight.w800,

@@ -7,6 +7,7 @@ import 'package:final_project/modules/CommentScreen/CommentScreen.dart';
 import 'package:final_project/modules/NewPost/NewPost.dart';
 import 'package:final_project/modules/addPost/add_post.dart';
 import 'package:final_project/modules/analysisScreen/analysis_screen.dart';
+import 'package:final_project/modules/chatScreen/chat_screen.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/materialsScreen/doctor_material_screen.dart';
 import 'package:final_project/modules/messageScreen/message_screen.dart';
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
                 Theme.of(context).textTheme,
               ),
             ),
-            home: MessageScreen(),
+            home: const MessageScreen(),
           );
         },
       ),

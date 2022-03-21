@@ -25,21 +25,21 @@ class HomeScreen extends StatelessWidget {
           builder: (context,state){
             List <PostModel> homePosts = AppCubit.get(context).homePost;
               return Column(
-                children: [
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Expanded(
-                    child:ListView.separated(
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (context,index)=>postItem( homePosts[index] , index , context),
-                        separatorBuilder: (context,index){
-                          return  const SizedBox(height: 10,);
-                          },
-                        itemCount: homePosts.length,
+                  children: [
+                    const SizedBox(
+                      height: 8.0,
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child:ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context,index)=>postItem( homePosts[index] , index , context),
+                          separatorBuilder: (context,index){
+                            return  const SizedBox(height: 10,);
+                            },
+                          itemCount: homePosts.length,
+                      ),
+                    ),
+                  ],
               );
           },
         );

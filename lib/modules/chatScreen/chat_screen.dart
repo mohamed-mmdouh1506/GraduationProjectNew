@@ -1,9 +1,13 @@
 import 'dart:developer';
+import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/models/chatModel/controller/controller.dart';
 import 'package:final_project/models/chatModel/model/chat_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+import '../../layoutes/homepage/home_bloc/app_cubit.dart';
 
 class ChatScreen extends StatefulWidget {
   String? roomName;
@@ -26,124 +30,123 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    socket = IO.io(
-        'http://localhost:4000',
-        IO.OptionBuilder()
-            .setTransports(['websocket'])
-            .disableAutoConnect()
-            .build());
-
+    // socket = IO.io(
+    //     'http://192.168.1.12:5000',
+    //     IO.OptionBuilder()
+    //         .setTransports(['websocket'])
+    //         .disableAutoConnect()
+    //         .bui
+    socket = IO.io("http://192.168.179.243:5000", <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": false,
+    },);
     socket.connect();
     setUpSocketListener();
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        titleSpacing: 0.0,
-        backgroundColor: Colors.blue,
-        title: Row(
-          children: [
-            const SizedBox(
-              width: 15.0,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocConsumer<AppCubit , AppState>(
+      listener: (context , state){},
+      builder: (context , state){
+        return Scaffold(
+          appBar: AppBar(
+            titleSpacing: 0.0,
+            backgroundColor: Colors.blue,
+            title: Row(
               children: [
-                Text(
-                  roomName!,
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w900,
-                    height: 1.3,
-                  ),
+                const SizedBox(
+                  width: 15.0,
                 ),
-                // const Text(
-                //   'Status',
-                //   style: TextStyle(
-                //     color: Colors.white,
-                //     fontSize: 12.0,
-                //   ),
-                // ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 9,
-            child: Obx(
-                  () => ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  var currentIndex = chatController.chat_message[index];
-                  return myMessageItem(currentIndex.sentByMe == socket.id,
-                      currentIndex.message!);
-                },
-                itemCount: chatController.chat_message.length,
-              ),
-            ),
-          ),
-          Padding(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 40.0,
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.grey[200],
-                    ),
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        hintText: 'Type a message here....',
-                        hintStyle: TextStyle(
-                          fontSize: 15
-                        ),
-                        border: InputBorder.none,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      roomName!,
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w900,
+                        height: 1.3,
                       ),
-                      controller: messageController,
                     ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 5),
-                  height: 45,
-                  width: 45,
-                  decoration: BoxDecoration(
-                    color: Colors.lightBlue,
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      messageFunction(messageController.text);
-                      messageController.text = '';
-                    },
-                    icon: const Icon(
-                      Icons.send_rounded,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                  ),
+                  ],
                 ),
               ],
             ),
           ),
-        ],
-      ),
+          body: Column(
+            children: [
+              Expanded(
+                flex: 9,
+                child: Obx(
+                      () => ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      var currentIndex = chatController.chat_message[index];
+                      return myMessageItem(currentIndex.sentByMe == AppCubit.get(context).userModel!.uId, currentIndex.message!);
+                    },
+                    itemCount: chatController.chat_message.length,
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 40.0,
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.grey[200],
+                        ),
+                        child: TextField(
+                          decoration: const InputDecoration(
+                            hintText: 'Type a message here....',
+                            hintStyle: TextStyle(
+                                fontSize: 15
+                            ),
+                            border: InputBorder.none,
+                          ),
+                          controller: messageController,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 5),
+                      height: 45,
+                      width: 45,
+                      decoration: BoxDecoration(
+                          color: Colors.lightBlue,
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: IconButton(
+                        onPressed: () {
+                          messageFunction(messageController.text);
+                          messageController.text = '';
+                        },
+                        icon: const Icon(
+                          Icons.send_rounded,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
-  Widget messageItem() {
+  Widget messageItem(String message) {
     return Align(
       alignment: AlignmentDirectional.centerStart,
       child: Padding(
@@ -158,9 +161,9 @@ class _ChatScreenState extends State<ChatScreen> {
               bottomEnd: Radius.circular(10.0),
             ),
           ),
-          child: const Text(
-            'receved message',
-            style: TextStyle(
+          child: Text(
+            message,
+            style: const TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.w600,
             ),
@@ -204,17 +207,17 @@ class _ChatScreenState extends State<ChatScreen> {
   void messageFunction(String text) {
     var messageJson = {
       "message": text,
-      'sentByMe': socket.id,
+      'sentByMe': AppCubit.get(context).userModel!.uId,
       'roomName': roomName
     };
-
-    socket.emit('message', messageJson);
+    socket.emit('group_message', messageJson);
     chatController.chat_message.add(Message.fromJson(messageJson));
   }
 
   void setUpSocketListener() {
     socket.on('message-receive', (data) {
       print(data);
+      print('message receive');
       chatController.chat_message.add(Message.fromJson(data));
     });
   }
