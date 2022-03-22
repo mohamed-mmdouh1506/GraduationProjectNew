@@ -125,7 +125,7 @@ Widget dafaultRegisterFormField(
 
 }
 
-void navigateTo(context,widget){
+Future navigateTo(context,widget)async{
 
   Navigator.push(context, MaterialPageRoute(builder: (_){
     return widget;

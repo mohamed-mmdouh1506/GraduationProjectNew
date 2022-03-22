@@ -10,6 +10,7 @@ import 'package:final_project/models/userModel/user_model.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/register/email_verified.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
+import 'package:final_project/modules/register/set_profile_register_screen.dart';
 import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:final_project/shared/local/diohelper.dart';
@@ -761,10 +762,10 @@ class RegisterCubit extends Cubit<RegisterStates>{
             userRegister(username: usernameValue!,
                 email: emailValue!,
                 password: passValue!,
-                start_at: startAtValue!,
-                grade: gradeValue!,
+                start_at: startAtValue??'Doctor',
+                grade: gradeValue??'Doctor',
                 image: imagePath,
-                depertment: departmentValue!,
+                depertment: departmentValue??'Doctor',
                 fullname: setNameController.text,
                 bio: setBioController.text,
                 isDoctor:CashHelper.getData(key: 'isDoctor')
@@ -808,7 +809,12 @@ class RegisterCubit extends Cubit<RegisterStates>{
       isVerify=true;
       print('Verify Successfull');
       customToast('Validation successfully', Colors.green);
-      navigateTo(context, StudentRegisterScreen());
+      if(CashHelper.getData(key: 'isDoctor')){
+        navigateTo(context, const SetProfileRegister());
+      }
+      else{
+        navigateTo(context, const StudentRegisterScreen());
+      }
       emit(VerifyOTPState());
     }
     else{

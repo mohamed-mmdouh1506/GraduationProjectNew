@@ -9,5 +9,7 @@ Color mainColorLight= const Color(0xff4ca1ee);
 
 Color mainColorButton= const Color(0xff2766d0);
 
+Color mainColorLayout=const Color.fromRGBO(11, 24, 82, .9);
+
 
 

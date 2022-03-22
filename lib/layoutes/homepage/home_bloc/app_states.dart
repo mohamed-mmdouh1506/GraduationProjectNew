@@ -78,3 +78,16 @@ class GetCommentsErrorState extends AppState {}
 
 class GetTitlesSuccessState extends AppState {}
 class GetTitlesErrorState extends AppState {}
+
+class UploadPDFSuccessState extends AppState{}
+class UploadPDFImageErrorState extends AppState{}
+class GetPDFState extends AppState{}
+
+class SetGradeDropState extends AppState{}
+class SetDepartmentDropState extends AppState{}
+
+class GetCoursesSuccessState extends AppState{}
+class GetCoursesErrorState extends AppState{}
+
+class GetSectionsSuccessState extends AppState{}
+class GetSectionsErrorState extends AppState{}

@@ -13,29 +13,6 @@ import 'package:line_icons/line_icons.dart';
 class StudentMaterialScreen extends StatelessWidget {
   StudentMaterialScreen({Key? key}) : super(key: key);
 
-  List <String> texts =[
-    'Image Processing',
-    'Compiler',
-    'Network',
-    'Simulation',
-    'NLP',
-  ];
-
-  List <Color> colorsContainer =[
-    const Color.fromRGBO(253, 242, 209, 1.0),
-    const Color.fromRGBO(195, 198, 252, 0.7647058823529411),
-    const Color.fromRGBO(253, 198, 208, 1.0),
-    const Color.fromRGBO(199, 255, 241, 1.0),
-    const Color.fromRGBO(241, 198, 253, 1.0),
-  ];
-
-  List <Color> colorsItem =[
-    Colors.amber,
-    Colors.blueAccent,
-    const Color.fromRGBO(255, 13, 60, 1.0),
-    const Color.fromRGBO(0, 199, 205, 1.0),
-    const Color.fromRGBO(211, 13, 255, 1.0),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -102,9 +79,9 @@ class StudentMaterialScreen extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(20,0, 10, 10),
                           child: Row(
                             children: [
-                              Text('My Courses',style: GoogleFonts.lato(
+                              Text('My Courses :',style: GoogleFonts.mada(
                                 color:Colors.black,
-                                fontWeight: FontWeight.w900,
+                                fontWeight: FontWeight.w700,
                                 fontSize: 20,
                               ),
                               ),
@@ -119,7 +96,12 @@ class StudentMaterialScreen extends StatelessWidget {
                           crossAxisSpacing: 0,
                           mainAxisSpacing: 10,
                           childAspectRatio: 1/.8,
-                          children: List.generate(colorsContainer.length, (index) =>Block_Materials(texts[index], colorsContainer[index], colorsItem[index],context) ),
+                          children: List.generate(AppCubit.get(context).coursesTitle.length,
+                                  (index) =>Block_Materials(
+                                      AppCubit.get(context).coursesTitle[index],
+                                      AppCubit.get(context).colorsContainer[index],
+                                      AppCubit.get(context).colorsItem[index],
+                                      context) ),
                         ),
                       ],
                     ),
@@ -138,6 +120,9 @@ class StudentMaterialScreen extends StatelessWidget {
 Widget Block_Materials(String text,Color colorContainer,Color colorItem,context){
   return InkWell(
     onTap: (){
+      AppCubit.get(context).courseName=text;
+      AppCubit.get(context).getMaterial();
+      AppCubit.get(context).getSection();
       navigateTo(context,ContantScreen(materialName: text) );
     },
     child: Container(
@@ -180,14 +165,17 @@ Widget Block_Materials(String text,Color colorContainer,Color colorItem,context)
               ),
             ),
             SizedBox(height: 15,),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-              child: Text(
-                text,
-                style: GoogleFonts.openSans(
-                color: colorItem,
-                fontSize: 17,
-                  fontWeight: FontWeight.bold,
+            Container(
+              width: MediaQuery.of(context).size.width*.4,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                child: Text(
+                  text,
+                  style: GoogleFonts.openSans(
+                  color: colorItem,
+                  fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             )

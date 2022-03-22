@@ -1,11 +1,13 @@
+import 'package:final_project/modules/Contants/contant_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/componts.dart';
 import '../../../layoutes/homepage/home_bloc/app_cubit.dart';
 import '../../../layoutes/homepage/home_bloc/app_states.dart';
 import '../../../models/materialModel.dart';
-import '../../pdfReader/pdfReader.dart';
+import '../../pdfReader/pdf_reader.dart';
 
 class LabScreen extends StatelessWidget {
 
@@ -22,10 +24,44 @@ class LabScreen extends StatelessWidget {
       builder: (context , state){
         var cubit = AppCubit.get(context);
         List lectures = AppCubit.get(context).section;
+        var key= GlobalKey<ScaffoldState>();
+        int ?i;
 
         return Scaffold(
+            key:key,
             backgroundColor: Colors.white,
             appBar: AppBar(
+              actions: [
+                if(cubit.doctorCheck==true)
+                  IconButton(
+                      onPressed: (){
+                        key.currentState?.showBottomSheet(
+                                (context) => Container(
+                              padding: const EdgeInsets.only(left: 10),
+                              alignment: Alignment.topLeft,
+                              color: Colors.black87,
+                              width: double.infinity,
+                              height: 50,
+                              child: TextButton(
+                                onPressed: (){
+                                  cubit.getPdf(title:titleScreen,index: i!).then((value) {
+                                    navigateTo(context, ContantScreen(materialName: titleScreen));
+                                  });
+                                },
+                                child: Text('Add Section',style: GoogleFonts.lato(
+                                    fontSize: 17,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
+                                ),),
+                              ),
+                            )
+                        );
+                      },
+                      icon: const Icon(
+                          Icons.more_vert
+                      )
+                  )
+              ],
               iconTheme: const IconThemeData(
                   color: Colors.black
               ),
@@ -50,7 +86,10 @@ class LabScreen extends StatelessWidget {
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         children: List.generate(
-                          cubit.section.length, (index) => lectureCard(cubit.section[index] , context),
+                          cubit.section.length, (index) {
+                            i=cubit.section.length;
+                            return lectureCard(cubit.section[index] , context,index);
+                        }
                         ),
                       ),
                     ),
@@ -63,7 +102,7 @@ class LabScreen extends StatelessWidget {
     );
   }
 
-  Widget lectureCard (MaterialModel lecture , context)
+  Widget lectureCard (MaterialModel lecture , context,index)
   {
     return InkWell(
       onTap: (){
@@ -85,12 +124,27 @@ class LabScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 13,),
-              Text(
-                '${lecture.title}',
-                style:  const TextStyle(
-                  fontSize: 15,
-                ),
-              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${lecture.title}',
+                    style:  const TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                  const SizedBox(width: 5,),
+                  Text(
+                    '${index+1}',
+                    style: const TextStyle(
+                        fontSize: 15,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ],
+              )
+
             ],
           ),
         ),

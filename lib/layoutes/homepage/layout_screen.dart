@@ -1,4 +1,5 @@
 import 'package:final_project/constants/componts.dart';
+import 'package:final_project/constants/constants.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/modules/NewPost/NewPost.dart';
@@ -29,7 +30,7 @@ class LayoutScreen extends StatelessWidget {
               child: Scaffold(
                   backgroundColor: Colors.grey.shade100,
                   appBar: appBar(AppBar().preferredSize.height , context),
-                  body: cubit.Screens[cubit.currentIndex],
+                  body: cubit.doctorCheck==null? const Center(child: CircularProgressIndicator(),): cubit.doctorCheck!?cubit.doctorScreens[cubit.currentIndex]:cubit.studentScreens[cubit.currentIndex],
                   bottomNavigationBar: SalomonBottomBar(
                     onTap: (index){
                       cubit.changeBottomNavigate(index);
@@ -83,7 +84,7 @@ class LayoutScreen extends StatelessWidget {
               ),
             ),
           ),
-          color:Theme.of(context).primaryColor,
+          color: mainColorLayout,
           height: height+70,
           width: MediaQuery.of(context).size.width,
         ),
@@ -103,7 +104,7 @@ class LayoutScreen extends StatelessWidget {
                     onTap: (){
                       AppCubit.get(context).doSmallScreen();
                     },
-                    child: Icon(Icons.menu, color: Theme.of(context).primaryColor,),
+                    child: Icon(Icons.menu, color: mainColorLayout,),
                   ),
                   const SizedBox(
                     width: 12.0,
@@ -123,13 +124,13 @@ class LayoutScreen extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.search, color: Theme.of(context).primaryColor),
+                    icon: Icon(Icons.search, color: mainColorLayout),
                     onPressed: () {
                       navigateTo(context, const SearchScreen());
                     },
                   ),
                   IconButton(
-                    icon: Icon(Icons.notifications, color: Theme.of(context).primaryColor),
+                    icon: Icon(Icons.notifications, color: mainColorLayout),
                     onPressed: () {},
                   ),
                 ],
