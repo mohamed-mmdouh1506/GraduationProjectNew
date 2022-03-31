@@ -2733,7 +2733,7 @@ class AppCubit extends Cubit<AppState> {
     emit(SetGradeDropState());
   }
 
-
+//
   void setDepartmentDrop(value){
     departmentDropMenu=value;
     CashHelper.saveData(key: 'departmentDrop',value: departmentDropMenu);
