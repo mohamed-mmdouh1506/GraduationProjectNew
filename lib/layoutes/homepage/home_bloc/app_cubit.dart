@@ -233,9 +233,8 @@ class AppCubit extends Cubit<AppState> {
 
   List <GroupModel> groupPosts=[];
 
-  String ?departmentGroup=CashHelper.getUserName(key: 'department');
   String ?gradeGroup=CashHelper.getUserName(key: 'grade');
-
+  String ?departmentGroup=CashHelper.getUserName(key: 'department');
 
   void prin(){
     print(gradeGroup);
