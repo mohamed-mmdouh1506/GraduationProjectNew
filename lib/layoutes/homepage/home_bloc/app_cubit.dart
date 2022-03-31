@@ -246,8 +246,8 @@ class AppCubit extends Cubit<AppState> {
     groupPosts=[];
 
     emit(GetPostGroupLoadingState());
-    if(gradeGroup == 'First'){
-      FirebaseFirestore.instance.collection(departmentGroup!)
+    if(userModel?.grade == 'First'){
+      FirebaseFirestore.instance.collection((userModel!.department)!)
           .doc('grade1')
           .collection('posts').orderBy('postDate')
           .get()
@@ -269,8 +269,8 @@ class AppCubit extends Cubit<AppState> {
         emit(GetPostGroupErrorState());
       });
     }
-    else if(gradeGroup=='Second'){
-      FirebaseFirestore.instance.collection(departmentGroup!)
+    else if(userModel?.grade =='Second'){
+      FirebaseFirestore.instance.collection((userModel!.department)!)
           .doc('grade2')
           .collection('posts')
           .get().then((value) {
@@ -293,8 +293,8 @@ class AppCubit extends Cubit<AppState> {
 
 
     }
-    else if(gradeGroup=='Third'){
-      FirebaseFirestore.instance.collection(departmentGroup!)
+    else if(userModel?.grade =='Third'){
+      FirebaseFirestore.instance.collection((userModel!.department)!)
           .doc('grade3')
           .collection('posts')
           .get().then((value) {
@@ -317,8 +317,8 @@ class AppCubit extends Cubit<AppState> {
 
 
     }
-    else {
-      FirebaseFirestore.instance.collection(departmentGroup!)
+    else if(userModel?.grade =='Fourth'){
+      FirebaseFirestore.instance.collection((userModel!.department)!)
           .doc('grade4')
           .collection('posts')
           .get().then((value) {
@@ -583,10 +583,10 @@ class AppCubit extends Cubit<AppState> {
   void getMaterialTitles ()
   {
     coursesTitle = [];
-    switch (gradeGroup)
+    switch (userModel?.grade)
     {
       case 'First' : {
-        FirebaseFirestore.instance.collection(departmentGroup!)
+        FirebaseFirestore.instance.collection((userModel!.department)!)
             .doc('grade1')
             .collection('Material')
             .get().then((value) {
@@ -601,7 +601,7 @@ class AppCubit extends Cubit<AppState> {
         break;
       }
       case 'Second' : {
-        FirebaseFirestore.instance.collection(departmentGroup!)
+        FirebaseFirestore.instance.collection((userModel!.department)!)
             .doc('grade2')
             .collection('Material')
             .get().then((value) {
@@ -617,7 +617,7 @@ class AppCubit extends Cubit<AppState> {
         break;
       }
       case 'Third' : {
-        FirebaseFirestore.instance.collection(departmentGroup!)
+        FirebaseFirestore.instance.collection((userModel!.department)!)
             .doc('grade3')
             .collection('Material')
             .get().then((value) {
@@ -634,7 +634,7 @@ class AppCubit extends Cubit<AppState> {
       }
 
       case 'Fourth' : {
-        FirebaseFirestore.instance.collection(departmentGroup!)
+        FirebaseFirestore.instance.collection((userModel!.department)!)
             .doc('grade4')
             .collection('Material')
             .get().then((value) {
