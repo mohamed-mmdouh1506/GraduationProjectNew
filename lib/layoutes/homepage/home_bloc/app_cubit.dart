@@ -2725,11 +2725,7 @@ class AppCubit extends Cubit<AppState> {
   String gradeDropMenu='';
   String departmentDropMenu='';
 
-  void setDepartmentDrop(value){
-    departmentDropMenu=value;
-    CashHelper.saveData(key: 'departmentDrop',value: departmentDropMenu);
-    emit(SetDepartmentDropState());
-  }
+
 
   void setGradeDrop(value){
     gradeDropMenu=value;
@@ -2738,7 +2734,11 @@ class AppCubit extends Cubit<AppState> {
   }
 
 
-
+  void setDepartmentDrop(value){
+    departmentDropMenu=value;
+    CashHelper.saveData(key: 'departmentDrop',value: departmentDropMenu);
+    emit(SetDepartmentDropState());
+  }
 
 
 }
