@@ -225,7 +225,7 @@ class EmailVerified extends StatelessWidget {
                                   borderSide: BorderSide.none
                                 )
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white
                               ),
                             )

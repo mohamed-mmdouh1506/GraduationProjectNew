@@ -639,7 +639,7 @@ class AppCubit extends Cubit<AppState> {
       case 'Fourth' : {
         FirebaseFirestore.instance.collection(departmentGroup!)
             .doc('grade4')
-            .collection('Material')
+            .collection('CS')
             .get().then((value) {
           value.docs.forEach((element) {
             coursesTitle.add(element.id.toString());

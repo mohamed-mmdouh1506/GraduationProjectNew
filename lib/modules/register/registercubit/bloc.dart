@@ -758,7 +758,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
 
             print('Upload Success');
             print(value);
-            imagePath=value;
+            imagePath = value;
             userRegister(username: usernameValue!,
                 email: emailValue!,
                 password: passValue!,
@@ -768,8 +768,7 @@ class RegisterCubit extends Cubit<RegisterStates>{
                 depertment: departmentValue??'Doctor',
                 fullname: setNameController.text,
                 bio: setBioController.text,
-                isDoctor:CashHelper.getData(key: 'isDoctor')
-
+                isDoctor:CashHelper.getData(key: 'isDoctor'),
             );
             checkRegister=true;
             emit(UploadProfileImageSuccessState());
@@ -793,21 +792,21 @@ class RegisterCubit extends Cubit<RegisterStates>{
   EmailAuth emailAuth =  EmailAuth(sessionName: "Complete Register");
 
   void SendOtp() async{
-    var res=await emailAuth.sendOtp(
+    var res = await emailAuth.sendOtp(
         recipientMail: emailValue!, otpLength: 5
     );
-    isVerify=true;
+    isVerify = true;
     emit(SendOTPState());
   }
 
   void VerifyOtp(context){
-    var res= emailAuth.validateOtp(recipientMail: otpController.text,
+    var res= emailAuth.validateOtp(recipientMail: otpController.value.text,
         userOtp:otp1Controller.text+otp2Controller.text+otp3Controller.text+
             otp4Controller.text+otp5Controller.text+otp6Controller.text);
 
     if(res){
-      isVerify=true;
-      print('Verify Successfull');
+      isVerify = true;
+      print('Verify Successful');
       customToast('Validation successfully', Colors.green);
       if(CashHelper.getData(key: 'isDoctor')){
         navigateTo(context, const SetProfileRegister());
