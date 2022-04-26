@@ -1,11 +1,7 @@
 import 'dart:io';
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:final_project/constants/componts.dart';
-import 'package:final_project/constants/constants.dart';
-import 'package:final_project/layoutes/homepage/container_screen.dart';
-import 'package:final_project/models/registerModel/register_model.dart';
 import 'package:final_project/models/userModel/user_model.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/register/email_verified.dart';
@@ -13,12 +9,10 @@ import 'package:final_project/modules/register/registercubit/states.dart';
 import 'package:final_project/modules/register/set_profile_register_screen.dart';
 import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
-import 'package:final_project/shared/local/diohelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:email_auth/email_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 

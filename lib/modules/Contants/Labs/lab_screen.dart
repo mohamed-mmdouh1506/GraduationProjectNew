@@ -78,7 +78,7 @@ class LabScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       child: GridView.count(
                         physics: const BouncingScrollPhysics(),
                         crossAxisCount: 2,

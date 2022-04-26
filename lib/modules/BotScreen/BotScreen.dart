@@ -55,7 +55,7 @@ class BotScreen extends StatelessWidget {
                         ),
                       ),
                       child: const Text(
-                        "Hi , I\'m Emad , am here to help you",
+                        "Hi , I'm Emad , am here to help you",
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.w600,

@@ -33,14 +33,14 @@ class DrawerScreen extends StatelessWidget {
           text: 'Profile',
           icon: Icons.person,
           function: () {
-            navigateTo(context, ProfileScreen());
+            navigateTo(context, const ProfileScreen());
           }),
 
       ItemModel(
           text: 'Analysis',
           icon:Icons.analytics,
           function: () {
-            navigateTo(context, AnalysisScreen());
+            navigateTo(context, const AnalysisScreen());
           }),
 
       ItemModel(
@@ -146,7 +146,7 @@ class DrawerScreen extends StatelessWidget {
                   Column(
                     children: [
                       const SizedBox(height: 80,),
-                      Container(
+                      SizedBox(
                         height:350,
                         child: ListView.separated(
                             itemBuilder: (context,index)=> drawerBlock(drawerItems[index]),
@@ -166,10 +166,10 @@ class DrawerScreen extends StatelessWidget {
                                 color: Colors.white
                             ),),
                             const Spacer(),
-                            Container(
+                            const SizedBox(
                                 height: 25,
                                 width: 25,
-                                child: const Image(image: AssetImage('assets/images/idea.png')
+                                child: Image(image: AssetImage('assets/images/idea.png')
                                 )),
                           ],
                         ),

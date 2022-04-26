@@ -1,15 +1,11 @@
 import 'package:final_project/constants/componts.dart';
-import 'package:final_project/constants/constants.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/models/PostModel.dart';
-import 'package:final_project/models/homeModel/home_model.dart';
 import 'package:final_project/modules/CommentScreen/CommentScreen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -131,7 +127,7 @@ Widget postItem(PostModel model ,index  , context){
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children:  [
-              Text('23',
+              Text('${AppCubit.get(context).homeLikes[index]}',
                 style: GoogleFonts.lato(
                     color: Colors.grey,
                     fontSize: 14,
@@ -147,7 +143,7 @@ Widget postItem(PostModel model ,index  , context){
                 ),),
               const Spacer(),
               Text(
-                '6',
+                '${AppCubit.get(context).homeCommentsNumber[index]}',
                 style: GoogleFonts.lato(
                     color: Colors.grey,
                     fontSize: 14,

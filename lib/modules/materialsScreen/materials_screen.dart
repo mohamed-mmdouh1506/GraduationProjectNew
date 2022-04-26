@@ -93,7 +93,7 @@ Widget Block_Materials(String text,Color colorContainer,Color colorItem,context)
                       )
                   ),
 
-                  Spacer(),
+                  const Spacer(),
                   IconButton(
                       onPressed: (){
                       },
@@ -106,7 +106,7 @@ Widget Block_Materials(String text,Color colorContainer,Color colorItem,context)
                 ],
               ),
             ),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
             Padding(
               padding: const EdgeInsets.fromLTRB(13, 0, 0, 0),
               child: Text(text,style: GoogleFonts.lato(

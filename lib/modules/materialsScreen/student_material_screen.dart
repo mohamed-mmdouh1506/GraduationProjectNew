@@ -3,15 +3,12 @@ import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/modules/Contants/contant_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 
 class StudentMaterialScreen extends StatelessWidget {
-  StudentMaterialScreen({Key? key}) : super(key: key);
+  const StudentMaterialScreen({Key? key}) : super(key: key);
 
 
   @override
@@ -151,7 +148,7 @@ Widget Block_Materials(String text,Color colorContainer,Color colorItem,context)
                         size: 40,
                       )
                   ),
-                  Spacer(),
+                  const Spacer(),
                   IconButton(
                       onPressed: (){
                         navigateTo(context,ContantScreen(materialName: text) );
@@ -164,8 +161,8 @@ Widget Block_Materials(String text,Color colorContainer,Color colorItem,context)
                 ],
               ),
             ),
-            SizedBox(height: 15,),
-            Container(
+            const SizedBox(height: 15,),
+            SizedBox(
               width: MediaQuery.of(context).size.width*.4,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),

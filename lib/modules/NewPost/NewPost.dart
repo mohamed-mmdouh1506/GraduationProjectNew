@@ -39,13 +39,13 @@ class NewPost extends StatelessWidget {
                   if(AppCubit.get(context).uploadedPostImage == null)
                     {
                       AppCubit.get(context).createPost(
-                          postDate: '${DateFormat('EEE, d MMM y     hh:mm aaa').format(DateTime.now())}',
+                          postDate: DateFormat('EEE, d MMM y     hh:mm aaa').format(DateTime.now()),
                           postText : postTextController.text,
                       );
                     }
                   else{
                     AppCubit.get(context).createPostWithImage(
-                        postDate: '${DateFormat('EEE, d MMM y     hh:mm aaa').format(DateTime.now())}',
+                        postDate: DateFormat('EEE, d MMM y     hh:mm aaa').format(DateTime.now()),
                         postText : postTextController.text,
                     );
                   }
@@ -129,7 +129,7 @@ class NewPost extends StatelessWidget {
                   Stack(
                   alignment: AlignmentDirectional.topEnd,
                   children: [
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,

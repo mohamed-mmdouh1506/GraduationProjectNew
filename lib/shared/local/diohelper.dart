@@ -10,8 +10,9 @@ class DioHelper{
 
     dio = Dio(
        BaseOptions(
-         baseUrl: 'http://192.168.1.12:1337/api/',
+         baseUrl: 'https://01ba-62-139-186-180.eu.ngrok.io/',
          receiveDataWhenStatusError: true,
+         contentType: 'application/json',
        ) ,
     );
 
@@ -31,12 +32,18 @@ class DioHelper{
     required String url,
     Map <String,dynamic> ?query,
     required Map<String,dynamic> data,
-  })
-  async{
-
+  }) async{
     return await dio!.post(url,queryParameters: query,data: data) ;
-
   }
+
+  static Future<Response> postComment({
+    Map <String,dynamic> ?query,
+    required Map<String,dynamic> data,
+  }) async{
+    return await dio!.post('',queryParameters: query,data: data);
+  }
+
+
 
 
 

@@ -27,7 +27,7 @@ class StudentRegisterScreen extends StatelessWidget {
               toolbarHeight: 0,
             ),
             body: SingleChildScrollView(
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: Form(
                   key: cubit.registerKey,
@@ -36,7 +36,7 @@ class StudentRegisterScreen extends StatelessWidget {
                       Positioned(
                         top: 0,
                         left: 0,
-                        child: Container(
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width * .28,
                           height: MediaQuery.of(context).size.height * .20,
                           child: const Image(
@@ -294,7 +294,7 @@ class StudentRegisterScreen extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                cubit.formValidate(context , SetProfileRegister()).then((value) {
+                                cubit.formValidate(context , const SetProfileRegister()).then((value) {
                                   CashHelper.putStartAt(key: 'startAt', value: cubit.startDateController.text);
                                   CashHelper.putGrade(key: 'grade', value: cubit.dropDownValue1);
                                   CashHelper.putStartAt(key: 'department', value: cubit.dropDownValue2);
@@ -307,7 +307,7 @@ class StudentRegisterScreen extends StatelessWidget {
                       Positioned(
                         bottom: 0,
                         right: 0,
-                        child: Container(
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width * .32,
                           height: MediaQuery.of(context).size.height * .18,
                           child: const Image(

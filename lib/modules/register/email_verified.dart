@@ -1,16 +1,10 @@
 
-import 'package:email_auth/email_auth.dart';
-import 'package:final_project/constants/componts.dart';
 import 'package:final_project/constants/constants.dart';
-import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
-import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/modules/register/registercubit/bloc.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:lottie/lottie.dart';
 
 
@@ -30,14 +24,14 @@ class EmailVerified extends StatelessWidget {
           cubit.otpController.text=cubit.emailValue!;
           return Scaffold(
             body: SingleChildScrollView(
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: Stack(
                   children: [
                     Positioned(
                       top: 0,
                       left: 0,
-                      child: Container(
+                      child: SizedBox(
                         width: MediaQuery.of(context).size.width * .28,
                         height: MediaQuery.of(context).size.height * .20,
                         child: const Image(
@@ -272,7 +266,7 @@ class EmailVerified extends StatelessWidget {
                     Positioned(
                       bottom: 0,
                       right: 0,
-                      child: Container(
+                      child: SizedBox(
                         width: MediaQuery.of(context).size.width * .26,
                         height: MediaQuery.of(context).size.height * .18,
                         child: const Image(

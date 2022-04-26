@@ -1,6 +1,4 @@
-import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/modules/register/registercubit/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -56,6 +54,7 @@ Widget dafaultFormField(
       if(value!.isEmpty){
         return textValidator;
       }
+      return null;
     },
 
   );
@@ -118,6 +117,7 @@ Widget dafaultRegisterFormField(
       if( value!.isEmpty ){
         return textValidator;
       }
+      return null;
     },
 
   );
@@ -143,7 +143,7 @@ void customToast(String message,Color color){
 
   Fluttertoast.showToast(
       msg:message,
-      toastLength: Toast.LENGTH_SHORT,
+      toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: color,

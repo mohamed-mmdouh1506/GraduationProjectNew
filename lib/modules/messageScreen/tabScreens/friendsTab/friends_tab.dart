@@ -101,7 +101,7 @@ class FriendsTab extends StatelessWidget {
                     height: 5.0,
                   ),
                   Text(
-                    '${DateFormat('EEE, d MMM y     hh:mm aaa').format(DateTime.now())}',
+                    DateFormat('EEE, d MMM y     hh:mm aaa').format(DateTime.now()),
                     style: const TextStyle(
                       fontSize: 14.0,
                     ),

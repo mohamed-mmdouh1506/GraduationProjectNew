@@ -1,10 +1,10 @@
-import 'dart:developer';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/models/chatModel/controller/controller.dart';
 import 'package:final_project/models/chatModel/model/chat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import '../../layoutes/homepage/home_bloc/app_cubit.dart';
@@ -25,23 +25,27 @@ class _ChatScreenState extends State<ChatScreen> {
   var messageController = TextEditingController();
 
   ChatController chatController = ChatController();
+  List <dynamic> groupMessages = [];
 
   late IO.Socket socket;
 
   @override
   void initState() {
-    // socket = IO.io(
-    //     'http://192.168.1.12:5000',
-    //     IO.OptionBuilder()
-    //         .setTransports(['websocket'])
-    //         .disableAutoConnect()
-    //         .bui
-    socket = IO.io("http://192.168.179.243:5000", <String, dynamic>{
+    socket = IO.io("http://localhost:5000", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false,
     },);
     socket.connect();
     setUpSocketListener();
+    socket.onConnect((data) {
+      print("Connected");
+      getGroupMessages(widget.roomName.toString());
+      socket.on("get_group_messages" , (data){
+        //print("get messages function : ${data['messages'].toString()}");
+        groupMessages = data['messages'];
+        print('group message : ${groupMessages.toString()}');
+      });
+    });
     super.initState();
   }
 
@@ -53,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
         return Scaffold(
           appBar: AppBar(
             titleSpacing: 0.0,
-            backgroundColor: Colors.blue,
+            backgroundColor: const Color.fromRGBO(11, 24, 82, .9),
             title: Row(
               children: [
                 const SizedBox(
@@ -63,7 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      roomName!,
+                      roomName != null ? roomName! : 'Chat Screen',
                       style: const TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w900,
@@ -73,6 +77,15 @@ class _ChatScreenState extends State<ChatScreen> {
                   ],
                 ),
               ],
+            ),
+            leading: IconButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
             ),
           ),
           body: Column(
@@ -97,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   children: [
                     Expanded(
                       child: Container(
-                        height: 40.0,
+                        height: 45.0,
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.symmetric(horizontal: 18.0),
                         decoration: BoxDecoration(
@@ -106,9 +119,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                         child: TextField(
                           decoration: const InputDecoration(
-                            hintText: 'Type a message here....',
+                            hintText: 'Type a message here...',
                             hintStyle: TextStyle(
-                                fontSize: 15
+                                fontSize: 16,
                             ),
                             border: InputBorder.none,
                           ),
@@ -121,12 +134,12 @@ class _ChatScreenState extends State<ChatScreen> {
                       height: 45,
                       width: 45,
                       decoration: BoxDecoration(
-                          color: Colors.lightBlue,
+                          color: const Color.fromRGBO(11, 24, 82, .9),
                           borderRadius: BorderRadius.circular(10)
                       ),
                       child: IconButton(
                         onPressed: () {
-                          messageFunction(messageController.text);
+                          messageFunction(messageController.text , DateFormat('hh:mm aaa').format(DateTime.now()).toString());
                           messageController.text = '';
                         },
                         icon: const Icon(
@@ -146,32 +159,6 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget messageItem(String message) {
-    return Align(
-      alignment: AlignmentDirectional.centerStart,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-          decoration: BoxDecoration(
-            color: Colors.grey[300],
-            borderRadius: const BorderRadiusDirectional.only(
-              topStart: Radius.circular(10.0),
-              topEnd: Radius.circular(10.0),
-              bottomEnd: Radius.circular(10.0),
-            ),
-          ),
-          child: Text(
-            message,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget myMessageItem(bool sentByMe, String message) {
     print(sentByMe);
@@ -180,38 +167,73 @@ class _ChatScreenState extends State<ChatScreen> {
           ? AlignmentDirectional.centerEnd
           : AlignmentDirectional.centerStart,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+        padding: sentByMe ? const EdgeInsets.fromLTRB(100, 10, 12, 2) : const EdgeInsets.fromLTRB(12, 10, 100, 2),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+          padding: const EdgeInsets.only(right: 10.0, left: 10.0 , top: 5.0 , bottom: 2.0),
           decoration: BoxDecoration(
-            color: sentByMe ? Colors.lightBlue : Colors.lightGreen,
-            borderRadius: const BorderRadiusDirectional.only(
+            color: sentByMe ? const Color.fromRGBO(11, 24, 82, .9) : Colors.lightGreen,
+            borderRadius: sentByMe ? const BorderRadiusDirectional.only(
               topStart: Radius.circular(10.0),
               topEnd: Radius.circular(10.0),
               bottomStart: Radius.circular(10.0),
+            ) : const BorderRadiusDirectional.only(
+              topStart: Radius.circular(10.0),
+              topEnd: Radius.circular(10.0),
+              bottomEnd: Radius.circular(10.0),
             ),
           ),
-          child: Text(
-            message,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
+          child: Column(
+            mainAxisAlignment: sentByMe ? MainAxisAlignment.start : MainAxisAlignment.end,
+            crossAxisAlignment: sentByMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+            children: [
+              const Text(
+                'Mohamed Mamdouh',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                height: 2,
+              ),
+              Text(
+                message,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(
+                height: 2,
+              ),
+              Text(
+                DateFormat('hh:mm aaa').format(DateTime.now()).toString(),
+                style: const TextStyle(
+                  fontSize: 10.0,
+                  color: Colors.white,
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  void messageFunction(String text) {
+  void messageFunction(String text , String time) {
     var messageJson = {
       "message": text,
       'sentByMe': AppCubit.get(context).userModel!.uId,
-      'roomName': roomName
+      'roomName': roomName,
+      'time' : time,
     };
     socket.emit('group_message', messageJson);
     chatController.chat_message.add(Message.fromJson(messageJson));
+  }
+
+  void getGroupMessages (String roomName) {
+    socket.emit("get_group_messages" , {"roomName": roomName, "messages" : []});
   }
 
   void setUpSocketListener() {

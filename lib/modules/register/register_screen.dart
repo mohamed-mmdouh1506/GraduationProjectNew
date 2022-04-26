@@ -3,11 +3,9 @@ import 'package:final_project/constants/constants.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/register/email_verified.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
-import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 
 import 'registercubit/bloc.dart';
@@ -32,7 +30,7 @@ class RegisterScreen extends StatelessWidget {
               toolbarHeight: 0,
             ),
             body: SingleChildScrollView(
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: Form(
                   key: cubit.registerKey,
@@ -41,7 +39,7 @@ class RegisterScreen extends StatelessWidget {
                       Positioned(
                         top: 0,
                         left: 0,
-                        child: Container(
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width * .28,
                           height: MediaQuery.of(context).size.height * .20,
                           child: const Image(
@@ -226,7 +224,7 @@ class RegisterScreen extends StatelessWidget {
                       Positioned(
                         bottom: 0,
                         right: 0,
-                        child: Container(
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width * .26,
                           height: MediaQuery.of(context).size.height * .18,
                           child: const Image(

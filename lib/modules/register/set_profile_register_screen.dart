@@ -1,14 +1,10 @@
 import 'package:final_project/constants/componts.dart';
 import 'package:final_project/constants/constants.dart';
-import 'package:final_project/layoutes/homepage/container_screen.dart';
 import 'package:final_project/modules/login/login_screen.dart';
 import 'package:final_project/modules/register/registercubit/bloc.dart';
 import 'package:final_project/modules/register/registercubit/states.dart';
-import 'package:final_project/modules/register/student_register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 
 class SetProfileRegister extends StatelessWidget {
@@ -25,7 +21,7 @@ class SetProfileRegister extends StatelessWidget {
           return Scaffold(
             body: SafeArea(
               child: SingleChildScrollView(
-                child: Container(
+                child: SizedBox(
                   height: MediaQuery.of(context).size.height * 1,
                   child: Form(
                     key: cubit.registerKey,
@@ -34,7 +30,7 @@ class SetProfileRegister extends StatelessWidget {
                         Positioned(
                           top: 0,
                           left: 0,
-                          child: Container(
+                          child: SizedBox(
                             width: MediaQuery.of(context).size.width * .28,
                             height: MediaQuery.of(context).size.height * .20,
                             child: const Image(
@@ -166,7 +162,7 @@ class SetProfileRegister extends StatelessWidget {
                         Positioned(
                           bottom: 0,
                           right: 0,
-                          child: Container(
+                          child: SizedBox(
                             width: MediaQuery.of(context).size.width * .26,
                             height: MediaQuery.of(context).size.height * .18,
                             child: const Image(

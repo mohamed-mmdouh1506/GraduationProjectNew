@@ -2,18 +2,14 @@ import 'package:final_project/constants/componts.dart';
 import 'package:final_project/constants/constants.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
-import 'package:final_project/modules/Contants/contant_screen.dart';
 import 'package:final_project/modules/materialsScreen/materials_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icons.dart';
 
 
 class DoctorMaterialScreen extends StatelessWidget {
-  DoctorMaterialScreen({Key? key}) : super(key: key);
+  const DoctorMaterialScreen({Key? key}) : super(key: key);
 
 
   @override
@@ -89,7 +85,7 @@ class DoctorMaterialScreen extends StatelessWidget {
                         child: IconButton(
                           onPressed: (){
                             AppCubit.get(context).getDoctorMaterialTitles().then((value) {
-                              navigateTo(context, MaterialsScreen()).then((value) {
+                              navigateTo(context, const MaterialsScreen()).then((value) {
                               });
                             });
 

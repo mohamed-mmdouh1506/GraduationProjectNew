@@ -1,21 +1,15 @@
-import 'dart:ui';
 
 import 'package:final_project/constants/componts.dart';
-import 'package:final_project/constants/constants.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/models/groupModel/group_model.dart';
 import 'package:final_project/models/userModel/user_model.dart';
-import 'package:final_project/modules/NewPost/NewPost.dart';
 import 'package:final_project/modules/addPost/add_post.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icon.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../../models/PostModel.dart';
 import '../CommentScreen/CommentScreen.dart';
 
 class GroupScreen extends StatelessWidget {
@@ -74,164 +68,6 @@ class GroupScreen extends StatelessWidget {
       },
     );
   }
-}
-
-Widget Block_Post(UserModel userModel , GroupModel groupModel,index ){
-  return  Container(
-    margin: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-    color: Colors.white,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 10,),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20,0,0,0),
-          child: Row(
-            children:  [
-               CircleAvatar(
-                radius: 26,
-                backgroundColor: Colors.white,
-                child: CircleAvatar(
-                  radius: 24,
-                  backgroundImage:NetworkImage('${groupModel.userImage}'),
-                ),
-              ),
-              const SizedBox(width: 7,),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    groupModel.username!,
-                    style: GoogleFonts.lato(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  const SizedBox(height: 3,),
-                   Text('${groupModel.postDate}'),
-                ],
-              ),
-            ],
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-          child: Divider(),
-        ),
-        const SizedBox(height: 5,),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(10,0, 15, 0),
-          child: Text(groupModel.postText!,
-            style: GoogleFonts.lato(
-              color: Colors.black,
-              fontSize: 15,
-            ),
-          ),
-        ),
-        const SizedBox(height: 15,),
-         Padding(
-          padding: const EdgeInsets.fromLTRB(5, 0, 5, 10),
-          child: Material(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5)
-            ),
-            child: Image(
-              image: NetworkImage(groupModel.postImage!),
-            ),
-          ),
-        ),
-        const SizedBox(height: 5,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children:  [
-            const SizedBox(width: 12,),
-            const Image(
-              height: 20,
-              width: 20,
-              image:
-              AssetImage(
-                'assets/images/heart.png',
-              ),
-            ),
-            const SizedBox(width: 5,),
-            Text('23',
-              style: GoogleFonts.lato(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold
-              ),),
-            const Spacer(),
-            const Image(
-              height: 20,
-              width: 20,
-              image:
-              AssetImage(
-                'assets/images/comment.png',
-              ),
-            ),
-            const SizedBox(width: 5,),
-            Text('6',
-              style: GoogleFonts.lato(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold
-              ),),
-            const SizedBox(width: 10,),
-          ],
-
-        ),
-        const SizedBox(height: 10,),
-        Container(
-          margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          height: 1,
-          color: Colors.grey[300],
-        ),
-        const SizedBox(height: 8,),
-        Row(
-          children:  [
-            const SizedBox(width: 7,),
-            CircleAvatar(
-              radius: 22,
-              backgroundColor: Colors.white,
-              child: CircleAvatar(
-                radius: 20,
-                backgroundImage:NetworkImage(userModel.image!),
-              ),
-            ),
-            const SizedBox(width: 15,),
-            Text('Write a comment...',
-              style: GoogleFonts.openSans(
-                color: Colors.black,
-                fontSize: 15,
-              ),),
-            const Spacer(),
-            const Image(
-                height: 22,
-                width: 22,
-                image:
-                AssetImage(
-                  'assets/images/heart.png',
-                )),
-            const SizedBox(width: 5,),
-            Text('Like',
-              style: GoogleFonts.openSans(
-                color: Colors.black,
-                fontSize: 16,
-              ),),
-            const SizedBox(width: 10,),
-
-          ],
-        ),
-        const SizedBox(height: 10,),
-
-      ],
-
-    ),
-  );
-
-
 }
 
 Widget postItem(GroupModel model ,index  , context){
@@ -317,7 +153,7 @@ Widget postItem(GroupModel model ,index  , context){
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children:  [
-              Text('23',
+              Text('${AppCubit.get(context).groupLikes[index]}',
                 style: GoogleFonts.lato(
                     color: Colors.grey,
                     fontSize: 14,
@@ -333,7 +169,7 @@ Widget postItem(GroupModel model ,index  , context){
                 ),),
               const Spacer(),
               Text(
-                '6',
+                '${AppCubit.get(context).groupCommentsNumber[index]}',
                 style: GoogleFonts.lato(
                     color: Colors.grey,
                     fontSize: 14,

@@ -2,11 +2,14 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/models/CommentModel.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:final_project/shared/Componant/Constants.dart';
+import 'package:final_project/shared/local/diohelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
+
+import '../../constants/componts.dart';
 
 class CommentScreen extends StatelessWidget {
   var commentController = TextEditingController();
@@ -61,7 +64,7 @@ class CommentScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ConditionalBuilder(
-                          condition:  AppCubit.get(context).homeComments.length != 0 ||  AppCubit.get(context).groupComments != 0,
+                          condition:  true,
                           builder: (context ) => ListView.separated(
                             physics: const BouncingScrollPhysics(),
                             itemBuilder: (context , index) => commentItem(route == 'home' ? AppCubit.get(context).homeComments[index] : AppCubit.get(context).groupComments[index]),
@@ -131,11 +134,35 @@ class CommentScreen extends StatelessWidget {
                             onPressed: (){
                               if(route == 'home')
                                 {
-                                  AppCubit.get(context).commentHomePost(postId!, commentController.text);
+                                  DioHelper.postComment(data: {
+                                    "data" : commentController.text,
+                                  }).then((value) {
+                                    if(value.data['response'] == trueComment)
+                                      {
+                                        AppCubit.get(context).commentHomePost(postId!, commentController.text);
+                                      }
+                                    else{
+                                      customToast('Comment is not Allowed',Colors.red);
+                                    }
+                                    print('result of comment model : ${value.data.toString()}');
+                                  });
+                                  //AppCubit.get(context).commentHomePost(postId!, commentController.text);
                                 }
                               else if (route == 'group')
                                 {
-                                  AppCubit.get(context).commentGroupPost(postId!, commentController.text);
+                                  DioHelper.postComment(data: {
+                                    "data" : commentController.text,
+                                  }).then((value) {
+                                    if(value.data['response'] == trueComment)
+                                    {
+                                      AppCubit.get(context).commentGroupPost(postId!, commentController.text);
+                                    }
+                                    else{
+                                      customToast('Comment is not Allowed',Colors.red);
+                                    }
+                                    print('result of comment model : ${value.data.toString()}');
+                                  });
+
                                 }
                               commentController.text = '';
                             },

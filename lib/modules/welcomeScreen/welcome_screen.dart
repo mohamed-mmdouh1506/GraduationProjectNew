@@ -16,7 +16,7 @@ class WelcomeScreen extends StatelessWidget {
         builder: (context , state){
           var cubit = RegisterCubit.get(context);
           return Scaffold(
-            body: Container(
+            body: SizedBox(
               height: MediaQuery.of(context).size.height * 1,
               width: MediaQuery.of(context).size.width * 1,
               child: Stack(
@@ -24,7 +24,7 @@ class WelcomeScreen extends StatelessWidget {
                   Positioned(
                     top: 0,
                     left: 0,
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width * .28,
                       height: MediaQuery.of(context).size.height * .20,
                       child: const Image(
@@ -192,7 +192,7 @@ class WelcomeScreen extends StatelessWidget {
                                           ),
                                         ),
                                         onPressed: () {
-                                          cubit.formValidate(context,ContainerScreen());
+                                          cubit.formValidate(context,const ContainerScreen());
                                         },
                                       )),
                                 ],
@@ -266,7 +266,7 @@ class WelcomeScreen extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                cubit.formValidate(context,ContainerScreen());
+                                cubit.formValidate(context,const ContainerScreen());
                               },
                             ),
                           ),
@@ -277,7 +277,7 @@ class WelcomeScreen extends StatelessWidget {
                   Positioned(
                     bottom: 0,
                     right: 0,
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width * .26,
                       height: MediaQuery.of(context).size.height * .18,
                       child: const Image(

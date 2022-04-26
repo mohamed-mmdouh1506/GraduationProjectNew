@@ -1,16 +1,12 @@
 import 'package:final_project/constants/componts.dart';
-import 'package:final_project/constants/constants.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:final_project/models/materialModel.dart';
 import 'package:final_project/modules/Contants/contant_screen.dart';
 import 'package:final_project/modules/pdfReader/pdf_reader.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icon.dart';
-import 'package:line_icons/line_icons.dart';
 
 class LecScreen extends StatelessWidget {
 
@@ -40,7 +36,7 @@ class LecScreen extends StatelessWidget {
                       onPressed: (){
                         key.currentState?.showBottomSheet(
                                 (context) => Container(
-                              padding: EdgeInsets.only(left: 10),
+                              padding: const EdgeInsets.only(left: 10),
                               alignment: Alignment.topLeft,
                               color: Colors.black87,
                               width: double.infinity,
@@ -87,7 +83,7 @@ class LecScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       child: GridView.count(
                         physics: const BouncingScrollPhysics(),
                         crossAxisCount: 2,

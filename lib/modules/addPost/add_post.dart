@@ -3,8 +3,6 @@ import 'package:final_project/layoutes/homepage/home_bloc/app_cubit.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:line_icons/line_icons.dart';
 
 class AddPost extends StatelessWidget {
   const AddPost({Key? key}) : super(key: key);
@@ -141,7 +139,7 @@ class AddPost extends StatelessWidget {
                   Stack(
                     alignment: AlignmentDirectional.topEnd,
                     children: [
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         child: Card(
                           clipBehavior: Clip.antiAliasWithSaveLayer,

@@ -1,8 +1,5 @@
-import 'package:final_project/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sliver_header_delegate/sliver_header_delegate.dart';
-import 'package:vector_math/vector_math_64.dart' show radians;
 
 class Test extends StatefulWidget {
   @override
@@ -28,8 +25,8 @@ class _ScrollingAnimation3WidgetState extends State<Test> {
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  SizedBox(height: 15,),
-                  Container(
+                  const SizedBox(height: 15,),
+                  SizedBox(
                     height: 1200,
                     child: ListView.separated(
                         physics: const BouncingScrollPhysics(),
@@ -106,7 +103,7 @@ class itemBlock extends SliverPersistentHeaderDelegate{
               bottom: 10,
               left: size.width/4*(present/2000),
               child: Container(
-                  margin: EdgeInsets.only(left: 20),
+                  margin: const EdgeInsets.only(left: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -114,7 +111,7 @@ class itemBlock extends SliverPersistentHeaderDelegate{
                         radius: 40,
                         backgroundImage: AssetImage('assets/images/reda.jpeg'),
                       ),
-                      SizedBox(width: 15,),
+                      const SizedBox(width: 15,),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,

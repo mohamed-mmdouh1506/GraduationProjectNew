@@ -4,10 +4,8 @@ import 'package:final_project/constants/componts.dart';
 import 'package:final_project/constants/constants.dart';
 import 'package:final_project/modules/login/logincubit/states.dart';
 import 'package:final_project/modules/register/register_screen.dart';
-import 'package:final_project/modules/register/registercubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../layoutes/homepage/container_screen.dart';
 import '../../shared/local/cash_helper.dart';
@@ -42,7 +40,7 @@ class LoginScreen extends StatelessWidget {
               toolbarHeight: 0,
             ),
             body: SingleChildScrollView(
-              child: Container(
+              child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: Form(
                   key: cubit.loginKey,
@@ -51,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                       Positioned(
                         top: 0,
                         left: 0,
-                        child: Container(
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width * .28,
                           height: MediaQuery.of(context).size.height * .20,
                           child: const Image(
@@ -191,12 +189,12 @@ class LoginScreen extends StatelessWidget {
                           width: 200,
                           height: 40,
                           alignment: Alignment.center,
-                          child: CircularProgressIndicator()),
+                          child: const CircularProgressIndicator()),
                         ),
                       Positioned(
                         bottom: 0,
                         right: 0,
-                        child: Container(
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width * .26,
                           height: MediaQuery.of(context).size.height * .18,
                           child: const Image(

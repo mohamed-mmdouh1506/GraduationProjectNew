@@ -3,28 +3,21 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:final_project/constants/componts.dart';
-import 'package:final_project/constants/constants.dart';
 import 'package:final_project/layoutes/homepage/layout_screen.dart';
 import 'package:final_project/models/groupModel/group_model.dart';
-import 'package:final_project/models/homeModel/home_model.dart';
 import 'package:final_project/models/materialModel.dart';
-import 'package:final_project/modules/BotScreen/BotScreen.dart';
-import 'package:final_project/modules/addPost/add_post.dart';
 import 'package:final_project/modules/groupsScreen/group_screen.dart';
 import 'package:final_project/modules/homeScreen/home_screen.dart';
 import 'package:final_project/modules/materialsScreen/doctor_material_screen.dart';
 import 'package:final_project/modules/materialsScreen/student_material_screen.dart';
 import 'package:final_project/modules/settings/setting_screen.dart';
 import 'package:final_project/shared/local/cash_helper.dart';
-import 'package:final_project/shared/local/diohelper.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
 import 'package:final_project/layoutes/homepage/home_bloc/app_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
 import '../../../models/CommentModel.dart';
 import '../../../models/PostModel.dart';
 import '../../../models/userModel/user_model.dart';
@@ -68,14 +61,14 @@ class AppCubit extends Cubit<AppState> {
   List <Widget> studentScreens =[
     const HomeScreen(),
     const GroupScreen(),
-    StudentMaterialScreen(),
+    const StudentMaterialScreen(),
     const SettingScreen(),
   ];
 
   List <Widget> doctorScreens =[
     const HomeScreen(),
     const GroupScreen(),
-    DoctorMaterialScreen(),
+    const DoctorMaterialScreen(),
     const SettingScreen(),
   ];
 
@@ -215,16 +208,16 @@ class AppCubit extends Cubit<AppState> {
         .orderBy('postDate')
         .get()
         .then((value) {
-          value.docs.forEach((element) {
+          for (var element in value.docs) {
             element.reference.collection('comments').get().then((value) {
               homeCommentsNumber.add(value.docs.length);
               homePostsId.add(element.id);
               homePost.add(PostModel.fromFire(element.data()));
             });
-            element.reference.collection('likes').get().then((value) {
-              homeLikes.add(value.docs.length);
-            }).catchError((error){});
-          });
+            element.reference.collection('likes').snapshots().listen((event) {
+              homeLikes.add(event.docs.length);
+            });
+          }
           print(homePost[0].username);
           emit(GetHomePostSuccessState());
     }).catchError((error){
@@ -255,7 +248,7 @@ class AppCubit extends Cubit<AppState> {
           .collection('posts').orderBy('postDate')
           .get()
           .then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           element.reference.collection('comments').get().then((value) {
             groupCommentsNumber.add(value.docs.length);
             groupPostsId.add(element.id);
@@ -264,7 +257,7 @@ class AppCubit extends Cubit<AppState> {
           element.reference.collection('likes').get().then((value) {
             groupLikes.add(value.docs.length);
           });
-        });
+        }
         emit(GetPostGroupSuccessState());
       }).catchError((error){
 
@@ -277,7 +270,7 @@ class AppCubit extends Cubit<AppState> {
           .doc('grade2')
           .collection('posts')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           element.reference.collection('comments').get().then((value) {
             groupCommentsNumber.add(value.docs.length);
             groupPostsId.add(element.id);
@@ -286,7 +279,7 @@ class AppCubit extends Cubit<AppState> {
           element.reference.collection('likes').get().then((value) {
             groupLikes.add(value.docs.length);
           });
-        });
+        }
         emit(GetPostGroupSuccessState());
       }).catchError((error){
 
@@ -301,7 +294,7 @@ class AppCubit extends Cubit<AppState> {
           .doc('grade3')
           .collection('posts')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           element.reference.collection('comments').get().then((value) {
             groupCommentsNumber.add(value.docs.length);
             groupPostsId.add(element.id);
@@ -310,7 +303,7 @@ class AppCubit extends Cubit<AppState> {
           element.reference.collection('likes').get().then((value) {
             groupLikes.add(value.docs.length);
           });
-        });
+        }
         emit(GetPostGroupSuccessState());
       }).catchError((error){
 
@@ -325,7 +318,7 @@ class AppCubit extends Cubit<AppState> {
           .doc('grade4')
           .collection('posts')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           element.reference.collection('comments').get().then((value) {
             groupCommentsNumber.add(value.docs.length);
             groupPostsId.add(element.id);
@@ -334,7 +327,7 @@ class AppCubit extends Cubit<AppState> {
           element.reference.collection('likes').get().then((value) {
             groupLikes.add(value.docs.length);
           });
-        });
+        }
         emit(GetPostGroupSuccessState());
       }).catchError((error){
 
@@ -475,7 +468,7 @@ class AppCubit extends Cubit<AppState> {
 
 
   Future refreshData() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     getGroupPosts();
     emit(GetPostGroupSuccessState());
   }
@@ -485,11 +478,11 @@ class AppCubit extends Cubit<AppState> {
     userFriends = [];
     emit(GetUserDataLoadingState());
     FirebaseFirestore.instance.collection('users').get().then((value){
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         if(element.data()['grade'] == userModel!.grade.toString() && element.data()['uId'] != userModel!.uId){
           userFriends.add(UserModel.formJson(element.data()));
         }
-      });
+      }
       print(userFriends.length);
       emit(GetUserFriendsSuccessState());
     }).catchError((error) {
@@ -513,11 +506,11 @@ class AppCubit extends Cubit<AppState> {
              .doc('grade1')
              .collection('posts')
              .get().then((value) {
-               value.docs.forEach((element) {
+               for (var element in value.docs) {
                  if(element.data()['userId'] == userModel!.uId){
                    userPosts.add(PostModel.fromFire(element.data()));
                  }
-               });
+               }
                emit(GetUserPostSuccessState());
          }).catchError((error){
            print('Error When get user Posts : ${error.toString()}');
@@ -531,11 +524,11 @@ class AppCubit extends Cubit<AppState> {
             .doc('grade2')
             .collection('posts')
             .get().then((value) {
-          value.docs.forEach((element) {
+          for (var element in value.docs) {
             if(element.data()['userId'] == userModel!.uId){
               userPosts.add(PostModel.fromFire(element.data()));
             }
-          });
+          }
           print(userPosts.length);
           emit(GetUserPostSuccessState());
         }).catchError((error){
@@ -549,11 +542,11 @@ class AppCubit extends Cubit<AppState> {
             .doc('grade3')
             .collection('posts')
             .get().then((value) {
-          value.docs.forEach((element) {
+          for (var element in value.docs) {
             if(element.data()['userId'] == userModel!.uId){
               userPosts.add(PostModel.fromFire(element.data()));
             }
-          });
+          }
           emit(GetUserPostSuccessState());
         }).catchError((error){
           print('Error When get user Posts : ${error.toString()}');
@@ -567,11 +560,11 @@ class AppCubit extends Cubit<AppState> {
             .doc('grade4')
             .collection('posts')
             .get().then((value) {
-          value.docs.forEach((element) {
+          for (var element in value.docs) {
             if(element.data()['userId'] == userModel!.uId){
               userPosts.add(PostModel.fromFire(element.data()));
             }
-          });
+          }
           emit(GetUserPostSuccessState());
         }).catchError((error){
           print('Error When get user Posts : ${error.toString()}');
@@ -593,9 +586,9 @@ class AppCubit extends Cubit<AppState> {
             .doc('grade1')
             .collection('Material')
             .get().then((value) {
-          value.docs.forEach((element) {
+          for (var element in value.docs) {
             coursesTitle.add(element.id.toString());
-          });
+          }
           emit(GetUserPostSuccessState());
         }).catchError((error){
           print('Error When get user Posts : ${error.toString()}');
@@ -608,9 +601,9 @@ class AppCubit extends Cubit<AppState> {
             .doc('grade2')
             .collection('Material')
             .get().then((value) {
-          value.docs.forEach((element) {
+          for (var element in value.docs) {
             coursesTitle.add(element.id.toString());
-          });
+          }
           print(coursesTitle.length);
           emit(GetUserPostSuccessState());
         }).catchError((error){
@@ -624,9 +617,9 @@ class AppCubit extends Cubit<AppState> {
             .doc('grade3')
             .collection('Material')
             .get().then((value) {
-          value.docs.forEach((element) {
+          for (var element in value.docs) {
             coursesTitle.add(element.id.toString());
-          });
+          }
           print(coursesTitle.length);
           emit(GetUserPostSuccessState());
         }).catchError((error){
@@ -641,9 +634,9 @@ class AppCubit extends Cubit<AppState> {
             .doc('grade4')
             .collection('CS')
             .get().then((value) {
-          value.docs.forEach((element) {
+          for (var element in value.docs) {
             coursesTitle.add(element.id.toString());
-          });
+          }
           print(coursesTitle.length);
           emit(GetUserPostSuccessState());
         }).catchError((error){
@@ -663,9 +656,9 @@ class AppCubit extends Cubit<AppState> {
           .doc('grade1')
           .collection('Material')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           coursesDoctorTitle.add(element.id.toString());
-        });
+        }
         print('lecture size : ${lecture.length}');
         emit(GetMaterialSuccessState());
       }).catchError((error){
@@ -679,9 +672,9 @@ class AppCubit extends Cubit<AppState> {
           .doc('grade2')
           .collection('Material')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           coursesDoctorTitle.add(element.id.toString());
-        });
+        }
         print('lecture size : ${lecture.length}');
         emit(GetMaterialSuccessState());
       }).catchError((error){
@@ -694,9 +687,9 @@ class AppCubit extends Cubit<AppState> {
           .doc('grade3')
           .collection('Material')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           coursesDoctorTitle.add(element.id.toString());
-        });
+        }
         print('lecture size : ${lecture.length}');
         emit(GetMaterialSuccessState());
       }).catchError((error){
@@ -709,9 +702,9 @@ class AppCubit extends Cubit<AppState> {
           .doc('grade4')
           .collection('Material')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           coursesDoctorTitle.add(element.id.toString());
-        });
+        }
         print('lecture size : ${lecture.length}');
         emit(GetMaterialSuccessState());
       }).catchError((error){
@@ -750,7 +743,7 @@ class AppCubit extends Cubit<AppState> {
         .collection('posts')
         .get()
         .then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         element.reference.collection('comments').get().then((value) {
           homeCommentsNumber.add(value.docs.length);
           homePostsId.add(element.id);
@@ -761,7 +754,7 @@ class AppCubit extends Cubit<AppState> {
         element.reference.collection('likes').get().then((value) {
           homeLikes.add(value.docs.length);
         }).catchError((error){});
-      });
+      }
 
       emit(GetSelectedUserPostSuccessState());
     }).catchError((error){
@@ -782,6 +775,13 @@ class AppCubit extends Cubit<AppState> {
       'like': true,
       'userName' : userModel!.fullName,
     }).then((value) {
+      FirebaseFirestore.instance
+          .collection('homePost')
+          .doc(postId)
+          .collection('likes').get().then((value) {
+            homeLikes.add(value.docs.length);
+            emit(LikePostsSuccessState());
+      });
       emit(LikePostsSuccessState());
     }).catchError((error) {
       print('Error When set likes : ${error.toString()}');
@@ -795,7 +795,13 @@ class AppCubit extends Cubit<AppState> {
         .collection('likes')
         .doc(userModel!.uId)
         .delete().then((value) {
-      emit(DisLikePostsSuccessState());
+      FirebaseFirestore.instance
+          .collection('homePost')
+          .doc(postId)
+          .collection('likes').get().then((value) {
+        homeLikes.add(value.docs.length);
+        emit(DisLikePostsSuccessState());
+      });
     }).catchError((error) {
       print('Error When set likes : ${error.toString()}');
       emit(DisLikePostsErrorState());
@@ -813,6 +819,13 @@ class AppCubit extends Cubit<AppState> {
           if (value.get('like') == true)
             {
               dislikeHomePost(postId);
+              FirebaseFirestore.instance
+                  .collection('homePost')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                homeLikes.add(value.docs.length);
+                emit(DisLikePostsSuccessState());
+              });
               print('disliked post');
             }
       emit(LikePostsSuccessState());
@@ -821,6 +834,13 @@ class AppCubit extends Cubit<AppState> {
       if (error.toString() == 'Bad state: cannot get a field on a DocumentSnapshotPlatform which does not exist')
         {
           likeHomePost(postId);
+          FirebaseFirestore.instance
+              .collection('homePost')
+              .doc(postId)
+              .collection('likes').get().then((value) {
+            homeLikes.add(value.docs.length);
+            emit(LikePostsSuccessState());
+          });
           print('liked post');
         }
       emit(LikePostsErrorState());
@@ -844,6 +864,15 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+
+              FirebaseFirestore.instance.collection('General')
+                  .doc('grade1')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -862,6 +891,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('General')
+                  .doc('grade2')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -880,6 +917,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('General')
+                  .doc('grade3')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -898,6 +943,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('General')
+                  .doc('grade4')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -924,6 +977,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Medical')
+                  .doc('grade1')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -942,6 +1003,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Medical')
+                  .doc('grade2')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -960,6 +1029,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Medical')
+                  .doc('grade3')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -978,6 +1055,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Medical')
+                  .doc('grade4')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -1003,6 +1088,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Security')
+                  .doc('grade1')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -1021,6 +1114,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Security')
+                  .doc('grade2')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -1039,6 +1140,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Security')
+                  .doc('grade3')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -1057,6 +1166,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Security')
+                  .doc('grade4')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -1082,6 +1199,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Network')
+                  .doc('grade1')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -1100,6 +1225,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Network')
+                  .doc('grade2')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -1118,6 +1251,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Network')
+                  .doc('grade3')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -1136,6 +1277,14 @@ class AppCubit extends Cubit<AppState> {
               'like': true,
               'userName' : userModel!.fullName,
             }).then((value) {
+              FirebaseFirestore.instance.collection('Network')
+                  .doc('grade3')
+                  .collection('posts')
+                  .doc(postId)
+                  .collection('likes').get().then((value) {
+                groupLikes.add(value.docs.length);
+                emit(LikePostsSuccessState());
+              });
               emit(LikePostsSuccessState());
             }).catchError((error) {
               print('Error When set likes : ${error.toString()}');
@@ -1534,14 +1683,16 @@ class AppCubit extends Cubit<AppState> {
   void getHomeComments(String postId) {
     homeComments = [];
     FirebaseFirestore.instance
-        .collection('posts')
+        .collection('homePost')
         .doc(postId)
         .get()
         .then((value) {
       value.reference.collection('comments').get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           homeComments.add(CommentModel.fromFire(element.data()));
-        });
+          homeCommentsNumber.add(value.docs.length);
+        }
+        print(homeComments.toString());
         emit(GetCommentsSuccessState());
       }).catchError((error) {
         print('Error When get Comments : ${error.toString()}');
@@ -1571,9 +1722,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1592,9 +1744,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1613,9 +1766,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1634,10 +1788,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                  print('post Comments : ${element.data()['comment']}');
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1664,9 +1818,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1685,9 +1840,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1706,9 +1862,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1727,9 +1884,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1757,9 +1915,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1778,9 +1937,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1798,9 +1958,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1819,9 +1980,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1848,9 +2010,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1868,9 +2031,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1888,9 +2052,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1908,9 +2073,10 @@ class AppCubit extends Cubit<AppState> {
                 .get()
                 .then((value) {
               value.reference.collection('comments').get().then((value) {
-                value.docs.forEach((element) {
+                for (var element in value.docs) {
                   groupComments.add(CommentModel.fromFire(element.data()));
-                });
+                  groupCommentsNumber.add(value.docs.length);
+                }
                 emit(GetCommentsSuccessState());
               }).catchError((error) {
                 print('Error When get Comments : ${error.toString()}');
@@ -1938,9 +2104,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('section')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           section.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         emit(GetSectionsSuccessState());
       }).catchError((error){
         print('Error when get Material : ${error.toString()}');
@@ -1955,9 +2121,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('section')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           section.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         emit(GetSectionsSuccessState());
       }).catchError((error){
         print('Error when get Material : ${error.toString()}');
@@ -1971,9 +2137,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('section')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           section.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         emit(GetSectionsSuccessState());
       }).catchError((error){
         print('Error when get Material : ${error.toString()}');
@@ -1987,9 +2153,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('section')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           section.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         emit(GetSectionsSuccessState());
       }).catchError((error){
         print('Error when get Material : ${error.toString()}');
@@ -2010,9 +2176,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('lecture')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           lecture.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         print('lecture size : ${lecture.length}');
         emit(GetMaterialSuccessState());
       }).catchError((error){
@@ -2028,9 +2194,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('lecture')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           lecture.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         print('lecture size : ${lecture.length}');
         emit(GetMaterialSuccessState());
       }).catchError((error){
@@ -2045,9 +2211,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('lecture')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           lecture.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         print('lecture size : ${lecture.length}');
         emit(GetMaterialSuccessState());
       }).catchError((error){
@@ -2085,9 +2251,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('section')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           section.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         emit(GetSectionsSuccessState());
       }).catchError((error){
         print('Error when get Material : ${error.toString()}');
@@ -2102,9 +2268,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('section')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           section.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         emit(GetSectionsSuccessState());
       }).catchError((error){
         print('Error when get Material : ${error.toString()}');
@@ -2118,9 +2284,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('section')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           section.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         emit(GetSectionsSuccessState());
       }).catchError((error){
         print('Error when get Material : ${error.toString()}');
@@ -2134,9 +2300,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('section')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           section.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         emit(GetSectionsSuccessState());
       }).catchError((error){
         print('Error when get Material : ${error.toString()}');
@@ -2157,9 +2323,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('lecture')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           lecture.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         print('lecture size : ${lecture.length}');
         emit(GetMaterialSuccessState());
       }).catchError((error){
@@ -2175,9 +2341,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('lecture')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           lecture.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         print('lecture size : ${lecture.length}');
         emit(GetMaterialSuccessState());
       }).catchError((error){
@@ -2192,9 +2358,9 @@ class AppCubit extends Cubit<AppState> {
           .doc(courseName)
           .collection('lecture')
           .get().then((value) {
-        value.docs.forEach((element) {
+        for (var element in value.docs) {
           lecture.add(MaterialModel.fromFire(element.data()));
-        });
+        }
         print('lecture size : ${lecture.length}');
         emit(GetMaterialSuccessState());
       }).catchError((error){
@@ -2255,303 +2421,7 @@ class AppCubit extends Cubit<AppState> {
 
   ];
 
-  // Future showMaterials() async{
-  //
-  //   if(departmentDropMenu=='General'){
-  //
-  //     if(gradeDropMenu=='First'){
-  //       texts =[
-  //         'Introduction',
-  //         'Language 1',
-  //         'Math 1',
-  //         'Physics 1',
-  //         'Language of Computer',
-  //         'Human Behavior',
-  //         'Operating System',
-  //         'Language 2',
-  //         'Physics 2',
-  //         'Language 2',
-  //         'C++',
-  //         'Electronics',
-  //       ];
-  //
-  //     }
-  //     else if(gradeDropMenu=='Second'){
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else if(gradeDropMenu=='Third'){
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else {
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //
-  //   }
-  //
-  //   else if(departmentDropMenu=='Security'){
-  //
-  //     if(gradeDropMenu=='First'){
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else if(gradeDropMenu=='Second'){
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else if(gradeDropMenu=='Third'){
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else {
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //
-  //   }
-  //
-  //   else if(departmentDropMenu=='Network'){
-  //
-  //     if(gradeDropMenu=='First'){
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else if(gradeDropMenu=='Second'){
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else if(gradeDropMenu=='Third'){
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else {
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //
-  //   }
-  //
-  //   else {
-  //
-  //     if(gradeDropMenu=='First'){
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else if(gradeDropMenu=='Second'){
-  //       texts =[
-  //         'Image Processing',
-  //         'compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else if(gradeDropMenu=='Third'){
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //     else {
-  //       texts =[
-  //         'Image Processing',
-  //         'Compiler',
-  //         'Network',
-  //         'Simulation',
-  //         'NLP',
-  //         'Security',
-  //         'Cloud',
-  //         'Distribution',
-  //         'Theory of Compilation',
-  //         'Project',
-  //         'Cloud',
-  //         'Distribution',
-  //       ];
-  //
-  //     }
-  //
-  //   }
-  //
-  //
-  //
-  // }
+
 
   String url= "";
 

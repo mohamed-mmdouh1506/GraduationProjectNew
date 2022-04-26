@@ -1,6 +1,5 @@
 import 'package:final_project/constants/componts.dart';
 import 'package:final_project/modules/chatScreen/chat_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MessagesTab extends StatelessWidget {
